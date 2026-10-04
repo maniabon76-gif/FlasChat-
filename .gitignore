@@ -1,0 +1,72 @@
+# =========================================================
+# FlasChat · .gitignore
+# © 2026 Milkár Lixán Pupo Riverón
+# =========================================================
+
+# Dependencias
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Credenciales y secretos
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets.json
+credentials.json
+
+# Build y compilados
+dist/
+build/
+out/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+*.jar
+*.keystore
+*.jks
+*.idsig
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+
+# Editor / SO
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Backups
+*.bak
+*.tmp
+*.temp
+flaschat-backup-*.json
+flaschat-*.txt
+tmp/
+temp/
+
+# Android
+.gradle/
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+*.iml
+
+# Termux / Editores móviles
+.termux/
+.Acode/
+.*.swp
