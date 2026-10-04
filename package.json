@@ -1,0 +1,30 @@
+{
+  "name": "flaschat",
+  "version": "1.4.0",
+  "description": "FlasChat - Mensajería instantánea sobre correo Nauta (SMTP/IMAP)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "flaschat",
+    "nauta",
+    "messenger",
+    "smtp",
+    "imap",
+    "cuba",
+    "chat"
+  ],
+  "author": "Milkár Lixán Pupo Riverón",
+  "license": "SEE LICENSE IN LICENSE",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "imapflow": "^1.0.164",
+    "nodemailer": "^6.9.14"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
