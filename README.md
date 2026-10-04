@@ -2,6 +2,12 @@
   FlasChat · Nauta Messenger
 </h1>
 
+---
+
+<p align="center">
+  <img src="https://github.com/maniabon76-gif/flachat/actions/workflows/build.yml/badge.svg" alt="FlasChat CI">
+</p>
+
 <p align="center">
   Mensajería instantánea sobre el correo Nauta (SMTP/IMAP)<br>
   <strong>Hecho en Cuba 🇨🇺 con cariño para la comunidad Nauta</strong>
