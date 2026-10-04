@@ -186,3 +186,31 @@ jobs:
           echo "| Sintaxis | ✅ |" >> $GITHUB_STEP_SUMMARY
           echo "| Dependencias | ✅ |" >> $GITHUB_STEP_SUMMARY
           echo "| Seguridad | ✅ |" >> $GITHUB_STEP_SUMMARY
+
+# ---------------------------------------------------
+# 5. Crear Release automática al subir un tag
+# ---------------------------------------------------
+release:
+  name: 🚀 Release automática
+  runs-on: ubuntu-latest
+  if: startsWith(github.ref, 'refs/tags/v')
+  permissions:
+    contents: write
+
+  steps:
+    - name: 📥 Clonar repositorio
+      uses: actions/checkout@v4
+
+    - name: 📦 Crear archivo ZIP
+      run: |
+        mkdir -p release/flachat
+        cp index.html server.js package.json README.md LICENSE CHANGELOG.md release/flachat/ 2>/dev/null || true
+        cd release && zip -r ../flachat-${{ github.ref_name }}.zip flachat/
+
+    - name: 🚀 Crear Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: flachat-${{ github.ref_name }}.zip
+        generate_release_notes: true
+        draft: false
+        prerelease: ${{ contains(github.ref_name, 'beta') }}
