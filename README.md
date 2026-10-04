@@ -102,6 +102,58 @@ externos.
 
 ---
 
+## 👨‍💻 Desarrollador
+
+**Milkár Lixán Pupo Riverón**
+
+- 📧 Correo: [maniabon.76@gmail.com](mailto:maniabon.76@gmail.com)
+- 🐙 GitHub: [@maniabon76-gif](https://github.com/maniabon76-gif)
+- 📦 Repositorio: [flachat](https://github.com/maniabon76-gif/flachat)
+- 🇨🇺 Hecho en Cuba con ❤️ para la comunidad cubana
+
+<p align="center">
+  <a href="mailto:maniabon.76@gmail.com">
+    <img src="https://img.shields.io/badge/Email-maniabon.76@gmail.com-red?style=for-the-badge&logo=gmail&logoColor=white" alt="Email">
+  </a>
+  <a href="https://github.com/maniabon76-gif">
+    <img src="https://img.shields.io/badge/GitHub-maniabon76--gif-black?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+  </a>
+  <a href="https://github.com/maniabon76-gif/flachat">
+    <img src="https://img.shields.io/badge/Repositorio-FlasChat-blue?style=for-the-badge&logo=git&logoColor=white" alt="Repositorio">
+  </a>
+  <br>
+  <img src="https://img.shields.io/badge/Hecho%20en-Cuba%20🇨🇺-red?style=for-the-badge" alt="Hecho en Cuba">
+</p>
+
+---
+
+## 📜 Licencia
+
+© 2026 **Milkár Lixán Pupo Riverón**. Todos los derechos reservados.
+
+Este software y su código fuente son propiedad exclusiva del autor.
+Queda prohibida su reproducción total o parcial, modificación, distribución
+o venta sin autorización expresa y por escrito del titular.
+
+El uso de FlasChat se concede únicamente como **licencia personal, no
+exclusiva y no transferible**, exclusivamente para uso personal del usuario.
+
+Para consultar los términos legales completos, revisa el archivo
+[`LICENSE`](LICENSE).
+
+Para solicitar permisos especiales o licencias comerciales, contacta al
+desarrollador:
+
+- 📧 [maniabon.76@gmail.com](mailto:maniabon.76@gmail.com)
+- 🐙 [@maniabon76-gif](https://github.com/maniabon76-gif)
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Licencia-Todos%20los%20derechos%20reservados-red?style=for-the-badge" alt="Licencia">
+  <img src="https://img.shields.io/badge/Copyright-©%202026%20Milkár%20Lixán%20Pupo%20Riverón-blue?style=for-the-badge" alt="Copyright">
+</p>
+
+---
+
 ## 🛠️ Tecnologías
 
 <p align="center">
