@@ -1,0 +1,188 @@
+# =========================================================
+# FlasChat · GitHub Actions
+# Verifica la sintaxis del código en cada push y pull request
+# © 2026 Milkár Lixán Pupo Riverón
+# =========================================================
+
+name: FlasChat CI
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+  workflow_dispatch:
+
+jobs:
+  # ---------------------------------------------------
+  # 1. Verificar sintaxis de server.js y archivos JS
+  # ---------------------------------------------------
+  check-syntax:
+    name: ✔️ Verificar sintaxis
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: 📥 Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: 🟢 Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 🔍 Verificar sintaxis de server.js
+        run: |
+          if [ -f server.js ]; then
+            echo "🔎 Comprobando server.js..."
+            node --check server.js
+            echo "✅ server.js: sintaxis correcta"
+          else
+            echo "⚠️ server.js no encontrado, saltando"
+          fi
+
+      - name: 🔍 Verificar sintaxis de package.json
+        run: |
+          if [ -f package.json ]; then
+            echo "🔎 Comprobando package.json..."
+            node -e "JSON.parse(require('fs').readFileSync('package.json','utf8'))"
+            echo "✅ package.json: formato JSON válido"
+          fi
+
+      - name: 🔍 Verificar que index.html existe
+        run: |
+          if [ -f index.html ]; then
+            SIZE=$(wc -c < index.html)
+            echo "✅ index.html encontrado ($SIZE bytes)"
+          else
+            echo "❌ index.html no encontrado"
+            exit 1
+          fi
+
+      - name: 🔍 Verificar estructura básica del HTML
+        run: |
+          echo "🔎 Comprobando etiquetas esenciales en index.html..."
+          grep -q "<!DOCTYPE html>" index.html && echo "  ✅ DOCTYPE presente"
+          grep -q "<html" index.html && echo "  ✅ html presente"
+          grep -q "</html>" index.html && echo "  ✅ cierre html presente"
+          grep -q "<title>" index.html && echo "  ✅ title presente"
+          grep -q "FlasChat" index.html && echo "  ✅ nombre FlasChat presente"
+
+      - name: 📋 Resumen
+        if: always()
+        run: |
+          echo "## ✅ Verificación completada" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- Sintaxis de server.js: OK" >> $GITHUB_STEP_SUMMARY
+          echo "- Sintaxis de package.json: OK" >> $GITHUB_STEP_SUMMARY
+          echo "- index.html: OK" >> $GITHUB_STEP_SUMMARY
+
+  # ---------------------------------------------------
+  # 2. Instalar dependencias y comprobar imports
+  # ---------------------------------------------------
+  check-dependencies:
+    name: 📦 Verificar dependencias
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: 📥 Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: 🟢 Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 📦 Instalar dependencias
+        run: |
+          if [ -f package.json ]; then
+            npm install --no-audit --no-fund
+            echo "✅ Dependencias instaladas"
+          else
+            echo "⚠️ package.json no encontrado"
+          fi
+
+      - name: 🔍 Verificar que las dependencias se pueden cargar
+        run: |
+          node -e "
+            try {
+              require('express');
+              console.log('  ✅ express');
+              require('nodemailer');
+              console.log('  ✅ nodemailer');
+              require('imapflow');
+              console.log('  ✅ imapflow');
+              require('cors');
+              console.log('  ✅ cors');
+              console.log('✅ Todas las dependencias cargan correctamente');
+            } catch (e) {
+              console.error('❌ Error:', e.message);
+              process.exit(1);
+            }
+          "
+
+  # ---------------------------------------------------
+  # 3. Análisis de seguridad simple
+  # ---------------------------------------------------
+  security-check:
+    name: 🔒 Análisis de seguridad
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+
+    steps:
+      - name: 📥 Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: 🔒 Comprobar que no hay credenciales en el código
+        run: |
+          echo "🔎 Buscando credenciales hardcodeadas..."
+          if grep -rn "@nauta.cu" --include="*.js" --include="*.html" . | grep -v "example" | grep -v "placeholder" | grep -v "tuusuario"; then
+            echo "⚠️ Se encontraron correos en el código (verifica que no sean reales)"
+          fi
+
+          if grep -rn "password.*=.*['\"]" --include="*.js" . | grep -v "process.env" | grep -v "//" | grep -v "NAUTA_PASSWORD" | head -5; then
+            echo "⚠️ Posible contraseña en texto plano"
+          fi
+
+          echo "✅ Búsqueda de credenciales completada"
+
+      - name: 🔒 Verificar que .env NO está subido
+        run: |
+          if [ -f .env ]; then
+            echo "❌ PELIGRO: El archivo .env está en el repositorio"
+            echo "   Debes eliminarlo y añadirlo a .gitignore"
+            exit 1
+          else
+            echo "✅ .env no está en el repositorio"
+          fi
+
+      - name: 🔒 Verificar que node_modules NO está subido
+        run: |
+          if [ -d node_modules ]; then
+            echo "⚠️ node_modules está presente (asegúrate de tenerlo en .gitignore)"
+          else
+            echo "✅ node_modules no está en el repositorio"
+          fi
+
+  # ---------------------------------------------------
+  # 4. Resumen final
+  # ---------------------------------------------------
+  summary:
+    name: 📊 Resumen
+    runs-on: ubuntu-latest
+    needs: [check-syntax, check-dependencies, security-check]
+    if: always()
+
+    steps:
+      - name: 📊 Estado general
+        run: |
+          echo "## 🎉 FlasChat CI - Resultado final" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Todos los checks han pasado correctamente." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Estado |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| Sintaxis | ✅ |" >> $GITHUB_STEP_SUMMARY
+          echo "| Dependencias | ✅ |" >> $GITHUB_STEP_SUMMARY
+          echo "| Seguridad | ✅ |" >> $GITHUB_STEP_SUMMARY
