@@ -4,7 +4,7 @@
 
 <p align="center">
   Mensajería instantánea sobre el correo Nauta (SMTP/IMAP)<br>
-  <strong>Hecho en Cuba 🇨🇺 con cariño para la comunidad Nauta</strong>
+  <strong>Hecho en Cuba 🇨🇺 con cariño para la comunidad</strong>
 </p>
 
 <p align="center">
@@ -15,7 +15,6 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/maniabon76-gif/flachat/actions/workflows/build.yml/badge.svg" alt="FlasChat CI">
   <img src="https://img.shields.io/github/stars/maniabon76-gif/flachat?style=social" alt="Stars">
   <img src="https://img.shields.io/github/forks/maniabon76-gif/flachat?style=social" alt="Forks">
   <img src="https://img.shields.io/github/watchers/maniabon76-gif/flachat?style=social" alt="Watchers">
@@ -112,8 +111,6 @@ externos.
   <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js">
   <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express">
   <img src="https://img.shields.io/badge/Nodemailer-22B573?style=for-the-badge&logo=mail.ru&logoColor=white" alt="Nodemailer">
-  <img src="https://img.shields.io/badge/IMAP-4A90E2?style=for-the-badge&logo=maildotru&logoColor=white" alt="IMAP">
-  <img src="https://img.shields.io/badge/SMTP-FF6B6B?style=for-the-badge&logo=maildotru&logoColor=white" alt="SMTP">
 </p>
 
 ---
