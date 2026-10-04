@@ -142,28 +142,3 @@ npm start
 
 # 5. Abrir en el navegador
 # http://localhost:3000
-
----
-
-## 👨‍💻 Desarrollador
-
-**Milkár Lixán Pupo Riverón**
-
-- 📧 Correo: [maniabon.76@gmail.com](mailto:maniabon.76@gmail.com)
-- 🐙 GitHub: [@maniabon76-gif](https://github.com/maniabon76-gif)
-- 📦 Repositorio: [flachat](https://github.com/maniabon76-gif/flachat)
-- 🇨🇺 Hecho en Cuba con ❤️ para la comunidad cubana
-
-<p align="center">
-  <a href="mailto:maniabon.76@gmail.com">
-    <img src="https://img.shields.io/badge/Email-maniabon.76@gmail.com-red?style=for-the-badge&logo=gmail&logoColor=white" alt="Email">
-  </a>
-  <a href="https://github.com/maniabon76-gif">
-    <img src="https://img.shields.io/badge/GitHub-maniabon76--gif-black?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
-  </a>
-  <a href="https://github.com/maniabon76-gif/flachat">
-    <img src="https://img.shields.io/badge/Repositorio-FlasChat-blue?style=for-the-badge&logo=git&logoColor=white" alt="Repositorio">
-  </a>
-  <br>
-  <img src="https://img.shields.io/badge/Hecho%20en-Cuba%20🇨🇺-red?style=for-the-badge" alt="Hecho en Cuba">
-</p>
