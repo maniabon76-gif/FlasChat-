@@ -4,7 +4,7 @@
 
 <p align="center">
   Mensajería instantánea sobre el correo Nauta (SMTP/IMAP)<br>
-  <strong>Hecho en Cuba 🇨🇺 con cariño para la comunidad</strong>
+  <strong>Hecho en Cuba 🇨🇺 con cariño para la comunidad N6</strong>
 </p>
 
 <p align="center">
