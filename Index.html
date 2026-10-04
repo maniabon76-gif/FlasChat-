@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#2196F3">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>FlasChat · Nauta Messenger</title>
+<link rel="manifest" href='data:application/manifest+json,{"name":"FlasChat","short_name":"FlasChat","start_url":"./","display":"standalone","background_color":"%230b141a","theme_color":"%232196F3"}'>
+<style>
+  :root{--bg-primary:#0b141a;--bg-secondary:#111b21;--bg-tertiary:#202c33;--bg-hover:#2a3942;--accent:#2196F3;--accent-dark:#1976D2;--accent-light:#4FB3F5;--text-primary:#e9edef;--text-secondary:#8696a0;--success:#22c55e;--warning:#f59e0b;--danger:#ef4444;--border:#2a3942;--radius:18px;--radius-sm:12px;--shadow:0 8px 30px rgba(0,0,0,0.5);--font-size:0.9rem;--bubble-in:#202c33;--bubble-out:#005c4b;--bubble-radius:12px;--read-color:#4FB3F5;--link-color:#4FB3F5;}
+  html[data-theme="light"]{--bg-primary:#efeae2;--bg-secondary:#ffffff;--bg-tertiary:#f0f2f5;--bg-hover:#e9edef;--text-primary:#111b21;--text-secondary:#667781;--border:#e9edef;--bubble-in:#ffffff;--bubble-out:#d9fdd3;--read-color:#1E88E5;--link-color:#1976D2;}
+  html[data-accent="blue"]{--accent:#2196F3;--accent-dark:#1976D2;--accent-light:#4FB3F5;}
+  html[data-accent="green"]{--accent:#16a34a;--accent-dark:#15803d;--accent-light:#4ade80;}
+  html[data-accent="purple"]{--accent:#7c3aed;--accent-dark:#6d28d9;--accent-light:#a78bfa;}
+  html[data-accent="pink"]{--accent:#db2777;--accent-dark:#be185d;--accent-light:#f472b6;}
+  html[data-accent="orange"]{--accent:#ea580c;--accent-dark:#c2410c;--accent-light:#fb923c;}
+  html[data-accent="sky"]{--accent:#0ea5e9;--accent-dark:#0284c7;--accent-light:#7dd3fc;}
+  html[data-accent="mint"]{--accent:#10b981;--accent-dark:#059669;--accent-light:#6ee7b7;}
+  html[data-accent="lavender"]{--accent:#a78bfa;--accent-dark:#8b5cf6;--accent-light:#c4b5fd;}
+  html[data-accent="peach"]{--accent:#fb7185;--accent-dark:#f43f5e;--accent-light:#fda4af;}
+  html[data-accent="yellow"]{--accent:#fbbf24;--accent-dark:#f59e0b;--accent-light:#fde68a;}
+  html[data-accent="coral"]{--accent:#ff7f50;--accent-dark:#e05a2b;--accent-light:#ffb59a;}
+  html[data-accent="turquoise"]{--accent:#14b8a6;--accent-dark:#0d9488;--accent-light:#5eead4;}
+  html[data-accent="rose"]{--accent:#f43f5e;--accent-dark:#e11d48;--accent-light:#fda4af;}
+  html[data-accent="lime"]{--accent:#84cc16;--accent-dark:#65a30d;--accent-light:#bef264;}
+  html[data-accent="indigo"]{--accent:#6366f1;--accent-dark:#4f46e5;--accent-light:#a5b4fc;}
+  html[data-bubble="whatsapp"]{--bubble-radius:12px;}
+  html[data-bubble="telegram"]{--bubble-radius:18px;}
+  html[data-bubble="minimal"]{--bubble-radius:6px;}
+  *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;overflow:hidden;}
+  body{background:var(--bg-primary);color:var(--text-primary);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);transition:background 0.25s,color 0.25s;font-size:var(--font-size);}
+  .app{width:100%;max-width:480px;height:100vh;max-height:100vh;background:var(--bg-secondary);display:flex;flex-direction:column;overflow:hidden;position:relative;}
+  @media (min-width:500px){.app{height:94vh;max-height:94vh;border-radius:var(--radius);box-shadow:var(--shadow);}}
+  .tooltip{position:fixed;z-index:9999;background:rgba(17,27,33,0.95);color:#fff;padding:5px 10px;border-radius:6px;font-size:0.72rem;pointer-events:none;opacity:0;transition:opacity 0.15s;white-space:nowrap;}
+  .tooltip.show{opacity:1;}
+  .loading-overlay{position:absolute;inset:0;z-index:60;background:var(--bg-primary);display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:30px;}
+  .loading-overlay.show{display:flex;}
+  .loading-logo{width:88px;height:88px;animation:float 2s ease-in-out infinite;}
+  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+  .loading-text{font-size:1.05rem;font-weight:600;color:var(--accent-light);}
+  .loading-sub{font-size:0.78rem;color:var(--text-secondary);max-width:260px;line-height:1.5;}
+  .loading-bar{width:200px;height:4px;background:var(--bg-tertiary);border-radius:2px;overflow:hidden;margin-top:6px;}
+  .loading-bar::after{content:'';display:block;width:40%;height:100%;background:var(--accent);animation:slide 1.3s ease-in-out infinite;border-radius:2px;}
+  @keyframes slide{0%{transform:translateX(-100%);}100%{transform:translateX(350%);}}
+  .loading-dots::after{content:'';animation:dots 1.5s steps(4,end) infinite;}
+  @keyframes dots{0%{content:'';}25%{content:'.';}50%{content:'..';}75%{content:'...';}100%{content:'';}}
+  .header{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-dark) 100%);padding:12px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;padding-top:calc(12px + env(safe-area-inset-top));position:relative;}
+  .logo-box{display:flex;align-items:center;gap:10px;flex:1;min-width:0;position:relative;}
+  .logo-wrapper{position:relative;flex-shrink:0;}
+  .logo-svg{width:38px;height:38px;flex-shrink:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));display:block;}
+  .logo-badge{position:absolute;top:-4px;right:-6px;background:var(--danger);color:#fff;font-size:0.62rem;font-weight:700;min-width:18px;height:18px;border-radius:9px;padding:0 5px;display:none;align-items:center;justify-content:center;border:2px solid var(--accent-dark);box-shadow:0 2px 6px rgba(0,0,0,0.3);animation:badgePop 0.3s ease-out;z-index:5;}
+  .logo-badge.show{display:flex;}
+  @keyframes badgePop{0%{transform:scale(0);}70%{transform:scale(1.2);}100%{transform:scale(1);}}
+  .title-box{min-width:0;flex:1;}
+  .title-box h1{font-size:1.15rem;font-weight:700;color:#fff;white-space:nowrap;display:flex;align-items:center;gap:6px;}
+  .title-box h1 .beta-tag{background:rgba(255,255,255,0.2);font-size:0.6rem;padding:1px 6px;border-radius:6px;font-weight:600;}
+  .title-box span{font-size:0.7rem;color:#bae6fd;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .header-actions{display:flex;gap:4px;flex-shrink:0;}
+  .icon-btn{background:rgba(255,255,255,0.12);border:none;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;padding:0;position:relative;}
+  .icon-btn:hover,.icon-btn:active{background:rgba(255,255,255,0.25);}
+  .icon-btn svg{width:18px;height:18px;}
+  .icon-btn .header-badge{position:absolute;top:-2px;right:-2px;background:var(--danger);color:#fff;font-size:0.58rem;font-weight:700;min-width:16px;height:16px;border-radius:8px;padding:0 4px;display:none;align-items:center;justify-content:center;border:1.5px solid var(--accent-dark);z-index:5;}
+  .icon-btn .header-badge.show{display:flex;}
+  .conn-banner{background:var(--danger);color:#fff;padding:6px 12px;font-size:0.72rem;text-align:center;display:none;align-items:center;justify-content:center;gap:6px;flex-shrink:0;}
+  .conn-banner.show{display:flex;}
+  .conn-banner svg{width:14px;height:14px;}
+  .config-bar{background:var(--accent-dark);color:#fff;padding:6px 14px;font-size:0.72rem;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;gap:8px;}
+  .status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:middle;}
+  .status-online{background:var(--success);box-shadow:0 0 6px var(--success);}
+  .status-offline{background:#f87171;}
+  .status-sync{background:var(--warning);animation:pulse 1.2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+  .contact-tag{background:var(--bg-secondary);padding:8px 14px;display:flex;align-items:center;gap:8px;font-size:0.82rem;border-bottom:1px solid var(--border);flex-shrink:0;}
+  .contact-tag label{color:var(--text-secondary);display:flex;align-items:center;gap:4px;flex-shrink:0;}
+  .contact-tag label svg{width:14px;height:14px;}
+  .contact-input{background:transparent;border:none;color:var(--accent-light);text-align:right;outline:none;font-size:0.82rem;flex:1;min-width:0;}
+  .contact-tag .star,.contact-tag .contacts-btn{background:none;border:none;color:var(--text-secondary);cursor:pointer;padding:2px;display:flex;}
+  .contact-tag .star svg,.contact-tag .contacts-btn svg{width:16px;height:16px;}
+  .contact-tag .star.active{color:var(--warning);}
+  .search-bar{display:none;background:var(--bg-tertiary);padding:8px 14px;border-bottom:1px solid var(--border);align-items:center;gap:8px;flex-shrink:0;}
+  .search-bar.show{display:flex;}
+  .search-bar input{flex:1;background:var(--bg-secondary);border:1px solid var(--border);border-radius:20px;padding:6px 12px;color:var(--text-primary);font-size:0.82rem;outline:none;}
+  .search-bar button{background:none;border:none;color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;padding:4px;}
+  .search-bar button svg{width:16px;height:16px;}
+  .chat-body{flex:1;padding:14px 10px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;background:var(--bg-primary);scroll-behavior:smooth;background-size:cover;background-position:center;background-repeat:no-repeat;position:relative;}
+  .chat-body::-webkit-scrollbar{width:6px;}
+  .chat-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+  .date-sep{align-self:center;background:rgba(17,27,33,0.75);color:#fff;font-size:0.7rem;padding:5px 12px;border-radius:10px;margin:10px 0 6px;text-transform:capitalize;box-shadow:0 1px 3px rgba(0,0,0,0.3);backdrop-filter:blur(4px);}
+  html[data-theme="light"] .date-sep{background:rgba(255,255,255,0.85);color:#54656f;}
+  .msg{max-width:82%;padding:8px 12px 6px;border-radius:var(--bubble-radius);font-size:var(--font-size);line-height:1.4;word-break:break-word;animation:fadeIn 0.22s ease-out;position:relative;display:flex;gap:8px;align-items:flex-start;box-shadow:0 1px 2px rgba(0,0,0,0.15);transition:transform 0.25s ease-out, background 0.2s;touch-action:pan-y;will-change:transform;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+  .msg.in{align-self:flex-start;background:var(--bubble-in);color:var(--text-primary);margin-left:6px;}
+  html[data-bubble="whatsapp"] .msg.in{border-top-left-radius:4px;}
+  html[data-bubble="whatsapp"] .msg.in::before{content:'';position:absolute;left:-6px;top:0;width:0;height:0;border-style:solid;border-width:0 8px 8px 0;border-color:transparent var(--bubble-in) transparent transparent;}
+  .msg.out{align-self:flex-end;background:var(--bubble-out);color:#e9edef;flex-direction:row-reverse;margin-right:6px;}
+  html[data-theme="light"] .msg.out{color:#111b21;}
+  html[data-bubble="whatsapp"] .msg.out{border-top-right-radius:4px;}
+  html[data-bubble="whatsapp"] .msg.out::before{content:'';position:absolute;right:-6px;top:0;width:0;height:0;border-style:solid;border-width:0 0 8px 8px;border-color:transparent transparent transparent var(--bubble-out);}
+  .msg .bubble{flex:1;min-width:0;}
+  .msg .avatar{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;flex-shrink:0;color:#fff;text-transform:uppercase;margin-top:2px;background-size:cover;background-position:center;}
+  .msg.in .avatar{background-color:var(--accent);}
+  .msg.out .avatar{background-color:rgba(255,255,255,0.2);}
+  .msg img.attach,.msg video.attach{max-width:100%;border-radius:8px;margin-top:4px;display:block;cursor:pointer;}
+  .msg audio.attach{margin-top:6px;width:100%;}
+  .msg .file-attach{display:flex;align-items:center;gap:8px;margin-top:6px;background:rgba(0,0,0,0.2);padding:8px 10px;border-radius:8px;text-decoration:none;color:inherit;font-size:0.82rem;cursor:pointer;}
+  .msg .file-attach svg{width:18px;height:18px;flex-shrink:0;}
+  .msg .time{font-size:0.62rem;opacity:0.75;display:flex;align-items:center;justify-content:flex-end;gap:3px;margin-top:3px;}
+  .msg .time svg{width:12px;height:12px;}
+  .msg .time .read-check{color:var(--read-color);opacity:1;}
+  .msg.edited .time::before{content:'editado · ';font-style:italic;opacity:0.75;}
+  .msg.encrypted .time::after{content:' 🔒';font-size:0.7rem;}
+  .msg.selected{outline:2px solid var(--warning);outline-offset:2px;}
+  .msg.retryable{cursor:pointer;}
+  .msg .retry-hint{font-size:0.62rem;opacity:0.85;display:block;text-align:right;margin-top:2px;text-decoration:underline;}
+  .msg.swiping{transition:none;}
+  .msg.swipe-reply-left::before{content:'↩';position:absolute;left:-30px;top:50%;transform:translateY(-50%);color:var(--accent-light);font-size:1.2rem;opacity:0.9;}
+  .msg.swipe-reply-right::after{content:'↩';position:absolute;right:-30px;top:50%;transform:translateY(-50%);color:var(--accent-light);font-size:1.2rem;opacity:0.9;transform:translateY(-50%) scaleX(-1);}
+  .reactions{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px;}
+  .reaction{display:inline-flex;align-items:center;gap:2px;background:rgba(0,0,0,0.25);border-radius:10px;padding:1px 6px;font-size:0.72rem;cursor:pointer;user-select:none;border:1px solid transparent;}
+  .reaction.mine{border-color:var(--accent-light);background:rgba(33,150,243,0.3);}
+  html[data-theme="light"] .reaction{background:rgba(0,0,0,0.08);}
+  html[data-theme="light"] .reaction.mine{background:rgba(33,150,243,0.2);}
+  .reaction .count{font-size:0.65rem;opacity:0.85;}
+  .emoji-picker{position:absolute;bottom:0;left:0;right:0;background:var(--bg-secondary);border-top:1px solid var(--border);z-index:70;max-height:45vh;display:none;flex-direction:column;border-radius:16px 16px 0 0;box-shadow:0 -6px 30px rgba(0,0,0,0.4);}
+  .emoji-picker.show{display:flex;}
+  .emoji-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--border);font-size:0.85rem;color:var(--accent-light);}
+  .emoji-header button{background:none;border:none;color:var(--text-secondary);cursor:pointer;padding:4px;display:flex;}
+  .emoji-header button svg{width:18px;height:18px;}
+  .emoji-tabs{display:flex;gap:4px;padding:6px 10px;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;}
+  .emoji-tabs::-webkit-scrollbar{display:none;}
+  .emoji-tabs button{background:var(--bg-tertiary);border:1px solid var(--border);color:var(--text-primary);padding:6px 12px;border-radius:14px;font-size:0.95rem;cursor:pointer;flex-shrink:0;}
+  .emoji-tabs button.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .emoji-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;padding:10px 14px;overflow-y:auto;flex:1;}
+  .emoji-grid button{background:none;border:none;cursor:pointer;font-size:1.5rem;padding:6px;border-radius:8px;transition:background 0.15s;}
+  .emoji-grid button:hover,.emoji-grid button:active{background:var(--bg-tertiary);}
+  .reaction-picker{position:fixed;z-index:90;background:var(--bg-tertiary);border:1px solid var(--border);border-radius:30px;padding:6px 10px;display:none;gap:4px;box-shadow:0 8px 24px rgba(0,0,0,0.5);animation:popIn 0.2s ease-out;}
+  .reaction-picker.show{display:flex;}
+  @keyframes popIn{from{opacity:0;transform:scale(0.85) translateY(6px);}to{opacity:1;transform:scale(1) translateY(0);}}
+  .reaction-picker button{background:none;border:none;cursor:pointer;font-size:1.5rem;padding:4px 6px;border-radius:50%;transition:transform 0.15s,background 0.15s;}
+  .reaction-picker button:hover,.reaction-picker button:active{transform:scale(1.25);background:rgba(255,255,255,0.1);}
+  .edit-bar{display:none;background:var(--bg-tertiary);padding:8px 14px;border-top:1px solid var(--border);align-items:center;justify-content:space-between;gap:10px;font-size:0.78rem;color:var(--text-primary);flex-shrink:0;}
+  .edit-bar.show{display:flex;}
+  .edit-bar .edit-info{display:flex;align-items:center;gap:8px;flex:1;min-width:0;}
+  .edit-bar .edit-info svg{width:16px;height:16px;color:var(--accent-light);flex-shrink:0;}
+  .edit-bar .edit-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-secondary);}
+  .edit-bar button{background:none;border:none;color:var(--accent-light);cursor:pointer;padding:4px;display:flex;}
+  .edit-bar button svg{width:18px;height:18px;}
+  .reply-bar{display:none;background:var(--bg-tertiary);padding:8px 14px;border-top:1px solid var(--border);align-items:center;justify-content:space-between;gap:10px;font-size:0.78rem;color:var(--text-primary);flex-shrink:0;border-left:3px solid var(--accent);}
+  .reply-bar.show{display:flex;}
+  .reply-bar .reply-info{display:flex;align-items:center;gap:8px;flex:1;min-width:0;}
+  .reply-bar .reply-info svg{width:16px;height:16px;color:var(--accent-light);flex-shrink:0;}
+  .reply-bar .reply-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-secondary);}
+  .reply-bar button{background:none;border:none;color:var(--accent-light);cursor:pointer;padding:4px;display:flex;}
+  .reply-bar button svg{width:18px;height:18px;}
+  .empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--text-secondary);text-align:center;padding:20px;}
+  .empty-state svg{width:64px;height:64px;opacity:0.5;}
+  .empty-state p{font-size:0.85rem;line-height:1.5;}
+  .quick-replies{display:flex;gap:6px;padding:6px 10px;overflow-x:auto;background:var(--bg-secondary);border-top:1px solid var(--border);flex-shrink:0;scrollbar-width:none;}
+  .quick-replies::-webkit-scrollbar{display:none;}
+  .quick-replies button{background:var(--bg-tertiary);border:1px solid var(--border);color:var(--text-primary);padding:6px 12px;border-radius:16px;font-size:0.75rem;white-space:nowrap;cursor:pointer;flex-shrink:0;}
+  .quick-replies button:hover{background:var(--bg-hover);}
+  .footer{padding:10px;padding-bottom:calc(10px + env(safe-area-inset-bottom));background:var(--bg-secondary);display:flex;gap:6px;align-items:flex-end;flex-shrink:0;border-top:1px solid var(--border);}
+  .footer .attach-btn,.footer .emoji-btn,.footer .audio-btn,.footer .cam-btn{background:var(--bg-tertiary);border:none;color:var(--text-secondary);width:42px;height:42px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;transition:background 0.2s;}
+  .footer .attach-btn:hover,.footer .emoji-btn:hover,.footer .audio-btn:hover,.footer .cam-btn:hover{background:var(--bg-hover);color:var(--accent-light);}
+  .footer .attach-btn svg,.footer .emoji-btn svg,.footer .audio-btn svg,.footer .cam-btn svg{width:18px;height:18px;}
+  .footer .audio-btn.recording-hold{background:var(--danger);color:#fff;transform:scale(1.1);}
+  .input-wrapper{flex:1;min-width:0;position:relative;}
+  .input-box{width:100%;background:var(--bg-tertiary);border:1px solid var(--bg-hover);border-radius:20px;padding:10px 16px;color:var(--text-primary);font-size:var(--font-size);outline:none;transition:border-color 0.2s;resize:none;max-height:120px;line-height:1.4;font-family:inherit;}
+  .input-box:focus{border-color:var(--accent-light);}
+  .input-box::placeholder{color:var(--text-secondary);}
+  .btn-send{background:var(--accent);border:none;color:#fff;width:42px;height:42px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.2s,transform 0.1s;padding:0;}
+  .btn-send svg{width:18px;height:18px;}
+  .btn-send:hover{background:var(--accent-dark);}
+  .btn-send:active{transform:scale(0.92);}
+  .selection-bar{display:none;background:var(--bg-tertiary);padding:8px 14px;border-top:1px solid var(--border);align-items:center;justify-content:space-between;gap:8px;flex-shrink:0;color:var(--text-primary);font-size:0.82rem;}
+  .selection-bar.show{display:flex;}
+  .selection-bar button{background:var(--danger);border:none;color:#fff;padding:6px 12px;border-radius:8px;font-size:0.78rem;cursor:pointer;display:flex;align-items:center;gap:4px;}
+  .selection-bar button svg{width:13px;height:13px;}
+  .selection-bar button.cancel{background:var(--bg-hover);}
+  .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;z-index:100;backdrop-filter:blur(4px);padding:16px;}
+  .modal.open{display:flex;}
+  .modal-content{background:var(--bg-secondary);padding:22px;border-radius:var(--radius-sm);width:100%;max-width:400px;animation:slideUp 0.25s ease-out;max-height:90vh;overflow-y:auto;}
+  @keyframes slideUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+  .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .modal-header h3{font-size:1.05rem;color:var(--accent-light);display:flex;align-items:center;gap:8px;}
+  .modal-header h3 svg{width:18px;height:18px;}
+  .modal-close{background:none;border:none;color:var(--text-secondary);cursor:pointer;padding:4px;display:flex;}
+  .modal-close svg{width:20px;height:20px;}
+  .modal-content label{font-size:0.78rem;color:var(--text-secondary);display:block;margin-bottom:4px;margin-top:12px;}
+  .modal-content input[type="text"],.modal-content input[type="email"],.modal-content input[type="password"],.modal-content input[type="number"],.modal-content input[type="date"],.modal-content input[type="tel"],.modal-content select,.modal-content textarea{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg-primary);color:var(--text-primary);font-size:0.88rem;outline:none;font-family:inherit;}
+  .modal-content input:focus,.modal-content select:focus,.modal-content textarea:focus{border-color:var(--accent-light);}
+  .modal-actions{display:flex;gap:8px;margin-top:20px;}
+  .btn{flex:1;padding:11px;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:0.88rem;transition:background 0.2s,transform 0.1s;display:flex;align-items:center;justify-content:center;gap:6px;}
+  .btn svg{width:15px;height:15px;}
+  .btn:active{transform:scale(0.97);}
+  .btn-primary{background:var(--accent);color:#fff;}
+  .btn-primary:hover{background:var(--accent-dark);}
+  .btn-secondary{background:var(--bg-tertiary);color:var(--text-primary);}
+  .btn-secondary:hover{background:var(--bg-hover);}
+  .btn-danger{background:var(--danger);color:#fff;}
+  .settings-item{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:padding-left 0.2s;}
+  .settings-item:last-child{border-bottom:none;}
+  .settings-item:active{padding-left:4px;}
+  .settings-item .label{display:flex;align-items:center;gap:10px;font-size:0.88rem;color:var(--text-primary);}
+  .settings-item .label svg{width:16px;height:16px;color:var(--accent-light);}
+  .settings-item .chev svg{width:16px;height:16px;color:var(--text-secondary);}
+  .settings-section{font-size:0.72rem;color:var(--accent-light);text-transform:uppercase;letter-spacing:0.5px;margin-top:18px;margin-bottom:4px;font-weight:600;}
+  .switch{position:relative;width:42px;height:24px;background:var(--bg-hover);border-radius:12px;transition:background 0.2s;flex-shrink:0;}
+  .switch.on{background:var(--accent);}
+  .switch::after{content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;background:#fff;border-radius:50%;transition:transform 0.2s;}
+  .switch.on::after{transform:translateX(18px);}
+  .accent-picker{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:12px 0;}
+  .accent-picker button{width:100%;aspect-ratio:1;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0;}
+  .accent-picker button.active{border-color:var(--text-primary);}
+  .bg-picker{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:12px 0;}
+  .bg-picker button{width:100%;aspect-ratio:1;border-radius:12px;border:2px solid transparent;cursor:pointer;padding:0;background-size:cover;background-position:center;}
+  .bg-picker button.active{border-color:var(--accent);}
+  .sound-group{display:flex;flex-direction:column;gap:4px;margin-top:8px;}
+  .sound-item{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--bg-primary);border-radius:8px;font-size:0.82rem;border:1px solid var(--border);}
+  .sound-item button{background:var(--accent);border:none;color:#fff;padding:4px 10px;border-radius:6px;font-size:0.72rem;cursor:pointer;}
+  .contact-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;}
+  .contact-item:last-child{border-bottom:none;}
+  .contact-item .c-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.95rem;background-size:cover;background-position:center;}
+  .contact-item .c-info{flex:1;min-width:0;}
+  .contact-item .c-info .c-name{font-size:0.88rem;font-weight:600;}
+  .contact-item .c-info .c-email{font-size:0.72rem;color:var(--text-secondary);}
+  .contact-item .c-actions{display:flex;gap:6px;}
+  .contact-item .c-actions button{background:none;border:none;color:var(--text-secondary);cursor:pointer;padding:4px;display:flex;}
+  .contact-item .c-actions button svg{width:16px;height:16px;}
+  .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;}
+  .stat-card{background:var(--bg-primary);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center;}
+  .stat-card .stat-val{font-size:1.4rem;font-weight:700;color:var(--accent-light);}
+  .stat-card .stat-lbl{font-size:0.72rem;color:var(--text-secondary);margin-top:4px;}
+  .legal-body{font-size:0.85rem;line-height:1.65;color:var(--text-primary);margin-top:10px;max-height:65vh;overflow-y:auto;padding-right:6px;}
+  .legal-body h4{color:var(--accent-light);margin-top:18px;margin-bottom:8px;font-size:0.94rem;border-bottom:1px solid var(--border);padding-bottom:4px;}
+  .legal-body h4:first-child{margin-top:0;}
+  .legal-body p{margin-bottom:10px;}
+  .legal-body ul{margin-left:20px;margin-bottom:12px;}
+  .legal-body li{margin-bottom:5px;}
+  .legal-body code{background:var(--bg-primary);padding:1px 6px;border-radius:4px;font-family:monospace;font-size:0.82rem;}
+  .legal-body .version-badge{display:inline-block;background:var(--accent);color:#fff;padding:2px 10px;border-radius:10px;font-size:0.7rem;font-weight:600;margin-right:6px;}
+  .legal-body .version-badge.beta{background:var(--warning);color:#000;}
+  .legal-body .section-num{display:inline-block;background:var(--accent);color:#fff;width:22px;height:22px;border-radius:50%;text-align:center;line-height:22px;font-size:0.72rem;font-weight:700;margin-right:6px;}
+  .legal-body .email-link{color:var(--link-color);text-decoration:underline;font-weight:600;cursor:pointer;}
+  .about-card{text-align:center;padding:10px 0 20px;border-bottom:1px solid var(--border);margin-bottom:16px;}
+  .about-logo{width:80px;height:80px;margin:0 auto 12px;display:block;}
+  .about-card h2{font-size:1.3rem;color:var(--accent-light);margin-bottom:4px;}
+  .about-card p{font-size:0.82rem;color:var(--text-secondary);}
+  .about-meta{display:flex;flex-direction:column;gap:10px;padding:10px 0;}
+  .about-meta .row{display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--bg-primary);border-radius:10px;border:1px solid var(--border);}
+  .about-meta .row svg{width:18px;height:18px;color:var(--accent-light);flex-shrink:0;}
+  .about-meta .row .txt{font-size:0.82rem;}
+  .about-meta .row .txt small{color:var(--text-secondary);display:block;font-size:0.72rem;}
+  .copyright{text-align:center;font-size:0.72rem;color:var(--text-secondary);padding:16px 0 4px;border-top:1px solid var(--border);margin-top:16px;line-height:1.5;}
+  .dev-name{color:var(--accent-light);font-weight:600;}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--bg-tertiary);color:var(--text-primary);padding:10px 18px;border-radius:24px;font-size:0.82rem;box-shadow:0 6px 24px rgba(0,0,0,0.4);opacity:0;transition:all 0.3s ease;z-index:200;max-width:90%;display:flex;align-items:center;gap:8px;}
+  .toast svg{width:16px;height:16px;flex-shrink:0;}
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+  .toast.success{background:var(--success);color:#fff;}
+  .toast.error{background:var(--danger);color:#fff;}
+  .toast.info{background:var(--accent);color:#fff;}
+  .context-menu{position:fixed;background:var(--bg-tertiary);border:1px solid var(--border);border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,0.5);padding:4px;z-index:300;display:none;min-width:180px;}
+  .context-menu.show{display:block;}
+  .context-menu button{width:100%;background:none;border:none;color:var(--text-primary);padding:8px 12px;text-align:left;font-size:0.82rem;cursor:pointer;border-radius:6px;display:flex;align-items:center;gap:8px;}
+  .context-menu button svg{width:14px;height:14px;}
+  .context-menu button:hover{background:var(--bg-hover);}
+  .scroll-bottom{position:absolute;bottom:80px;right:16px;width:40px;height:40px;background:var(--accent);border:none;border-radius:50%;color:#fff;display:none;align-items:center;justify-content:center;cursor:pointer;z-index:50;box-shadow:0 4px 12px rgba(0,0,0,0.4);padding:0;}
+  .scroll-bottom.show{display:flex;}
+  .scroll-bottom svg{width:18px;height:18px;}
+  .pin-overlay{position:fixed;inset:0;background:var(--bg-primary);z-index:500;display:none;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:30px;}
+  .pin-overlay.show{display:flex;}
+  .pin-overlay .logo{font-size:2rem;font-weight:700;color:var(--accent-light);}
+  .pin-dots{display:flex;gap:12px;margin:20px 0;}
+  .pin-dots span{width:14px;height:14px;border-radius:50%;border:2px solid var(--accent-light);background:transparent;transition:background 0.15s;}
+  .pin-dots span.filled{background:var(--accent-light);}
+  .pin-pad{display:grid;grid-template-columns:repeat(3,70px);gap:12px;}
+  .pin-pad button{width:70px;height:70px;border-radius:50%;border:none;background:var(--bg-tertiary);color:var(--text-primary);font-size:1.4rem;font-weight:600;cursor:pointer;}
+  .pin-pad button:active{background:var(--bg-hover);}
+  .pin-pad button.empty{visibility:hidden;}
+  .pin-pad button.action{font-size:1.1rem;}
+  .img-preview{position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:400;display:none;flex-direction:column;}
+  .img-preview.show{display:flex;}
+  .img-preview .preview-img{flex:1;display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto;}
+  .img-preview img{max-width:100%;max-height:100%;border-radius:8px;}
+  .img-preview .preview-bar{display:flex;justify-content:center;gap:12px;padding:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom));background:rgba(0,0,0,0.7);}
+  .img-preview .preview-bar button{background:var(--accent);border:none;color:#fff;padding:10px 16px;border-radius:8px;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;gap:6px;}
+  .img-preview .preview-bar button svg{width:16px;height:16px;}
+  .img-preview .close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.15);border:none;color:#fff;width:40px;height:40px;border-radius:50%;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;}
+  .recording-indicator{display:none;align-items:center;gap:10px;background:var(--danger);color:#fff;padding:8px 14px;font-size:0.82rem;flex-shrink:0;}
+  .recording-indicator.show{display:flex;}
+  .recording-indicator .wave{display:flex;gap:2px;align-items:center;}
+  .recording-indicator .wave span{width:3px;height:12px;background:#fff;border-radius:2px;animation:wave 1s infinite ease-in-out;}
+  .recording-indicator .wave span:nth-child(2){animation-delay:0.1s;}
+  .recording-indicator .wave span:nth-child(3){animation-delay:0.2s;}
+  .recording-indicator .wave span:nth-child(4){animation-delay:0.3s;}
+  .recording-indicator .wave span:nth-child(5){animation-delay:0.4s;}
+  @keyframes wave{0%,100%{height:6px;}50%{height:18px;}}
+  .camera-overlay{position:fixed;inset:0;background:#000;z-index:450;display:none;flex-direction:column;}
+  .camera-overlay.show{display:flex;}
+  .camera-overlay video{flex:1;width:100%;height:100%;object-fit:cover;}
+  .camera-overlay .cam-bar{display:flex;justify-content:center;align-items:center;gap:20px;padding:16px;padding-bottom:calc(16px + env(safe-area-inset-bottom));background:rgba(0,0,0,0.8);}
+  .camera-overlay .cam-bar button{background:#fff;border:3px solid rgba(255,255,255,0.5);width:64px;height:64px;border-radius:50%;cursor:pointer;}
+  .camera-overlay .cam-bar .cam-close{background:var(--danger);border-color:rgba(255,255,255,0.5);width:50px;height:50px;display:flex;align-items:center;justify-content:center;color:#fff;}
+  .camera-overlay .cam-bar .cam-switch{background:var(--bg-tertiary);border-color:rgba(255,255,255,0.3);width:50px;height:50px;display:flex;align-items:center;justify-content:center;color:#fff;}
+  .profile-avatar-big{width:100px;height:100px;border-radius:50%;margin:0 auto 12px;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-size:2.2rem;font-weight:700;cursor:pointer;background-size:cover;background-position:center;border:3px solid var(--accent-light);}
+  .section-header{display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+  .section-header h5{color:var(--accent-light);font-size:0.88rem;font-weight:700;}
+  .floating-badge{position:fixed;bottom:20px;right:20px;background:var(--danger);color:#fff;width:56px;height:56px;border-radius:50%;display:none;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;box-shadow:0 6px 20px rgba(0,0,0,0.4);cursor:pointer;z-index:80;animation:floatingPulse 2s infinite;}
+  .floating-badge.show{display:flex;}
+  .floating-badge .fb-count{position:absolute;top:-4px;right:-4px;background:#fff;color:var(--danger);font-size:0.7rem;font-weight:700;min-width:20px;height:20px;border-radius:10px;padding:0 5px;display:flex;align-items:center;justify-content:center;border:2px solid var(--danger);}
+  @keyframes floatingPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
+</style>
+</head>
+<body>
+<div class="tooltip" id="tooltip"></div>
+<div class="pin-overlay" id="pinOverlay">
+  <div class="logo">🔒 FlasChat</div>
+  <p style="color:var(--text-secondary);font-size:0.85rem;">Introduce tu PIN</p>
+  <div class="pin-dots" id="pinDots"><span></span><span></span><span></span><span></span></div>
+  <div class="pin-pad">
+    <button onclick="pinPress('1')">1</button><button onclick="pinPress('2')">2</button><button onclick="pinPress('3')">3</button>
+    <button onclick="pinPress('4')">4</button><button onclick="pinPress('5')">5</button><button onclick="pinPress('6')">6</button>
+    <button onclick="pinPress('7')">7</button><button onclick="pinPress('8')">8</button><button onclick="pinPress('9')">9</button>
+    <button class="empty"></button><button onclick="pinPress('0')">0</button><button class="action" onclick="pinBackspace()">⌫</button>
+  </div>
+  <p id="pinError" style="color:var(--danger);font-size:0.8rem;min-height:1em;"></p>
+</div>
+<div class="app">
+  <div class="loading-overlay" id="loadingOverlay">
+    <svg class="loading-logo" viewBox="0 0 200 200"><defs><linearGradient id="flachatGradLoad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4FB3F5"/><stop offset="100%" stop-color="#2196F3"/></linearGradient></defs><path d="M70 45 C 60 42, 55 50, 58 62 L 68 92 C 71 100, 68 105, 62 118 L 55 138 C 52 148, 58 156, 72 154 C 90 152, 120 140, 148 122 C 165 112, 172 102, 168 92 C 165 84, 155 78, 140 72 C 118 63, 90 50, 70 45 Z" fill="url(#flachatGradLoad)"/></svg>
+    <div class="loading-text"><span id="loadingText">Conectando FlasChat</span><span class="loading-dots"></span></div>
+    <div class="loading-sub" id="loadingSub">Estableciendo conexión con el servidor Nauta...</div>
+    <div class="loading-bar"></div>
+  </div>
+  <header class="header">
+    <div class="logo-box">
+      <div class="logo-wrapper">
+        <svg class="logo-svg" viewBox="0 0 200 200"><defs><linearGradient id="flachatGradHeader" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4FB3F5"/><stop offset="100%" stop-color="#2196F3"/></linearGradient></defs><path d="M70 45 C 60 42, 55 50, 58 62 L 68 92 C 71 100, 68 105, 62 118 L 55 138 C 52 148, 58 156, 72 154 C 90 152, 120 140, 148 122 C 165 112, 172 102, 168 92 C 165 84, 155 78, 140 72 C 118 63, 90 50, 70 45 Z" fill="url(#flachatGradHeader)"/></svg>
+        <div class="logo-badge" id="logoBadge">0</div>
+      </div>
+      <div class="title-box">
+        <h1>FlasChat <span class="beta-tag">BETA</span></h1>
+        <span id="headerSubtitle">Nauta Messenger</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="toggleSearch()" data-tip="Buscar mensajes" data-icon="search"></button>
+      <button class="icon-btn" onclick="refreshInbox()" data-tip="Sincronizar buzón" data-icon="refresh-cw">
+        <span class="header-badge" id="syncBadge">0</span>
+      </button>
+      <button class="icon-btn" onclick="openModal()" data-tip="Ajustes" data-icon="settings"></button>
+    </div>
+  </header>
+  <div class="conn-banner" id="connBanner"><span data-icon="wifi-off"></span><span>Sin conexión al servidor. Los mensajes se guardarán en cola.</span></div>
+  <div class="config-bar">
+    <span id="nautaStatus"><span class="status-dot status-offline"></span> Verificando...</span>
+    <span id="syncState">Inactivo</span>
+  </div>
+  <div class="contact-tag">
+    <label for="destEmail"><span data-icon="user"></span> Para:</label>
+    <input id="destEmail" class="contact-input" type="email" value="amigo@nauta.cu" placeholder="correo@nauta.cu" autocomplete="email" spellcheck="false"/>
+    <button class="contacts-btn" onclick="openContacts()" data-tip="Ver contactos" data-icon="users"></button>
+    <button class="star" id="starBtn" onclick="toggleFavorite()" data-tip="Marcar como favorito" data-icon="star"></button>
+  </div>
+  <div class="search-bar" id="searchBar">
+    <span data-icon="search"></span>
+    <input id="searchInput" type="text" placeholder="Buscar en el chat..." oninput="filterMessages()"/>
+    <button onclick="openAdvancedSearch()" data-tip="Búsqueda avanzada" data-icon="sliders"></button>
+    <button onclick="toggleSearch()" data-tip="Cerrar" data-icon="x"></button>
+  </div>
+  <div class="chat-body" id="chatBox"></div>
+  <div class="quick-replies" id="quickReplies"></div>
+  <div class="selection-bar" id="selectionBar">
+    <span id="selectionCount">0 seleccionados</span>
+    <div style="display:flex;gap:8px;">
+      <button class="cancel" onclick="cancelSelection()"><span data-icon="x"></span> Cancelar</button>
+      <button onclick="deleteSelected()"><span data-icon="trash-2"></span> Borrar</button>
+    </div>
+  </div>
+  <div class="edit-bar" id="editBar">
+    <div class="edit-info"><span data-icon="pencil"></span><div><div style="font-weight:600;">Editando mensaje</div><div class="edit-text" id="editPreview">...</div></div></div>
+    <button onclick="cancelEdit()" data-icon="x"></button>
+  </div>
+  <div class="reply-bar" id="replyBar">
+    <div class="reply-info"><span data-icon="reply"></span><div><div style="font-weight:600;">Respondiendo a</div><div class="reply-text" id="replyPreview">...</div></div></div>
+    <button onclick="cancelReply()" data-icon="x"></button>
+  </div>
+  <div class="recording-indicator" id="recordingIndicator">
+    <div class="wave"><span></span><span></span><span></span><span></span><span></span></div>
+    <span>Mantén pulsado para grabar... <span id="recTime">00:00</span></span>
+    <button style="margin-left:auto;background:none;border:none;color:#fff;cursor:pointer;" onclick="cancelAudioRecording()" data-icon="x"></button>
+  </div>
+  <div class="emoji-picker" id="emojiPicker">
+    <div class="emoji-header"><span>Emojis</span><button onclick="toggleEmojiPicker()" data-icon="x"></button></div>
+    <div class="emoji-tabs" id="emojiTabs"></div>
+    <div class="emoji-grid" id="emojiGrid"></div>
+  </div>
+  <div class="reaction-picker" id="reactionPicker"></div>
+  <button class="scroll-bottom" id="scrollBottom" onclick="scrollToBottom()" data-icon="chevron-down"></button>
+  <form class="footer" onsubmit="sendMsg(event)">
+    <button type="button" class="emoji-btn" onclick="toggleEmojiPicker()" data-tip="Emojis" data-icon="smile"></button>
+    <div class="input-wrapper">
+      <textarea id="msgInput" class="input-box" rows="1" placeholder="Escribe un mensaje..." autocomplete="off" maxlength="2000" oninput="onInputChange(this)"></textarea>
+    </div>
+    <button type="button" class="cam-btn" onclick="openCamera()" data-tip="Tomar foto" data-icon="camera"></button>
+    <button type="button" class="attach-btn" onclick="pickFile()" data-tip="Adjuntar archivo" data-icon="paperclip"></button>
+    <button type="button" class="audio-btn" id="audioBtn" onmousedown="startAudioRecording()" onmouseup="stopAudioRecording(false)" ontouchstart="startAudioRecording()" ontouchend="stopAudioRecording(false)" data-tip="Mantener pulsado para grabar audio" data-icon="mic"></button>
+    <button type="submit" class="btn-send" data-tip="Enviar mensaje" data-icon="send"></button>
+    <input type="file" id="fileInput" accept="image/*,audio/*,video/*,application/*" style="display:none" onchange="handleFile(event)"/>
+    <input type="file" id="bgInput" accept="image/*" style="display:none" onchange="handleBgImage(event)"/>
+    <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="handleAvatar(event)"/>
+    <input type="file" id="backupInput" accept=".json,application/json" style="display:none" onchange="handleBackupImport(event)"/>
+  </form>
+</div>
+<div class="floating-badge" id="floatingBadge" onclick="scrollToBottom()" title="Ver mensajes nuevos">
+  <span>💬</span>
+  <span class="fb-count" id="fbCount">0</span>
+</div>
+<div class="modal" id="settingsModal">
+  <div class="modal-content">
+    <div class="modal-header"><h3><span data-icon="settings"></span> Ajustes</h3><button class="modal-close" onclick="closeModal()" data-icon="x"></button></div>
+    <div class="settings-section">Cuenta</div>
+    <div class="settings-item" onclick="openProfile()"><div class="label"><span data-icon="user"></span> Mi perfil</div><span class="chev" data-icon="chevron-right"></span></div>
+    <label for="cfgUser">Tu correo (referencia)</label><input id="cfgUser" type="email" placeholder="usuario@nauta.cu"/>
+    <label for="cfgInterval">Intervalo de sync (segundos)</label><input id="cfgInterval" type="number" min="15" max="600" value="60"/>
+    <div class="settings-item" onclick="openAccounts()"><div class="label"><span data-icon="users"></span> Cuentas guardadas</div><span class="chev" data-icon="chevron-right"></span></div>
+    <div class="settings-section">Apariencia</div>
+    <div class="settings-item" onclick="toggleTheme()"><div class="label"><span data-icon="sun-moon"></span> Tema oscuro</div><div class="switch" id="themeSwitch"></div></div>
+    <div class="settings-item" onclick="toggleAutoTheme()"><div class="label"><span data-icon="laptop"></span> Tema automático</div><div class="switch" id="autoThemeSwitch"></div></div>
+    <div class="settings-item" style="flex-direction:column;align-items:stretch;cursor:default;">
+      <div class="label" style="margin-bottom:8px;"><span data-icon="palette"></span> Color de acento</div>
+      <div class="accent-picker" id="accentPicker">
+        <button data-accent="blue" style="background:#2196F3" onclick="setAccent('blue')"></button>
+        <button data-accent="green" style="background:#16a34a" onclick="setAccent('green')"></button>
+        <button data-accent="purple" style="background:#7c3aed" onclick="setAccent('purple')"></button>
+        <button data-accent="pink" style="background:#db2777" onclick="setAccent('pink')"></button>
+        <button data-accent="orange" style="background:#ea580c" onclick="setAccent('orange')"></button>
+        <button data-accent="sky" style="background:#0ea5e9" onclick="setAccent('sky')"></button>
+        <button data-accent="mint" style="background:#10b981" onclick="setAccent('mint')"></button>
+        <button data-accent="lavender" style="background:#a78bfa" onclick="setAccent('lavender')"></button>
+        <button data-accent="peach" style="background:#fb7185" onclick="setAccent('peach')"></button>
+        <button data-accent="yellow" style="background:#fbbf24" onclick="setAccent('yellow')"></button>
+        <button data-accent="coral" style="background:#ff7f50" onclick="setAccent('coral')"></button>
+        <button data-accent="turquoise" style="background:#14b8a6" onclick="setAccent('turquoise')"></button>
+        <button data-accent="rose" style="background:#f43f5e" onclick="setAccent('rose')"></button>
+        <button data-accent="lime" style="background:#84cc16" onclick="setAccent('lime')"></button>
+        <button data-accent="indigo" style="background:#6366f1" onclick="setAccent('indigo')"></button>
+      </div>
+    </div>
+    <div class="settings-item" style="flex-direction:column;align-items:stretch;cursor:default;">
+      <div class="label" style="margin-bottom:8px;"><span data-icon="image"></span> Fondo del chat</div>
+      <div class="bg-picker" id="bgPicker">
+        <button data-bg="default" style="background:linear-gradient(135deg,#0b141a,#1e293b)" onclick="setChatBg('default')"></button>
+        <button data-bg="blue" style="background:linear-gradient(135deg,#0c4a6e,#0ea5e9)" onclick="setChatBg('blue')"></button>
+        <button data-bg="green" style="background:linear-gradient(135deg,#064e3b,#10b981)" onclick="setChatBg('green')"></button>
+        <button data-bg="purple" style="background:linear-gradient(135deg,#4c1d95,#a78bfa)" onclick="setChatBg('purple')"></button>
+        <button data-bg="sunset" style="background:linear-gradient(135deg,#7c2d12,#fb923c,#fbbf24)" onclick="setChatBg('sunset')"></button>
+        <button data-bg="night" style="background:linear-gradient(135deg,#000000,#1f2937,#374151)" onclick="setChatBg('night')"></button>
+        <button data-bg="ocean" style="background:linear-gradient(135deg,#0c4a6e,#06b6d4,#67e8f9)" onclick="setChatBg('ocean')"></button>
+        <button data-bg="forest" style="background:linear-gradient(135deg,#14532d,#22c55e,#86efac)" onclick="setChatBg('forest')"></button>
+        <button data-bg="cherry" style="background:linear-gradient(135deg,#831843,#ec4899,#fbcfe8)" onclick="setChatBg('cherry')"></button>
+        <button data-bg="galaxy" style="background:linear-gradient(135deg,#1e1b4b,#6d28d9,#c4b5fd)" onclick="setChatBg('galaxy')"></button>
+        <button data-bg="candy" style="background:linear-gradient(135deg,#fda4af,#fef08a,#86efac)" onclick="setChatBg('candy')"></button>
+        <button data-bg="midnight" style="background:linear-gradient(135deg,#0f172a,#334155,#64748b)" onclick="setChatBg('midnight')"></button>
+        <button data-bg="custom" style="background:linear-gradient(45deg,#2196F3 25%,#4FB3F5 25%,#4FB3F5 50%,#2196F3 50%,#2196F3 75%,#4FB3F5 75%);background-size:10px 10px;" onclick="pickBgFromGallery()">📷</button>
+      </div>
+    </div>
+    <label for="cfgBubble">Estilo de burbuja</label>
+    <select id="cfgBubble" onchange="setBubbleStyle(this.value)"><option value="whatsapp">WhatsApp</option><option value="telegram">Telegram</option><option value="minimal">Minimalista</option></select>
+    <label for="cfgFontSize">Tamaño de fuente</label>
+    <select id="cfgFontSize" onchange="setFontSize(this.value)"><option value="0.82rem">Pequeña</option><option value="0.9rem" selected>Normal</option><option value="1rem">Grande</option><option value="1.1rem">Muy grande</option></select>
+    <div class="settings-section">Comportamiento</div>
+    <div class="settings-item" onclick="toggleDemoMode()"><div class="label"><span data-icon="flask-conical"></span> Modo demo</div><div class="switch" id="demoSwitch"></div></div>
+    <div class="settings-item" onclick="toggleEncryption()"><div class="label"><span data-icon="lock"></span> Cifrado E2E</div><div class="switch" id="encryptionSwitch"></div></div>
+    <div class="settings-item" onclick="toggleNotifications()"><div class="label"><span data-icon="bell"></span> Notificaciones</div><div class="switch" id="notifSwitch"></div></div>
+    <div class="settings-item" onclick="toggleSound()"><div class="label"><span data-icon="volume-2"></span> Sonidos</div><div class="switch" id="soundSwitch"></div></div>
+    <div class="settings-item" onclick="toggleVibration()"><div class="label"><span data-icon="vibrate"></span> Vibración</div><div class="switch" id="vibrateSwitch"></div></div>
+    <div class="settings-item" onclick="togglePin()"><div class="label"><span data-icon="lock"></span> Bloqueo con PIN</div><div class="switch" id="pinSwitch"></div></div>
+    <div class="settings-section">Sonidos</div>
+    <div class="sound-group">
+      <div class="sound-item"><span>Enviar mensaje</span><button onclick="previewSound('sent')">▶ Probar</button></div>
+      <div class="sound-item"><span>Recibir mensaje</span><button onclick="previewSound('received')">▶ Probar</button></div>
+      <div class="sound-item"><span>Error</span><button onclick="previewSound('error')">▶ Probar</button></div>
+      <div class="sound-item"><span>Éxito</span><button onclick="previewSound('success')">▶ Probar</button></div>
+      <div class="sound-item"><span>Notificación</span><button onclick="previewSound('notify')">▶ Probar</button></div>
+      <div class="sound-item"><span>Click UI</span><button onclick="previewSound('click')">▶ Probar</button></div>
+      <div class="sound-item"><span>Abrir</span><button onclick="previewSound('open')">▶ Probar</button></div>
+      <div class="sound-item"><span>Cerrar</span><button onclick="previewSound('close')">▶ Probar</button></div>
+      <div class="sound-item"><span>Selección</span><button onclick="previewSound('select')">▶ Probar</button></div>
+      <div class="sound-item"><span>Borrado</span><button onclick="previewSound('trash')">▶ Probar</button></div>
+      <div class="sound-item"><span>Escribiendo</span><button onclick="previewSound('typing')">▶ Probar</button></div>
+      <div class="sound-item"><span>Bloqueo PIN</span><button onclick="previewSound('lock')">▶ Probar</button></div>
+    </div>
+    <div class="settings-section">Datos</div>
+    <div class="settings-item" onclick="exportBackup()"><div class="label"><span data-icon="save"></span> Exportar respaldo</div><span class="chev" data-icon="chevron-right"></span></div>
+    <div class="settings-item" onclick="importBackup()"><div class="label"><span data-icon="upload"></span> Importar respaldo</div><span class="chev" data-icon="chevron-right"></span></div>
+    <div class="settings-item" onclick="exportChat()"><div class="label"><span data-icon="download"></span> Exportar chat</div><span class="chev" data-icon="chevron-right"></span></div>
+    <div class="settings-item" onclick="openStats()"><div class="label"><span data-icon="bar-chart"></span> Estadísticas</div><span class="chev" data-icon="chevron-right"></span></div>
+    <div class="settings-item" onclick="openBulkDelete()"><div class="label"><span data-icon="trash-2" style="color:var(--danger);"></span> Borrado selectivo</div><span class="chev" data-icon="chevron-right"></span></div>
+    <div class="settings-item" onclick="clearChat()"><div class="label"><span data-icon="trash-2" style="color:var(--danger);"></span> Borrar todo</div><span class="chev" data-icon="chevron-right"></span></div>
+    <div class="settings-item" onclick="clearCache()"><div class="label"><span data-icon="database"></span> Limpiar caché</div><span class="chev" data-icon="chevron-right"></span></div>
+    <div class="settings-section">Información</div>
+    <div class="settings-item" onclick="showAbout()"><div class="label"><span data-icon="info"></span> Acerca de FlasChat</div><span class="chev" data-icon="chevron-right"></span></div>
+    <div class="settings-item" onclick="showPrivacy()"><div class="label"><span data-icon="shield"></span> Política de privacidad</div><span class="chev" data-icon="chevron-right"></span></div>
+    <div class="settings-item" onclick="showTerms()"><div class="label"><span data-icon="file-text"></span> Términos y condiciones</div><span class="chev" data-icon="chevron-right"></span></div>
+    <div class="settings-item" onclick="showChangelog()"><div class="label"><span data-icon="list"></span> Historial de cambios</div><span class="chev" data-icon="chevron-right"></span></div>
+    <div class="settings-item" onclick="showDeveloper()"><div class="label"><span data-icon="code"></span> Desarrollado por</div><span class="chev" data-icon="chevron-right"></span></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal()"><span data-icon="x"></span> Cerrar</button>
+      <button class="btn btn-primary" onclick="saveConfig()"><span data-icon="check"></span> Guardar</button>
+    </div>
+    <div class="copyright">© 2026 <span class="dev-name">Milkár Lixán Pupo Riverón</span><br>Todos los derechos reservados.</div>
+  </div>
+</div>
+<div class="modal" id="profileModal">
+  <div class="modal-content">
+    <div class="modal-header"><h3><span data-icon="user"></span> Mi perfil</h3><button class="modal-close" onclick="closeProfile()" data-icon="x"></button></div>
+    <div class="profile-avatar-big" id="profileAvatar" onclick="pickAvatar()"><span id="avatarInitial">?</span></div>
+    <p style="text-align:center;font-size:0.75rem;color:var(--text-secondary);margin-bottom:8px;">Toca el círculo para cambiar tu foto</p>
+    <label for="pfAlias">Alias / Nombre</label><input id="pfAlias" type="text" placeholder="Tu nombre o alias" maxlength="50"/>
+    <label for="pfEmail">Correo electrónico</label><input id="pfEmail" type="email" placeholder="usuario@nauta.cu" maxlength="100"/>
+    <label for="pfInfo">Información / Bio</label><textarea id="pfInfo" rows="2" placeholder="Cuéntale algo a tus contactos" maxlength="200"></textarea>
+    <label for="pfPhone">Teléfono</label><input id="pfPhone" type="tel" placeholder="+53 XXXXXXXX" maxlength="20"/>
+    <label for="pfGender">Género</label>
+    <select id="pfGender"><option value="">Prefiero no decir</option><option value="masculino">Masculino</option><option value="femenino">Femenino</option><option value="otro">Otro</option></select>
+    <label for="pfHoroscope">Horóscopo</label>
+    <select id="pfHoroscope">
+      <option value="">Sin especificar</option><option value="aries">Aries (21 mar - 19 abr)</option><option value="tauro">Tauro (20 abr - 20 may)</option>
+      <option value="geminis">Géminis (21 may - 20 jun)</option><option value="cancer">Cáncer (21 jun - 22 jul)</option><option value="leo">Leo (23 jul - 22 ago)</option>
+      <option value="virgo">Virgo (23 ago - 22 sep)</option><option value="libra">Libra (23 sep - 22 oct)</option><option value="escorpio">Escorpio (23 oct - 21 nov)</option>
+      <option value="sagitario">Sagitario (22 nov - 21 dic)</option><option value="capricornio">Capricornio (22 dic - 19 ene)</option>
+      <option value="acuario">Acuario (20 ene - 18 feb)</option><option value="piscis">Piscis (19 feb - 20 mar)</option>
+    </select>
+    <label for="pfBirth">Fecha de nacimiento</label><input id="pfBirth" type="date"/>
+    <label for="pfProvince">Provincia</label>
+    <select id="pfProvince">
+      <option value="">Sin especificar</option><option value="pinar">Pinar del Río</option><option value="artemisa">Artemisa</option>
+      <option value="habana">La Habana</option><option value="mayabeque">Mayabeque</option><option value="matanzas">Matanzas</option>
+      <option value="villa-clara">Villa Clara</option><option value="cienfuegos">Cienfuegos</option><option value="sancti-spiritus">Sancti Spíritus</option>
+      <option value="ciego">Ciego de Ávila</option><option value="camaguey">Camagüey</option><option value="las-tunas">Las Tunas</option>
+      <option value="granma">Granma</option><option value="holguin">Holguín</option><option value="santiago">Santiago de Cuba</option>
+      <option value="guantanamo">Guantánamo</option><option value="isla">Isla de la Juventud</option><option value="otro">Otra / Prefiero no decir</option>
+    </select>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeProfile()"><span data-icon="x"></span> Cancelar</button>
+      <button class="btn btn-primary" onclick="saveProfile()"><span data-icon="check"></span> Guardar</button>
+    </div>
+  </div>
+</div>
+<div class="modal" id="legalModal">
+  <div class="modal-content">
+    <div class="modal-header"><h3 id="legalTitle"><span data-icon="file-text"></span> <span id="legalTitleText">Información</span></h3><button class="modal-close" onclick="closeLegal()" data-icon="x"></button></div>
+    <div class="legal-body" id="legalBody"></div>
+    <div class="modal-actions"><button class="btn btn-primary" onclick="closeLegal()"><span data-icon="check"></span> Entendido</button></div>
+  </div>
+</div>
+<div class="modal" id="contactsModal">
+  <div class="modal-content">
+    <div class="modal-header"><h3><span data-icon="users"></span> Contactos</h3><button class="modal-close" onclick="closeContacts()" data-icon="x"></button></div>
+    <div id="contactsList"></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeContacts()">Cerrar</button>
+      <button class="btn btn-primary" onclick="addContact()"><span data-icon="plus"></span> Añadir</button>
+    </div>
+  </div>
+</div>
+<div class="modal" id="accountsModal">
+  <div class="modal-content">
+    <div class="modal-header"><h3><span data-icon="users"></span> Cuentas</h3><button class="modal-close" onclick="closeAccounts()" data-icon="x"></button></div>
+    <div id="accountsList"></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeAccounts()">Cerrar</button>
+      <button class="btn btn-primary" onclick="addAccount()"><span data-icon="plus"></span> Añadir</button>
+    </div>
+  </div>
+</div>
+<div class="context-menu" id="contextMenu">
+  <button onclick="reactToSelectedMsg()"><span data-icon="smile"></span> Reaccionar</button>
+  <button onclick="copySelectedMsg()"><span data-icon="copy"></span> Copiar texto</button>
+  <button onclick="downloadSelectedAttach()"><span data-icon="download"></span> Guardar adjunto</button>
+  <button onclick="editSelectedMsg()" id="ctxEditBtn"><span data-icon="pencil"></span> Editar</button>
+  <button onclick="replySelectedMsg()"><span data-icon="reply"></span> Responder</button>
+  <button onclick="forwardSelectedMsg()"><span data-icon="forward"></span> Reenviar</button>
+  <button onclick="startMultiSelect()"><span data-icon="check-square"></span> Seleccionar varios</button>
+  <button onclick="retrySelectedMsg()" id="ctxRetryBtn"><span data-icon="rotate-cw"></span> Reintentar</button>
+  <button onclick="deleteSelectedMsg()"><span data-icon="trash-2" style="color:var(--danger);"></span> Eliminar</button>
+</div>
+<div class="img-preview" id="imgPreview">
+  <button class="close" onclick="closeImgPreview()">✕</button>
+  <div class="preview-img"><img id="imgPreviewSrc" src="" alt=""/></div>
+  <div class="preview-bar">
+    <button onclick="downloadImgPreview()"><span data-icon="download"></span> Guardar en galería</button>
+    <button onclick="copyImgPreview()"><span data-icon="copy"></span> Copiar</button>
+  </div>
+</div>
+<div class="camera-overlay" id="cameraOverlay">
+  <video id="cameraVideo" autoplay playsinline></video>
+  <div class="cam-bar">
+    <button class="cam-close" onclick="closeCamera()">✕</button>
+    <button class="cam-shoot" onclick="takePhoto()"></button>
+    <button class="cam-switch" onclick="switchCamera()">🔄</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+'use strict';
+const ICONS={
+  'search':'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+  'refresh-cw':'<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>',
+  'settings':'<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
+  'user':'<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+  'users':'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  'x':'<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  'send':'<path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/>',
+  'chevron-down':'<path d="m6 9 6 6 6-6"/>','chevron-right':'<path d="m9 18 6-6-6-6"/>',
+  'wifi-off':'<path d="M12 20h.01"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/><path d="M5 12.859a10 10 0 0 1 5.17-2.69"/><path d="M19 12.859a10 10 0 0 0-2.007-1.523"/><path d="M2 8.82a15 15 0 0 1 4.177-2.643"/><path d="M22 8.82a15 15 0 0 0-11.288-3.764"/><path d="m2 2 20 20"/>',
+  'sun-moon':'<path d="M12 8a2.83 2.83 0 0 0 4 4 4 4 0 1 1-4-4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.9 4.9 1.4 1.4"/><path d="m17.7 17.7 1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.3 17.7-1.4 1.4"/><path d="m19.1 4.9-1.4 1.4"/>',
+  'laptop':'<path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"/>',
+  'flask-conical':'<path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/><path d="M7 16h10"/>',
+  'download':'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>',
+  'upload':'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/>',
+  'save':'<path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/>',
+  'trash-2':'<path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>',
+  'check':'<path d="M20 6 9 17l-5-5"/>','check-check':'<path d="M18 6 7 17l-5-5"/><path d="m22 10-7.5 7.5L13 16"/>',
+  'check-circle':'<path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/>',
+  'alert-circle':'<circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/>',
+  'info':'<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
+  'clock':'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+  'copy':'<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
+  'rotate-cw':'<path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/>',
+  'star':'<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+  'image':'<rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>',
+  'mic':'<path d="M12 19v3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><rect x="9" y="2" width="6" height="13" rx="3"/>',
+  'bell':'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+  'volume-2':'<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>',
+  'vibrate':'<path d="m2 8 2 2-2 2 2 2-2 2"/><path d="m22 8-2 2 2 2-2 2 2 2"/><rect width="8" height="14" x="8" y="5" rx="1"/>',
+  'lock':'<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+  'palette':'<circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>',
+  'database':'<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/>',
+  'reply':'<polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/>',
+  'forward':'<polyline points="15 17 20 12 15 7"/><path d="M4 18v-2a4 4 0 0 1 4-4h12"/>',
+  'check-square':'<polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
+  'smile':'<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/>',
+  'pencil':'<path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/>',
+  'shield':'<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
+  'file-text':'<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/>',
+  'list':'<line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/>',
+  'code':'<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>',
+  'heart':'<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+  'award':'<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/>',
+  'paperclip':'<path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/>',
+  'sliders':'<line x1="4" x2="4" y1="21" y2="14"/><line x1="4" x2="4" y1="10" y2="3"/><line x1="12" x2="12" y1="21" y2="12"/><line x1="12" x2="12" y1="8" y2="3"/><line x1="20" x2="20" y1="21" y2="16"/><line x1="20" x2="20" y1="12" y2="3"/><line x1="2" x2="6" y1="14" y2="14"/><line x1="10" x2="14" y1="8" y2="8"/><line x1="18" x2="22" y1="16" y2="16"/>',
+  'bar-chart':'<line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/>',
+  'plus':'<path d="M5 12h14"/><path d="M12 5v14"/>',
+  'camera':'<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/>',
+  'message-circle':'<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>'
+};
+function iconSVG(name,size=18){const p=ICONS[name]||'';return '<svg xmlns="http://www.w3.org/2000/svg" width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';}
+function renderIcons(root=document){(root||document).querySelectorAll('[data-icon]').forEach(el=>{const name=el.getAttribute('data-icon');const size=el.getAttribute('data-icon-size')||18;el.innerHTML=iconSVG(name,size);});}
+function ic(n,s=16){return iconSVG(n,s);}
+
+const API_BASE=(window.location.protocol==='file:')?'http://localhost:3000':window.location.origin;
+const KEYS={config:'flaschat_cfg_v140b',messages:'flaschat_msgs_v140b',favorites:'flaschat_favs_v140b',contacts:'flaschat_contacts_v140b',accounts:'flaschat_accounts_v140b',profile:'flaschat_profile_v140b',unread:'flaschat_unread_v140b'};
+const MAX_MESSAGES=1000;
+const APP_INFO={name:'FlasChat',version:'1.4.0',build:'2026.03 BETA',developer:'Milkár Lixán Pupo Riverón',email:'maniabon.76@gmail.com',year:2026};
+const DEFAULT_CONFIG={user:'',syncInterval:60,theme:'dark',accent:'blue',bubbleStyle:'whatsapp',fontSize:'0.9rem',demoMode:false,notifications:false,encryption:false,sound:true,vibration:true,pin:'',autoTheme:false,chatBg:'default'};
+const DEFAULT_PROFILE={alias:'',email:'',info:'',phone:'',gender:'',horoscope:'',birth:'',province:'',avatar:''};
+const state={config:{...DEFAULT_CONFIG},profile:{...DEFAULT_PROFILE},messages:[],favorites:[],contacts:[],accounts:[],syncTimer:null,isSyncing:false,backendOnline:false,healthTimer:null,searchQuery:'',contextTarget:null,selection:new Set(),multiSelectMode:false,pinBuffer:'',recording:false,editingId:null,replyToId:null,mediaRecorder:null,audioChunks:[],audioTimer:null,audioSeconds:0,sessionStart:Date.now(),pendingAttach:null,audioStream:null,cameraStream:null,cameraFacing:'environment',unreadCount:0,lastMessageCount:0};
+const $=(id)=>document.getElementById(id);
+function formatTime(d=new Date()){return d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});}
+function formatDateLabel(date){const d=new Date(date);const today=new Date();const y=new Date();y.setDate(today.getDate()-1);const same=(a,b)=>a.toDateString()===b.toDateString();if(same(d,today))return 'Hoy';if(same(d,y))return 'Ayer';return d.toLocaleDateString([],{day:'2-digit',month:'long',year:'numeric'});}
+function escapeHtml(s){const d=document.createElement('div');d.textContent=String(s);return d.innerHTML;}
+function isValidEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);}
+function cryptoRandomId(){if(window.crypto&&crypto.randomUUID)return crypto.randomUUID();return 'id-'+Math.random().toString(36).slice(2)+Date.now().toString(36);}
+function autoGrow(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
+function avatarColor(s){let h=0;for(let i=0;i<s.length;i++)h=s.charCodeAt(i)+((h<<5)-h);return 'hsl('+(Math.abs(h)%360)+',65%,45%)';}
+function initialOf(e){return (e||'?').replace(/[^a-z0-9]/gi,'').charAt(0)||'?';}
+function formatBytes(b){if(b<1024)return b+' B';if(b<1048576)return (b/1024).toFixed(1)+' KB';return (b/1048576).toFixed(1)+' MB';}
+function downloadDataUrl(u,f){try{const a=document.createElement('a');a.href=u;a.download=f;document.body.appendChild(a);a.click();document.body.removeChild(a);return true;}catch(e){return false;}}
+function openMailto(email){if(!email)return;const url='mailto:'+email;try{window.location.href=url;}catch(e){window.open(url,'_blank');}}
+
+/* =========================================================
+   GLOBO DE NOTIFICACIONES
+   ========================================================= */
+function updateUnreadBadge(){
+  const count = state.unreadCount || 0;
+  const label = count > 99 ? '99+' : String(count);
+  const logo = $('logoBadge');
+  const sync = $('syncBadge');
+  const fb = $('floatingBadge');
+  const fbCount = $('fbCount');
+  if (count > 0) {
+    if (logo) { logo.textContent = label; logo.classList.add('show'); }
+    if (sync) { sync.textContent = label; sync.classList.add('show'); }
+    if (fb && fbCount) { fbCount.textContent = label; fb.classList.add('show'); }
+    document.title = '(' + label + ') FlasChat · Nauta Messenger';
+  } else {
+    if (logo) logo.classList.remove('show');
+    if (sync) sync.classList.remove('show');
+    if (fb) fb.classList.remove('show');
+    document.title = 'FlasChat · Nauta Messenger';
+  }
+  try { localStorage.setItem(KEYS.unread, String(count)); } catch(e){}
+}
+function incrementUnread(n){state.unreadCount = (state.unreadCount||0)+(n||1); updateUnreadBadge();}
+function resetUnread(){ if(state.unreadCount===0)return; state.unreadCount = 0; updateUnreadBadge();}
+function loadUnread(){try{const v=parseInt(localStorage.getItem(KEYS.unread)||'0',10);state.unreadCount=isNaN(v)?0:v;}catch(e){state.unreadCount=0;}updateUnreadBadge();}
+
+/* =========================================================
+   INDICADOR DE DESCRIPCIÓN DE OPCIONES
+   ========================================================= */
+const SETTINGS_DESCRIPTIONS = {
+  'profile': '👤 Mi perfil: Edita tu alias, correo, teléfono, género, horóscopo, fecha de nacimiento, provincia y foto de avatar.',
+  'user': '📧 Tu correo: Correo Nauta de referencia para mostrar en la interfaz.',
+  'interval': '⏱️ Intervalo de sync: Cada cuántos segundos se busca correo nuevo en el buzón.',
+  'accounts': '👥 Cuentas guardadas: Administra varias cuentas Nauta y cambia entre ellas fácilmente.',
+  'theme': '🌙 Tema oscuro: Activa el modo oscuro para reducir el brillo y cansancio visual.',
+  'autotheme': '💻 Tema automático: Sigue el tema del sistema operativo (claro/oscuro).',
+  'accent': '🎨 Color de acento: Cambia el color principal de botones, iconos y encabezado.',
+  'bg': '🖼️ Fondo del chat: Selecciona entre 12 fondos predeterminados o elige uno desde tu galería.',
+  'bubble': '💬 Estilo de burbuja: Elige entre WhatsApp, Telegram o Minimalista.',
+  'fontsize': '🔤 Tamaño de fuente: Ajusta el tamaño del texto en toda la app.',
+  'demo': '🧪 Modo demo: Simula mensajes sin necesidad de servidor. Ideal para probar la interfaz.',
+  'encryption': '🔒 Cifrado E2E: Cifra tus mensajes con AES-256-GCM antes de enviarlos por correo.',
+  'notif': '🔔 Notificaciones: Avisos locales cuando llega un mensaje nuevo.',
+  'sound': '🔊 Sonidos: Reproduce sonidos al enviar, recibir, reaccionar o borrar.',
+  'vibrate': '📳 Vibración: Feedback háptico al interactuar con la app.',
+  'pin': '🔐 Bloqueo con PIN: Protege la app con un código de 4 dígitos.',
+  'backup': '💾 Exportar respaldo: Guarda todos tus datos (mensajes, perfil, ajustes) en un archivo JSON.',
+  'restore': '📥 Importar respaldo: Restaura tus datos desde un archivo JSON exportado antes.',
+  'exportchat': '📤 Exportar chat: Guarda tu conversación completa en un archivo de texto.',
+  'stats': '📊 Estadísticas: Consulta cuántos mensajes has enviado, recibido y editado.',
+  'bulk': '🗑️ Borrado selectivo: Elimina mensajes por rango de fechas.',
+  'clearchat': '⚠️ Borrar todo: Elimina permanentemente todos los mensajes.',
+  'clearcache': '🧹 Limpiar caché: Libera espacio borrando archivos temporales.',
+  'about': 'ℹ️ Acerca de FlasChat: Información general sobre la aplicación.',
+  'privacy': '🛡️ Política de privacidad: Cómo FlasChat maneja tu información personal.',
+  'terms': '📜 Términos y condiciones: Reglas de uso de la aplicación.',
+  'changelog': '📋 Historial de cambios: Registro completo de versiones y mejoras.',
+  'developer': '💻 Desarrollado por: Información sobre el desarrollador y el proyecto.'
+};
+function showSettingInfo(key){
+  const desc = SETTINGS_DESCRIPTIONS[key];
+  if (desc) { showToast(desc, 'info'); if (state.config.sound) playSound('typing'); }
+}
+
+let audioCtx=null;
+function ensureAudio(){if(!audioCtx){try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){return null;}}if(audioCtx.state==='suspended')audioCtx.resume().catch(()=>{});return audioCtx;}
+function playNotes(notes){if(!state.config.sound)return;const ctx=ensureAudio();if(!ctx)return;const base=ctx.currentTime;notes.forEach(n=>{try{const o=ctx.createOscillator();const g=ctx.createGain();o.type=n.type||'sine';o.frequency.value=n.f||800;o.connect(g);g.connect(ctx.destination);const start=base+(n.t||0)/1000;const end=start+(n.d||80)/1000;const vol=(n.v!=null?n.v:0.08);g.gain.setValueAtTime(0,start);g.gain.linearRampToValueAtTime(vol,start+0.01);g.gain.exponentialRampToValueAtTime(0.001,end);o.start(start);o.stop(end+0.02);}catch(e){}});}
+const SOUNDS={
+  sent:()=>playNotes([{f:660,t:0,d:60,v:0.09},{f:990,t:60,d:80,v:0.08}]),
+  received:()=>playNotes([{f:880,t:0,d:60,v:0.09},{f:1175,t:100,d:90,v:0.09}]),
+  error:()=>playNotes([{f:220,t:0,d:130,type:'square',v:0.06},{f:180,t:100,d:180,type:'square',v:0.06}]),
+  success:()=>playNotes([{f:523,t:0,d:70,v:0.08},{f:659,t:80,d:70,v:0.08},{f:784,t:160,d:130,v:0.09}]),
+  notify:()=>playNotes([{f:1320,t:0,d:100,v:0.07},{f:1760,t:40,d:200,v:0.05}]),
+  click:()=>playNotes([{f:1400,t:0,d:25,type:'triangle',v:0.05}]),
+  open:()=>playNotes([{f:500,t:0,d:40,v:0.06},{f:800,t:40,d:60,v:0.06}]),
+  close:()=>playNotes([{f:800,t:0,d:40,v:0.06},{f:500,t:40,d:60,v:0.06}]),
+  select:()=>playNotes([{f:1200,t:0,d:35,type:'triangle',v:0.06}]),
+  trash:()=>playNotes([{f:700,t:0,d:70,type:'sawtooth',v:0.05},{f:350,t:70,d:140,type:'sawtooth',v:0.05}]),
+  typing:()=>playNotes([{f:1800,t:0,d:15,v:0.03}]),
+  lock:()=>playNotes([{f:300,t:0,d:80,type:'square',v:0.05},{f:200,t:90,d:120,type:'square',v:0.05}])
+};
+function playSound(n){if(SOUNDS[n])SOUNDS[n]();}
+function previewSound(n){state.config.sound=true;playSound(n);showToast('Reproduciendo: '+n,'success');}
+function vibrate(ms=30){if(state.config.vibration&&navigator.vibrate)try{navigator.vibrate(ms);}catch(e){}}
+async function ensureNotificationPermission(){if(!('Notification' in window))return false;if(Notification.permission==='granted')return true;if(Notification.permission==='denied')return false;try{return (await Notification.requestPermission())==='granted';}catch(e){return false;}}
+function notify(title,body){if(!state.config.notifications)return;if(!('Notification' in window)||Notification.permission!=='granted')return;try{new Notification(title,{body,silent:true});}catch(e){}}
+
+async function deriveKey(){const enc=new TextEncoder();const seed=(state.config.user||'flaschat')+'|flaschat-e2e-v1';const baseKey=await crypto.subtle.importKey('raw',enc.encode(seed),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt:enc.encode('flaschat-salt-v1'),iterations:100000,hash:'SHA-256'},baseKey,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);}
+async function encryptText(text){if(!state.config.encryption||!window.crypto||!crypto.subtle)return text;try{const key=await deriveKey();const iv=crypto.getRandomValues(new Uint8Array(12));const enc=new TextEncoder();const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,enc.encode(text));const buf=new Uint8Array(iv.byteLength+ct.byteLength);buf.set(iv,0);buf.set(new Uint8Array(ct),iv.byteLength);return 'FLAENC1:'+btoa(String.fromCharCode(...buf));}catch(e){return text;}}
+async function decryptText(text){if(!text||!text.startsWith('FLAENC1:'))return text;try{const key=await deriveKey();const raw=atob(text.slice(8));const buf=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)buf[i]=raw.charCodeAt(i);const iv=buf.slice(0,12);const ct=buf.slice(12);const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv},key,ct);return new TextDecoder().decode(pt);}catch(e){return '[mensaje cifrado no legible]';}}
+
+function saveToStorage(){try{localStorage.setItem(KEYS.config,JSON.stringify(state.config));localStorage.setItem(KEYS.profile,JSON.stringify(state.profile));localStorage.setItem(KEYS.messages,JSON.stringify(state.messages.slice(-MAX_MESSAGES)));localStorage.setItem(KEYS.favorites,JSON.stringify(state.favorites));localStorage.setItem(KEYS.contacts,JSON.stringify(state.contacts));localStorage.setItem(KEYS.accounts,JSON.stringify(state.accounts));}catch(e){}}
+function loadFromStorage(){try{const c=localStorage.getItem(KEYS.config);if(c)Object.assign(state.config,JSON.parse(c));const p=localStorage.getItem(KEYS.profile);if(p)Object.assign(state.profile,JSON.parse(p));const m=localStorage.getItem(KEYS.messages);if(m)state.messages=JSON.parse(m);const f=localStorage.getItem(KEYS.favorites);if(f)state.favorites=JSON.parse(f);const ct=localStorage.getItem(KEYS.contacts);if(ct)state.contacts=JSON.parse(ct);const a=localStorage.getItem(KEYS.accounts);if(a)state.accounts=JSON.parse(a);}catch(e){}}
+
+function applyTheme(){let theme=state.config.theme;if(state.config.autoTheme&&window.matchMedia){theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',theme);document.documentElement.setAttribute('data-accent',state.config.accent);document.documentElement.setAttribute('data-bubble',state.config.bubbleStyle||'whatsapp');document.documentElement.style.setProperty('--font-size',state.config.fontSize);const sw=$('themeSwitch');if(sw)sw.classList.toggle('on',state.config.theme==='dark');const aw=$('autoThemeSwitch');if(aw)aw.classList.toggle('on',state.config.autoTheme);document.querySelectorAll('#accentPicker button').forEach(b=>b.classList.toggle('active',b.dataset.accent===state.config.accent));document.querySelectorAll('#bgPicker button').forEach(b=>b.classList.toggle('active',b.dataset.bg===state.config.chatBg));const sel=$('cfgFontSize');if(sel)sel.value=state.config.fontSize;const bs=$('cfgBubble');if(bs)bs.value=state.config.bubbleStyle||'whatsapp';applyChatBg();}
+function applyChatBg(){const box=$('chatBox');const bgs={
+  default:'linear-gradient(135deg, #0b141a 0%, #1e293b 100%)',
+  blue:'linear-gradient(135deg, #0c4a6e 0%, #0ea5e9 100%)',
+  green:'linear-gradient(135deg, #064e3b 0%, #10b981 100%)',
+  purple:'linear-gradient(135deg, #4c1d95 0%, #a78bfa 100%)',
+  sunset:'linear-gradient(135deg, #7c2d12 0%, #fb923c 50%, #fbbf24 100%)',
+  night:'linear-gradient(135deg, #000000 0%, #1f2937 50%, #374151 100%)',
+  ocean:'linear-gradient(135deg, #0c4a6e 0%, #06b6d4 50%, #67e8f9 100%)',
+  forest:'linear-gradient(135deg, #14532d 0%, #22c55e 50%, #86efac 100%)',
+  cherry:'linear-gradient(135deg, #831843 0%, #ec4899 50%, #fbcfe8 100%)',
+  galaxy:'linear-gradient(135deg, #1e1b4b 0%, #6d28d9 50%, #c4b5fd 100%)',
+  candy:'linear-gradient(135deg, #fda4af 0%, #fef08a 50%, #86efac 100%)',
+  midnight:'linear-gradient(135deg, #0f172a 0%, #334155 50%, #64748b 100%)'
+};if(state.config.chatBg&&state.config.chatBg.startsWith('data:image')){box.style.backgroundImage='url('+state.config.chatBg+')';}else{box.style.backgroundImage=bgs[state.config.chatBg]||bgs.default;}}
+function toggleTheme(){state.config.theme=state.config.theme==='dark'?'light':'dark';applyTheme();saveToStorage();playSound('click');showSettingInfo('theme');}
+function toggleAutoTheme(){state.config.autoTheme=!state.config.autoTheme;$('autoThemeSwitch').classList.toggle('on',state.config.autoTheme);applyTheme();saveToStorage();playSound('click');showSettingInfo('autotheme');}
+function setAccent(a){state.config.accent=a;applyTheme();saveToStorage();playSound('select');showSettingInfo('accent');}
+function setFontSize(v){state.config.fontSize=v;document.documentElement.style.setProperty('--font-size',v);saveToStorage();showSettingInfo('fontsize');}
+function setBubbleStyle(v){state.config.bubbleStyle=v;document.documentElement.setAttribute('data-bubble',v);saveToStorage();showSettingInfo('bubble');}
+function setChatBg(bg){state.config.chatBg=bg;applyTheme();saveToStorage();playSound('select');showToast('Fondo actualizado','success');showSettingInfo('bg');}
+function pickBgFromGallery(){$('bgInput').click();}
+function handleBgImage(e){const file=e.target.files&&e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=(ev)=>{state.config.chatBg=ev.target.result;applyChatBg();saveToStorage();showToast('Fondo personalizado aplicado','success');};reader.readAsDataURL(file);e.target.value='';}
+
+async function toggleDemoMode(){state.config.demoMode=!state.config.demoMode;$('demoSwitch').classList.toggle('on',state.config.demoMode);saveToStorage();playSound('click');showSettingInfo('demo');showToast(state.config.demoMode?'Modo demo activado':'Modo demo desactivado','success');if(state.config.demoMode){state.backendOnline=true;updateUI();}}
+async function toggleEncryption(){state.config.encryption=!state.config.encryption;$('encryptionSwitch').classList.toggle('on',state.config.encryption);saveToStorage();playSound('click');showSettingInfo('encryption');showToast(state.config.encryption?'Cifrado E2E activado':'Cifrado E2E desactivado','success');}
+async function toggleNotifications(){if(!state.config.notifications){const ok=await ensureNotificationPermission();if(!ok){playSound('error');showToast('Permiso denegado. Actívalo en Ajustes del sistema.','error');return;}}state.config.notifications=!state.config.notifications;const sw=$('notifSwitch');if(sw)sw.classList.toggle('on',state.config.notifications);saveToStorage();playSound('click');showSettingInfo('notif');showToast(state.config.notifications?'Notificaciones activadas':'Notificaciones desactivadas','success');}
+function toggleSound(){state.config.sound=!state.config.sound;$('soundSwitch').classList.toggle('on',state.config.sound);saveToStorage();if(state.config.sound)playSound('click');showSettingInfo('sound');}
+function toggleVibration(){state.config.vibration=!state.config.vibration;$('vibrateSwitch').classList.toggle('on',state.config.vibration);saveToStorage();vibrate(20);showSettingInfo('vibrate');}
+function togglePin(){showSettingInfo('pin');if(!state.config.pin){const pin=prompt('Define un PIN de 4 dígitos:');if(!pin||!/^\d{4}$/.test(pin)){playSound('error');showToast('PIN inválido','error');return;}state.config.pin=pin;$('pinSwitch').classList.add('on');saveToStorage();playSound('lock');showToast('PIN activado','success');}else{if(!confirm('¿Desactivar el bloqueo con PIN?'))return;const check=prompt('Introduce el PIN actual:');if(check!==state.config.pin){playSound('error');showToast('PIN incorrecto','error');return;}state.config.pin='';$('pinSwitch').classList.remove('on');saveToStorage();playSound('lock');showToast('PIN desactivado','success');}}
+
+let tooltipTimer=null;
+function initTooltips(){document.addEventListener('touchstart',(e)=>{const el=e.target.closest('[data-tip]');if(!el)return;clearTimeout(tooltipTimer);tooltipTimer=setTimeout(()=>showTooltip(el),400);},{passive:true});document.addEventListener('touchend',hideTooltip);document.addEventListener('touchmove',hideTooltip,{passive:true});document.addEventListener('mouseover',(e)=>{const el=e.target.closest('[data-tip]');if(el)showTooltip(el);});document.addEventListener('mouseout',hideTooltip);}
+function showTooltip(el){const tip=$('tooltip');const text=el.getAttribute('data-tip');if(!text)return;const rect=el.getBoundingClientRect();tip.textContent=text;tip.style.left=Math.max(8,Math.min(rect.left+rect.width/2-60,window.innerWidth-130))+'px';tip.style.top=(rect.bottom+6)+'px';tip.classList.add('show');setTimeout(hideTooltip,1800);}
+function hideTooltip(){$('tooltip').classList.remove('show');}
+
+function showToast(msg,type=''){const t=$('toast');const n=type==='success'?'check-circle':type==='error'?'alert-circle':'info';t.innerHTML=ic(n,16)+'<span>'+escapeHtml(msg)+'</span>';t.className='toast show '+type;clearTimeout(t._timer);t._timer=setTimeout(()=>{t.className='toast '+type;},3200);}
+
+async function renderMessages(){const box=$('chatBox');box.innerHTML='';let list=state.messages;if(state.searchQuery){const q=state.searchQuery.toLowerCase();list=list.filter(m=>(m.text||'').toLowerCase().includes(q));}
+  if(!list.length){const e=document.createElement('div');e.className='empty-state';e.innerHTML='<svg viewBox="0 0 200 200" style="width:64px;height:64px;opacity:0.5;"><defs><linearGradient id="flachatEmpty" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4FB3F5"/><stop offset="100%" stop-color="#2196F3"/></linearGradient></defs><path d="M70 45 C 60 42, 55 50, 58 62 L 68 92 C 71 100, 68 105, 62 118 L 55 138 C 52 148, 58 156, 72 154 C 90 152, 120 140, 148 122 C 165 112, 172 102, 168 92 C 165 84, 155 78, 140 72 C 118 63, 90 50, 70 45 Z" fill="url(#flachatEmpty)"/></svg><p>'+(state.searchQuery?'Sin resultados.':'Bienvenido a FlasChat.<br>Los mensajes viajan por correo Nauta.')+'</p>';box.appendChild(e);return;}
+  const frag=document.createDocumentFragment();let lastDate='';
+  for(const m of list){const dl=formatDateLabel(m.date||new Date());if(dl!==lastDate){const sep=document.createElement('div');sep.className='date-sep';sep.textContent=dl;frag.appendChild(sep);lastDate=dl;}
+    const div=document.createElement('div');div.className='msg '+m.type;
+    if(m.type==='out'&&m.status==='error')div.classList.add('retryable');
+    if(state.selection.has(m.id))div.classList.add('selected');
+    if(m.edited)div.classList.add('edited');if(m.encrypted)div.classList.add('encrypted');
+    div.dataset.id=m.id||'';
+    const senderEmail=m.sender||(m.type==='out'?state.config.user:'desconocido');
+    const initial=initialOf(senderEmail);const avBg=m.type==='in'?avatarColor(senderEmail):'';
+    let statusIcon='';if(m.type==='out'){if(m.status==='sending')statusIcon=ic('clock',12);else if(m.status==='error')statusIcon=ic('alert-circle',12);else if(m.status==='read')statusIcon='<span class="read-check">'+ic('check-check',14)+'</span>';else if(m.status==='delivered')statusIcon=ic('check-check',12);else statusIcon=ic('check',12);}
+    let attachHTML='';if(m.attach){if(m.attach.type==='image'){attachHTML='<img class="attach" src="'+m.attach.data+'" alt="imagen" onclick="showImgPreview(this.src, \''+(m.attach.name||'imagen')+'\')"/>';}else if(m.attach.type==='audio'){attachHTML='<audio class="attach" controls src="'+m.attach.data+'"></audio>';}else if(m.attach.type==='video'){attachHTML='<video class="attach" controls src="'+m.attach.data+'"></video>';}else{attachHTML='<a class="file-attach" onclick="downloadAttach(\''+m.id+'\')">'+ic('file-text',18)+'<div><div style="font-weight:600;">'+escapeHtml(m.attach.name||'archivo')+'</div><small>'+formatBytes(m.attach.size||0)+' · Toca para guardar</small></div></a>';}}
+    let reactionsHTML='';if(m.reactions&&Object.keys(m.reactions).length){const items=Object.entries(m.reactions).filter(([_,users])=>users.length);if(items.length){reactionsHTML='<div class="reactions">'+items.map(([emoji,users])=>{const mine=users.includes('me')?' mine':'';return '<span class="reaction'+mine+'" onclick="event.stopPropagation();toggleReaction(\''+m.id+'\',\''+emoji+'\')">'+emoji+'<span class="count">'+users.length+'</span></span>';}).join('')+'</div>';}}
+    let text=m.text||'';if(m.encrypted&&m.type==='in'){text=await decryptText(m.text||'');}
+    const retry=(m.type==='out'&&m.status==='error')?'<span class="retry-hint">Toca para reintentar</span>':'';
+    div.innerHTML='<div class="avatar" style="'+(avBg?'background:'+avBg:'')+'">'+escapeHtml(initial)+'</div><div class="bubble">'+(text?'<div>'+escapeHtml(text)+'</div>':'')+attachHTML+reactionsHTML+'<span class="time">'+escapeHtml(m.time)+statusIcon+'</span>'+retry+'</div>';
+    // Long press → context menu
+    let tt;
+    div.addEventListener('touchstart',(e)=>{tt=setTimeout(()=>{const tc=e.touches[0];openContextMenu(tc.clientX,tc.clientY,m.id);},500);},{passive:true});
+    div.addEventListener('touchend',()=>clearTimeout(tt));
+    div.addEventListener('touchmove',()=>clearTimeout(tt));
+    div.addEventListener('contextmenu',(e)=>{e.preventDefault();openContextMenu(e.clientX,e.clientY,m.id);});
+    div.addEventListener('click',()=>{if(state.multiSelectMode)toggleSelection(m.id);else if(m.type==='out'&&m.status==='error')retryMessage(m.id);});
+    // SWIPE TO REPLY
+    attachSwipeHandler(div, m.id);
+    frag.appendChild(div);}
+  box.appendChild(frag);scrollToBottom();}
+
+/* =========================================================
+   SWIPE TO REPLY
+   ========================================================= */
+function attachSwipeHandler(el, msgId){
+  let startX = 0, startY = 0, currentX = 0, isSwiping = false, isHorizontal = null;
+  const threshold = 60;
+
+  el.addEventListener('touchstart', (e) => {
+    if (e.touches.length !== 1) return;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    currentX = 0;
+    isSwiping = false;
+    isHorizontal = null;
+    el.classList.add('swiping');
+  }, { passive: true });
+
+  el.addEventListener('touchmove', (e) => {
+    if (e.touches.length !== 1) return;
+    const dx = e.touches[0].clientX - startX;
+    const dy = e.touches[0].clientY - startY;
+
+    // Determinar dirección en el primer movimiento claro
+    if (isHorizontal === null) {
+      if (Math.abs(dx) > 8 || Math.abs(dy) > 8) {
+        isHorizontal = Math.abs(dx) > Math.abs(dy);
+      }
+    }
+
+    if (isHorizontal) {
+      isSwiping = true;
+      // Limitar el desplazamiento
+      currentX = Math.max(-100, Math.min(100, dx));
+      el.style.transform = 'translateX(' + currentX + 'px)';
+
+      // Feedback visual
+      if (currentX > threshold) el.classList.add('swipe-reply-right');
+      else el.classList.remove('swipe-reply-right');
+      if (currentX < -threshold) el.classList.add('swipe-reply-left');
+      else el.classList.remove('swipe-reply-left');
+    }
+  }, { passive: true });
+
+  el.addEventListener('touchend', () => {
+    el.classList.remove('swiping');
+    el.classList.remove('swipe-reply-left');
+    el.classList.remove('swipe-reply-right');
+    if (isSwiping && Math.abs(currentX) > threshold) {
+      // Disparar respuesta
+      vibrate(30);
+      playSound('select');
+      startReply(msgId);
+    }
+    el.style.transform = '';
+    currentX = 0;
+    isSwiping = false;
+    isHorizontal = null;
+  });
+
+  el.addEventListener('touchcancel', () => {
+    el.classList.remove('swiping', 'swipe-reply-left', 'swipe-reply-right');
+    el.style.transform = '';
+    currentX = 0;
+    isSwiping = false;
+    isHorizontal = null;
+  });
+}
+
+function startReply(msgId){
+  const m = state.messages.find(x => x.id === msgId);
+  if (!m) return;
+  state.replyToId = msgId;
+  const preview = (m.text || '[adjunto]').split('\n').join(' ');
+  $('replyPreview').textContent = preview.length > 60 ? preview.slice(0,60)+'…' : preview;
+  $('replyBar').classList.add('show');
+  setTimeout(()=>$('msgInput').focus(), 100);
+}
+function cancelReply(){
+  state.replyToId = null;
+  $('replyBar').classList.remove('show');
+  playSound('close');
+}
+
+function addMessage(msg,opts={}){const full={id:cryptoRandomId(),time:formatTime(),status:'sent',date:new Date().toISOString(),reactions:{},...msg};state.messages.push(full);if(state.messages.length>MAX_MESSAGES)state.messages=state.messages.slice(-MAX_MESSAGES);
+  if(full.type==='in' && opts.silent!==true){incrementUnread(1);}
+  renderMessages();saveToStorage();
+  if(opts.silent!==true&&full.type==='in'){playSound('received');vibrate(50);notify('FlasChat',full.text||'Nuevo mensaje');}
+  return full;}
+function editMessage(id,newText){const m=state.messages.find(x=>x.id===id);if(!m||m.type!=='out')return;m.text=newText;m.edited=true;m.editedAt=new Date().toISOString();renderMessages();saveToStorage();playSound('success');showToast('Mensaje editado','success');}
+function toggleReaction(id,emoji){const m=state.messages.find(x=>x.id===id);if(!m)return;if(!m.reactions)m.reactions={};if(!m.reactions[emoji])m.reactions[emoji]=[];const idx=m.reactions[emoji].indexOf('me');if(idx>=0)m.reactions[emoji].splice(idx,1);else m.reactions[emoji].push('me');Object.keys(m.reactions).forEach(k=>{if(!m.reactions[k].length)delete m.reactions[k];});playSound('select');vibrate(15);$('reactionPicker').classList.remove('show');renderMessages();saveToStorage();}
+
+async function sendMsg(e){if(e)e.preventDefault();const input=$('msgInput');const to=$('destEmail').value.trim();let text=input.value.trim();
+  if(state.editingId){if(!text)return;editMessage(state.editingId,text);cancelEdit();input.value='';autoGrow(input);input.focus();return;}
+  if(!text&&!state.pendingAttach)return;if(!isValidEmail(to)){playSound('error');showToast('Correo destino inválido','error');return;}
+  let encrypted=false;if(state.config.encryption&&text){const enc=await encryptText(text);if(enc!==text){text=enc;encrypted=true;}}
+  // Respuesta
+  let replyText = null;
+  if (state.replyToId) {
+    const rm = state.messages.find(x=>x.id===state.replyToId);
+    if (rm) replyText = (rm.text || '[adjunto]').slice(0,100);
+  }
+  const msg=addMessage({sender:'yo',text,encrypted,type:'out',status:'sending',to,attach:state.pendingAttach||null,replyTo:replyText},{silent:true});
+  input.value='';autoGrow(input);state.pendingAttach=null;
+  if (state.replyToId) cancelReply();
+  playSound('sent');vibrate(20);
+  // MANTENER EL FOCO EN EL INPUT
+  input.focus();
+  if(state.config.demoMode){simulateSend(msg);return;}
+  if(!state.backendOnline){msg.status='error';renderMessages();saveToStorage();playSound('error');showToast('Sin servidor. Activa Modo demo o arranca el backend.','error');return;}
+  await performSend(msg);}
+async function performSend(msg){try{const payload={to:msg.to,text:msg.text};if(msg.attach){payload.attach={type:msg.attach.type,name:msg.attach.name,data:msg.attach.data};}const res=await fetch(API_BASE+'/api/send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const data=await res.json();if(data.ok){msg.status='delivered';playSound('success');showToast('Enviado','success');setTimeout(()=>{msg.status='read';renderMessages();saveToStorage();},3000);}else{msg.status='error';playSound('error');showToast('Error: '+(data.error||''),'error');}}catch(err){msg.status='error';state.backendOnline=false;updateUI();playSound('error');showToast('Error de red','error');}renderMessages();saveToStorage();}
+function simulateSend(msg){setTimeout(()=>{msg.status='delivered';renderMessages();saveToStorage();playSound('success');setTimeout(()=>{msg.status='read';renderMessages();saveToStorage();setTimeout(()=>{addMessage({sender:msg.to,text:'✓ Recibido: '+(msg.text||'[adjunto]'),type:'in'});},800);},2000);},900);}
+function retryMessage(id){const msg=state.messages.find(m=>m.id===id);if(!msg||msg.type!=='out')return;msg.status='sending';renderMessages();playSound('click');if(state.config.demoMode)simulateSend(msg);else if(state.backendOnline)performSend(msg);else{msg.status='error';renderMessages();playSound('error');showToast('Sin conexión','error');}}
+
+function pickFile(){playSound('click');const input=document.getElementById('fileInput');if(!input)return;input.value='';input.click();}
+function handleFile(e){const file=e.target.files&&e.target.files[0];if(!file)return;if(file.size>5242880){playSound('error');showToast('Archivo mayor de 5 MB','error');e.target.value='';return;}const reader=new FileReader();reader.onload=(ev)=>{const type=file.type.startsWith('image/')?'image':file.type.startsWith('audio/')?'audio':file.type.startsWith('video/')?'video':'file';state.pendingAttach={type,data:ev.target.result,name:file.name,size:file.size};playSound('select');showToast('Adjunto listo: '+file.name,'success');const input=$('msgInput');if(input)input.focus();};reader.readAsDataURL(file);e.target.value='';}
+
+async function openCamera(){playSound('click');if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){showToast('Cámara no soportada','error');return;}try{const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:state.cameraFacing},audio:false});state.cameraStream=stream;const video=$('cameraVideo');video.srcObject=stream;$('cameraOverlay').classList.add('show');}catch(e){playSound('error');showToast('Permiso de cámara denegado','error');}}
+function takePhoto(){const video=$('cameraVideo');const canvas=document.createElement('canvas');canvas.width=video.videoWidth||720;canvas.height=video.videoHeight||1280;const ctx=canvas.getContext('2d');ctx.drawImage(video,0,0,canvas.width,canvas.height);const dataUrl=canvas.toDataURL('image/jpeg',0.85);state.pendingAttach={type:'image',data:dataUrl,name:'foto-'+Date.now()+'.jpg',size:Math.round(dataUrl.length*0.75)};playSound('select');vibrate(50);showToast('Foto lista para enviar','success');closeCamera();const input=$('msgInput');if(input)input.focus();}
+function closeCamera(){if(state.cameraStream){state.cameraStream.getTracks().forEach(t=>t.stop());state.cameraStream=null;}$('cameraOverlay').classList.remove('show');}
+async function switchCamera(){state.cameraFacing=state.cameraFacing==='environment'?'user':'environment';closeCamera();await openCamera();}
+
+async function startAudioRecording(){if(state.recording)return;if(!navigator.mediaDevices||!window.MediaRecorder){playSound('error');showToast('Grabación no soportada','error');return;}try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});state.audioStream=stream;const rec=new MediaRecorder(stream);state.audioChunks=[];rec.ondataavailable=(e)=>{if(e.data.size>0)state.audioChunks.push(e.data);};rec.onstop=()=>{const blob=new Blob(state.audioChunks,{type:'audio/webm'});if(blob.size>500&&state.audioSeconds>=1){const reader=new FileReader();reader.onload=(ev)=>{state.pendingAttach={type:'audio',data:ev.target.result,name:'audio-'+Date.now()+'.webm',size:blob.size};showToast('Audio listo. Pulsa enviar.','success');const input=$('msgInput');if(input)input.focus();};reader.readAsDataURL(blob);}stream.getTracks().forEach(t=>t.stop());state.audioStream=null;};rec.start();state.mediaRecorder=rec;state.recording=true;state.audioSeconds=0;$('recordingIndicator').classList.add('show');$('audioBtn').classList.add('recording-hold');vibrate(50);state.audioTimer=setInterval(()=>{state.audioSeconds++;const m=String(Math.floor(state.audioSeconds/60)).padStart(2,'0');const s=String(state.audioSeconds%60).padStart(2,'0');$('recTime').textContent=m+':'+s;if(state.audioSeconds>=120)stopAudioRecording(false);},1000);}catch(e){playSound('error');showToast('Permiso de micrófono denegado','error');}}
+function stopAudioRecording(cancel){if(state.mediaRecorder&&state.mediaRecorder.state!=='inactive'){if(cancel){state.audioSeconds=0;state.mediaRecorder.onstop=()=>{if(state.audioStream)state.audioStream.getTracks().forEach(t=>t.stop());};}state.mediaRecorder.stop();}clearInterval(state.audioTimer);state.audioTimer=null;state.recording=false;$('recordingIndicator').classList.remove('show');$('audioBtn').classList.remove('recording-hold');}
+function cancelAudioRecording(){stopAudioRecording(true);showToast('Grabación cancelada','info');}
+
+async function refreshInbox(){if(state.isSyncing)return;if(state.config.demoMode){showToast('Modo demo activo','info');return;}if(!state.backendOnline){await checkBackendHealth();if(!state.backendOnline)return;}state.isSyncing=true;$('syncState').innerHTML='<span class="status-dot status-sync"></span> Sincronizando...';try{const res=await fetch(API_BASE+'/api/inbox',{cache:'no-store'});const data=await res.json();if(data.ok&&data.messages.length>0){data.messages.forEach(m=>addMessage({sender:m.from,text:m.text,type:'in',date:m.date}));showToast(data.messages.length+' nuevo(s)','success');}$('syncState').innerHTML='<span class="status-dot status-online"></span> Al día';}catch(err){$('syncState').innerHTML='<span class="status-dot status-offline"></span> Error';}finally{state.isSyncing=false;}}
+async function checkBackendHealth(){if(state.config.demoMode){state.backendOnline=true;updateUI();return;}try{const res=await fetch(API_BASE+'/api/health',{cache:'no-store'});const data=await res.json();state.backendOnline=!!data.ok;}catch(e){state.backendOnline=false;}updateUI();}
+function startAutoSync(){stopAutoSync();state.syncTimer=setInterval(refreshInbox,Math.max(15,state.config.syncInterval)*1000);}
+function stopAutoSync(){if(state.syncTimer){clearInterval(state.syncTimer);state.syncTimer=null;}}
+
+function updateUI(){const online=state.backendOnline,demo=state.config.demoMode,hasRef=!!state.config.user;$('nautaStatus').innerHTML='<span class="status-dot '+(online?'status-online':'status-offline')+'"></span>'+(demo?'Modo demo':online?'Conectado'+(hasRef?' · '+escapeHtml(state.config.user):''):'Sin servidor');$('headerSubtitle').textContent=state.profile.alias?state.profile.alias:(demo?'Nauta Messenger · demo':online?'Nauta Messenger · conectado':'Nauta Messenger · offline');$('connBanner').className='conn-banner'+(online||demo?'':' show');updateFavoriteStar();}
+function updateFavoriteStar(){const btn=$('starBtn');if(!btn)return;const email=$('destEmail').value.trim();btn.classList.toggle('active',state.favorites.includes(email));}
+function toggleFavorite(){const email=$('destEmail').value.trim();if(!isValidEmail(email)){playSound('error');showToast('Correo inválido','error');return;}const i=state.favorites.indexOf(email);if(i>=0){state.favorites.splice(i,1);showToast('Quitado de favoritos','success');}else{state.favorites.push(email);showToast('Añadido a favoritos','success');}saveToStorage();updateFavoriteStar();playSound('select');}
+
+function openProfile(){showSettingInfo('profile');$('pfAlias').value=state.profile.alias||'';$('pfEmail').value=state.profile.email||'';$('pfInfo').value=state.profile.info||'';$('pfPhone').value=state.profile.phone||'';$('pfGender').value=state.profile.gender||'';$('pfHoroscope').value=state.profile.horoscope||'';$('pfBirth').value=state.profile.birth||'';$('pfProvince').value=state.profile.province||'';updateProfileAvatar();$('profileModal').classList.add('open');playSound('open');}
+function closeProfile(){$('profileModal').classList.remove('open');playSound('close');}
+function updateProfileAvatar(){const av=$('profileAvatar');const initial=$('avatarInitial');if(state.profile.avatar){av.style.backgroundImage='url('+state.profile.avatar+')';av.style.backgroundColor='transparent';initial.textContent='';}else{av.style.backgroundImage='none';av.style.backgroundColor='var(--accent)';initial.textContent=initialOf(state.profile.alias||state.profile.email||'?').toUpperCase();}}
+function pickAvatar(){$('avatarInput').click();}
+function handleAvatar(e){const file=e.target.files&&e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=(ev)=>{state.profile.avatar=ev.target.result;updateProfileAvatar();saveToStorage();showToast('Foto actualizada','success');};reader.readAsDataURL(file);e.target.value='';}
+function saveProfile(){state.profile.alias=$('pfAlias').value.trim();state.profile.email=$('pfEmail').value.trim();state.profile.info=$('pfInfo').value.trim();state.profile.phone=$('pfPhone').value.trim();state.profile.gender=$('pfGender').value;state.profile.horoscope=$('pfHoroscope').value;state.profile.birth=$('pfBirth').value;state.profile.province=$('pfProvince').value;if(state.profile.email&&!isValidEmail(state.profile.email)){playSound('error');showToast('Correo inválido','error');return;}if(state.profile.email&&!state.config.user){state.config.user=state.profile.email;$('cfgUser').value=state.profile.email;}saveToStorage();updateUI();closeProfile();playSound('success');showToast('Perfil guardado','success');}
+
+let currentPreviewSrc='';let currentPreviewName='imagen';
+function showImgPreview(src,name){currentPreviewSrc=src;currentPreviewName=name||'imagen';$('imgPreviewSrc').src=src;$('imgPreview').classList.add('show');}
+function closeImgPreview(){$('imgPreview').classList.remove('show');$('imgPreviewSrc').src='';currentPreviewSrc='';}
+function downloadImgPreview(){if(!currentPreviewSrc)return;const ok=downloadDataUrl(currentPreviewSrc,currentPreviewName||('flaschat-'+Date.now()+'.jpg'));playSound(ok?'success':'error');showToast(ok?'Guardado en Descargas':'No se pudo guardar',ok?'success':'error');}
+async function copyImgPreview(){if(!currentPreviewSrc)return;try{const blob=await(await fetch(currentPreviewSrc)).blob();if(navigator.clipboard&&navigator.clipboard.write){await navigator.clipboard.write([new ClipboardItem({[blob.type]:blob})]);showToast('Imagen copiada','success');}else{showToast('Copia no soportada. Usa Guardar.','info');}}catch(e){showToast('No se pudo copiar','error');}}
+function downloadAttach(id){const m=state.messages.find(x=>x.id===id);if(!m||!m.attach){showToast('Sin adjunto','error');return;}const name=m.attach.name||('flaschat-'+Date.now());const ok=downloadDataUrl(m.attach.data,name);playSound(ok?'success':'error');showToast(ok?'Guardado en Descargas':'No se pudo guardar',ok?'success':'error');}
+function downloadSelectedAttach(){const id=state.contextTarget;closeContextMenu();if(id)downloadAttach(id);}
+
+function toggleSearch(){const bar=$('searchBar');const v=bar.classList.toggle('show');playSound('click');if(v)setTimeout(()=>$('searchInput').focus(),100);else{$('searchInput').value='';state.searchQuery='';renderMessages();}}
+function filterMessages(){state.searchQuery=$('searchInput').value.trim();renderMessages();}
+function scrollToBottom(){const box=$('chatBox');box.scrollTop=box.scrollHeight;$('scrollBottom').classList.remove('show');resetUnread();}
+function onChatScroll(){const box=$('chatBox');const atBottom=box.scrollHeight-box.scrollTop-box.clientHeight<80;$('scrollBottom').classList.toggle('show',!atBottom);if(atBottom)resetUnread();}
+function openAdvancedSearch(){const html='<h4>Filtros de búsqueda</h4><label>De (correo)</label><input id="advFrom" type="text" placeholder="usuario@nauta.cu"/><label>Desde fecha</label><input id="advFromDate" type="date"/><label>Hasta fecha</label><input id="advToDate" type="date"/><label>Solo con reacciones</label><select id="advReactions"><option value="">Todos</option><option value="yes">Con reacciones</option><option value="no">Sin reacciones</option></select><label>Solo editados</label><select id="advEdited"><option value="">Todos</option><option value="yes">Editados</option><option value="no">No editados</option></select><div class="modal-actions"><button class="btn btn-secondary" onclick="closeLegal()">Cerrar</button><button class="btn btn-primary" onclick="applyAdvancedSearch()">Buscar</button></div>';openLegal('Búsqueda avanzada','sliders',html);}
+function applyAdvancedSearch(){const from=$('advFrom').value.trim().toLowerCase();const fromDate=$('advFromDate').value;const toDate=$('advToDate').value;const rx=$('advReactions').value;const ed=$('advEdited').value;closeLegal();const filtered=state.messages.filter(m=>{if(from&&!((m.sender||'').toLowerCase().includes(from)))return false;if(fromDate&&new Date(m.date)<new Date(fromDate))return false;if(toDate&&new Date(m.date)>new Date(toDate+'T23:59:59'))return false;if(rx==='yes'&&(!m.reactions||!Object.keys(m.reactions).length))return false;if(rx==='no'&&m.reactions&&Object.keys(m.reactions).length)return false;if(ed==='yes'&&!m.edited)return false;if(ed==='no'&&m.edited)return false;return true;});showToast(filtered.length+' resultado(s)','success');}
+
+function openContextMenu(x,y,id){const m=$('contextMenu');state.contextTarget=id;const msg=state.messages.find(x=>x.id===id);const editBtn=$('ctxEditBtn');if(editBtn)editBtn.style.display=(msg&&msg.type==='out')?'flex':'none';const retryBtn=$('ctxRetryBtn');if(retryBtn)retryBtn.style.display=(msg&&msg.type==='out'&&msg.status==='error')?'flex':'none';m.style.left=Math.min(x,window.innerWidth-200)+'px';m.style.top=Math.min(y,window.innerHeight-340)+'px';m.classList.add('show');playSound('click');setTimeout(()=>document.addEventListener('click',closeContextMenu,{once:true}),50);}
+function closeContextMenu(){$('contextMenu').classList.remove('show');state.contextTarget=null;}
+function copySelectedMsg(){const m=state.messages.find(x=>x.id===state.contextTarget);if(m&&m.text){if(navigator.clipboard){navigator.clipboard.writeText(m.text).then(()=>{playSound('success');showToast('Copiado','success');},()=>showToast('No se pudo copiar','error'));}else{const ta=document.createElement('textarea');ta.value=m.text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');playSound('success');showToast('Copiado','success');}catch{}document.body.removeChild(ta);}}closeContextMenu();}
+function replySelectedMsg(){const m=state.messages.find(x=>x.id===state.contextTarget);if(m){startReply(m.id);}closeContextMenu();}
+function forwardSelectedMsg(){const m=state.messages.find(x=>x.id===state.contextTarget);if(m){$('msgInput').value=m.text||'';autoGrow($('msgInput'));$('msgInput').focus();playSound('click');showToast('Listo para reenviar','success');}closeContextMenu();}
+function editSelectedMsg(){const m=state.messages.find(x=>x.id===state.contextTarget);if(!m||m.type!=='out'){closeContextMenu();return;}state.editingId=m.id;$('msgInput').value=m.text||'';$('editPreview').textContent=m.text||'';$('editBar').classList.add('show');autoGrow($('msgInput'));$('msgInput').focus();playSound('click');closeContextMenu();}
+function cancelEdit(){state.editingId=null;$('editBar').classList.remove('show');$('msgInput').value='';autoGrow($('msgInput'));playSound('close');}
+
+function reactToSelectedMsg(){
+  const id=state.contextTarget;
+  const m=state.messages.find(x=>x.id===id);
+  if(!m){closeContextMenu();return;}
+  const targetEl=document.querySelector('.msg[data-id="'+m.id+'"]');
+  const picker=$('reactionPicker');
+  const quick=['👍','❤️','😂','😮','😢','🙏'];
+  picker.innerHTML='';
+  quick.forEach(e=>{
+    const btn=document.createElement('button');
+    btn.textContent=e;
+    btn.onclick=function(ev){ev.preventDefault();ev.stopPropagation();toggleReaction(m.id,e);};
+    picker.appendChild(btn);
+  });
+  if(targetEl){const rect=targetEl.getBoundingClientRect();picker.style.left=Math.max(10,Math.min(rect.left,window.innerWidth-320))+'px';picker.style.top=Math.max(10,rect.top-60)+'px';}
+  closeContextMenu();
+  setTimeout(()=>{picker.classList.add('show');playSound('select');},30);
+}
+
+function startMultiSelect(){state.multiSelectMode=true;if(state.contextTarget)state.selection.add(state.contextTarget);updateSelectionBar();renderMessages();playSound('select');closeContextMenu();}
+function toggleSelection(id){if(state.selection.has(id))state.selection.delete(id);else state.selection.add(id);playSound('select');updateSelectionBar();renderMessages();}
+function updateSelectionBar(){const bar=$('selectionBar');const n=state.selection.size;$('selectionCount').textContent=n+' seleccionado'+(n===1?'':'s');bar.classList.toggle('show',state.multiSelectMode);}
+function cancelSelection(){state.selection.clear();state.multiSelectMode=false;updateSelectionBar();renderMessages();playSound('close');}
+function deleteSelected(){if(!state.selection.size)return;if(!confirm('¿Borrar '+state.selection.size+' mensaje(s)?'))return;state.messages=state.messages.filter(m=>!state.selection.has(m.id));cancelSelection();saveToStorage();playSound('trash');showToast('Mensajes borrados','success');}
+function retrySelectedMsg(){if(state.contextTarget)retryMessage(state.contextTarget);closeContextMenu();}
+function deleteSelectedMsg(){const id=state.contextTarget;if(id&&confirm('¿Eliminar este mensaje?')){state.messages=state.messages.filter(m=>m.id!==id);renderMessages();saveToStorage();playSound('trash');showToast('Mensaje eliminado','success');}closeContextMenu();}
+
+const EMOJI_CATEGORIES={
+  '😀':['😀','😃','😄','😁','😆','😅','🤣','😂','🙂','🙃','😉','😊','😇','🥰','😍','🤩','😘','😗','😚','😙','🥲','😋','😛','😜','🤪','😝','🤗','🤔','🤨','😐','😑','😶','😏','😒','🙄','😬','🤥','😌','😔','😪','🤤','😴','😷','🤒','🤕','🤢','🤮','🥵','🥶','🥴','😵','🤯','🤠','🥳','😎','🤓','🧐','😕','😟','🙁','☹️','😮','😯','😲','😳','🥺','😦','😧','😨','😰','😥','😢','😭','😱','😖','😣','😞','😓','😩','😫','🥱','😤','😡','😠','🤬','😈','👿','💀','☠️','💩','🤡','👹','👺','👻','👽','👾','🤖'],
+  '👍':['👍','👎','👌','🤌','🤏','✌️','🤞','🤟','🤘','🤙','👈','👉','👆','🖕','👇','☝️','👏','🙌','👐','🤲','🤝','🙏','💪','🦾','🦵','🦶','👂','🦻','👃','🧠','🫀','🫁','🦷','🦴','👀','👁️','👅','👄'],
+  '❤️':['❤️','🧡','💛','💚','💙','💜','🖤','🤍','🤎','💔','❣️','💕','💞','💓','💗','💖','💘','💝','💟','♥️','💌','💋','🔥','⭐','🌟','✨','💫','⚡','💥','💯','🎉','🎊','🎈','🎁','🏆','🥇','🥈','🥉','🎯','🎮','🎨','🎭','🎬','🎤','🎧','🎵','🎶'],
+  '🍔':['🍏','🍎','🍐','🍊','🍋','🍌','🍉','🍇','🍓','🫐','🍈','🍒','🍑','🥭','🍍','🥥','🥝','🍅','🍆','🥑','🥦','🥬','🥒','🌶️','🌽','🥕','🧄','🧅','🥔','🍠','🥐','🥯','🍞','🥖','🥨','🧀','🥚','🍳','🥞','🧇','🥓','🍔','🍟','🍕','🌭','🥪','🌮','🌯','🥙','🧆','🥘','🍝','🍜','🍲','🍛','🍣','🍱','🥟','🍤','🍙','🍚','🍘','🍥','🥠','🍢','🍡','🍧','🍨','🍦','🥧','🧁','🍰','🎂','🍮','🍭','🍬','🍫','🍿','🍩','🍪','☕','🍵','🧃','🥤','🍺','🍻','🥂','🍷','🥃','🍸','🍹','🧉','🍾'],
+  '⚽':['⚽','🏀','🏈','⚾','🥎','🎾','🏐','🏉','🥏','🎱','🪀','🏓','🏸','🏒','🏑','🥍','🏏','🥅','⛳','🪁','🏹','🎣','🤿','🥊','🥋','🎽','🛹','🛼','🛷','⛸️','🥌','🎿','⛷️','🏂','🪂','🏋️','🤼','🤸','⛹️','🤺','🤾','🏌️','🏇','🧘','🏄','🏊','🤽','🚣','🧗','🚵','🚴','🏆','🥇','🥈','🥉','🏅','🎖️','🏵️','🎗️','🎫','🎟️','🎪'],
+  '🚗':['🚗','🚕','🚙','🚌','🚎','🏎️','🚓','🚑','🚒','🚐','🛻','🚚','🚛','🚜','🦯','🦽','🦼','🛴','🚲','🛵','🏍️','🛺','🚨','🚔','🚍','🚘','🚖','🚡','🚠','🚟','🚃','🚋','🚞','🚝','🚄','🚅','🚈','🚂','🚆','🚇','🚊','🚉','✈️','🛫','🛬','🛩️','💺','🛰️','🚀','🛸','🚁','🛶','⛵','🚤','🛥️','🛳️','⛴️','🚢','⚓','🪝','⛽','🚧','🚦','🚥','🚏','🗺️','🗿','🗽','🗼','🏰','🏯','🏟️','🎡','🎢','🎠'],
+  '💡':['💡','🔋','🔌','💻','🖥️','🖨️','⌨️','🖱️','🖲️','💽','💾','💿','📀','📱','📲','☎️','📞','📟','📠','📺','📻','🎙️','🎚️','🎛️','🧭','⏱️','⏲️','⏰','🕰️','⌛','⏳','📡','🔍','🔎','🔏','🔐','🔒','🔓'],
+  '🐶':['🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷','🐸','🐵','🙈','🙉','🙊','🐔','🐧','🐦','🐤','🦆','🦅','🦉','🦇','🐺','🐗','🐴','🦄','🐝','🐛','🦋','🐌','🐞','🐜','🦟','🦗','🕷️','🦂','🐢','🐍','🦎','🦖','🦕','🐙','🦑','🦐','🦞','🦀','🐡','🐠','🐟','🐬','🐳','🐋','🦈','🐊','🐅','🐆','🦓','🦍','🦧','🐘','🦛','🦏','🐪','🐫','🦒','🦘','🐃','🐂','🐄','🐎','🐖','🐏','🐑','🦙','🐐','🦌','🐕','🐩','🦮','🐈','🐓','🦃','🦚','🦜','🦢','🦩','🕊️','🐇','🦝','🦨','🦡','🦦','🦥','🐁','🐀','🐿️','🦔']
+};
+let currentEmojiCategory='😀';
+function initEmojiPicker(){const tabs=$('emojiTabs');tabs.innerHTML=Object.keys(EMOJI_CATEGORIES).map(cat=>'<button data-cat="'+cat+'" onclick="switchEmojiCat(\''+cat+'\')">'+cat+'</button>').join('');switchEmojiCat(currentEmojiCategory);}
+function switchEmojiCat(cat){currentEmojiCategory=cat;document.querySelectorAll('#emojiTabs button').forEach(b=>b.classList.toggle('active',b.dataset.cat===cat));const grid=$('emojiGrid');grid.innerHTML=(EMOJI_CATEGORIES[cat]||[]).map(e=>'<button onclick="insertEmoji(\''+e+'\')">'+e+'</button>').join('');}
+function insertEmoji(e){const input=$('msgInput');const start=input.selectionStart,end=input.selectionEnd;input.value=input.value.slice(0,start)+e+input.value.slice(end);input.selectionStart=input.selectionEnd=start+e.length;input.focus();autoGrow(input);playSound('click');}
+function toggleEmojiPicker(){const p=$('emojiPicker');p.classList.toggle('show');if(p.classList.contains('show'))setTimeout(()=>$('msgInput').blur(),50);playSound('click');}
+
+function openModal(){$('cfgUser').value=state.config.user||'';$('cfgInterval').value=state.config.syncInterval;$('demoSwitch').classList.toggle('on',state.config.demoMode);$('encryptionSwitch').classList.toggle('on',state.config.encryption);$('notifSwitch').classList.toggle('on',state.config.notifications);$('soundSwitch').classList.toggle('on',state.config.sound);$('vibrateSwitch').classList.toggle('on',state.config.vibration);$('pinSwitch').classList.toggle('on',!!state.config.pin);applyTheme();$('settingsModal').classList.add('open');playSound('open');}
+function closeModal(){$('settingsModal').classList.remove('open');playSound('close');}
+function saveConfig(){const user=$('cfgUser').value.trim();const interval=Math.max(15,parseInt($('cfgInterval').value,10)||60);if(user&&!isValidEmail(user)){playSound('error');showToast('Correo inválido','error');return;}state.config.user=user;state.config.syncInterval=interval;saveToStorage();updateUI();startAutoSync();closeModal();playSound('success');showToast('Ajustes guardados','success');}
+
+function openLegal(title,icon,html){$('legalTitle').innerHTML='<span data-icon="'+icon+'"></span> <span id="legalTitleText">'+escapeHtml(title)+'</span>';renderIcons($('legalTitle'));$('legalBody').innerHTML=html;$('legalModal').classList.add('open');playSound('open');document.querySelectorAll('#legalBody .email-link').forEach(el=>{el.onclick=(e)=>{e.preventDefault();openMailto(el.getAttribute('data-email')||el.textContent.trim());};});}
+function closeLegal(){$('legalModal').classList.remove('open');playSound('close');}
+
+function showPrivacy(){
+  const html='<div class="section-header"><span data-icon="shield" style="color:var(--accent-light);width:20px;height:20px;"></span><h5>POLÍTICA DE PRIVACIDAD</h5></div><p><span class="version-badge">Última actualización</span> Marzo '+APP_INFO.year+' · Versión '+APP_INFO.version+'</p><p style="font-size:0.82rem;color:var(--text-secondary);">Esta Política de Privacidad describe de forma transparente cómo FlasChat maneja tu información. Al usar la aplicación aceptas las prácticas aquí descritas. Nos tomamos muy en serio tu privacidad, por eso el diseño de la app está pensado para que tú tengas siempre el control de tus datos.</p><h4><span class="section-num">1</span>Información que recopilamos</h4><p>FlasChat <strong>no recopila, almacena ni transmite información personal a servidores externos</strong>. Toda la información permanece en tu dispositivo y bajo tu control:</p><ul><li><strong>Perfil de usuario:</strong> alias, correo de referencia, información/biografía, teléfono, género, horóscopo, fecha de nacimiento, provincia y foto de avatar. Todos estos campos son opcionales.</li><li><strong>Mensajes:</strong> enviados y recibidos a través del correo Nauta.</li><li><strong>Reacciones y ediciones:</strong> emojis que añades a los mensajes y las veces que editas los tuyos.</li><li><strong>Preferencias:</strong> tema, color de acento, fondo de chat, tamaño de fuente, sonidos, vibración.</li><li><strong>Contactos:</strong> favoritos y contactos guardados manualmente.</li><li><strong>Cuentas Nauta:</strong> únicamente los correos electrónicos (nunca contraseñas).</li><li><strong>Adjuntos:</strong> imágenes, audios y archivos que decidas enviar o recibir.</li></ul><h4><span class="section-num">2</span>Uso del correo Nauta</h4><p>FlasChat utiliza los servidores oficiales de Nauta (<code>smtp.nauta.cu</code> e <code>imap.nauta.cu</code>) como transporte para enviar y recibir mensajes. La comunicación con estos servidores sigue los términos y condiciones propios del servicio Nauta.</p><p><strong>La contraseña de Nauta nunca se almacena en el dispositivo.</strong> Debe configurarse en el servidor backend mediante variables de entorno o introducirse en cada sesión. El cliente (esta app) nunca ve ni transmite tu contraseña.</p><h4><span class="section-num">3</span>Permisos de la aplicación</h4><p>FlasChat puede solicitar los siguientes permisos, todos ellos opcionales y bajo tu control:</p><ul><li><strong>Internet:</strong> para enviar y recibir mensajes.</li><li><strong>Vibración:</strong> feedback háptico al enviar, recibir o reaccionar.</li><li><strong>Micrófono:</strong> para grabar notas de voz manteniendo pulsado el botón.</li><li><strong>Notificaciones:</strong> para avisarte de mensajes nuevos.</li><li><strong>Cámara:</strong> para tomar fotos y adjuntarlas al chat.</li><li><strong>Almacenamiento / Imágenes / Video:</strong> para adjuntar archivos y guardar imágenes.</li></ul><h4><span class="section-num">4</span>Notificaciones</h4><p>Las notificaciones son generadas localmente por el sistema operativo de tu teléfono. No se envían a través de servidores de terceros ni contienen información que salga de tu dispositivo.</p><h4><span class="section-num">5</span>Cifrado de extremo a extremo (E2E)</h4><p>FlasChat incluye una opción de <strong>cifrado E2E opcional</strong> usando AES-256-GCM. La clave se deriva localmente de tu correo mediante PBKDF2 con 100.000 iteraciones. El cifrado ocurre antes de enviar el mensaje por SMTP y se descifra al recibirlo por IMAP.</p><p>Si activas esta opción, <strong>ni los servidores de Nauta ni terceros podrán leer el contenido</strong>. Sin embargo, esta protección es solo tan fuerte como la clave derivada: si pierdes tu cuenta, podrías perder también el acceso al contenido cifrado.</p><h4><span class="section-num">6</span>Almacenamiento y eliminación</h4><p>Puedes eliminar todos tus datos en cualquier momento desde:</p><ul><li><strong>Ajustes → Borrar todo</strong> (borra los mensajes).</li><li><strong>Ajustes → Borrado selectivo</strong> (por rango de fechas).</li><li><strong>Ajustes → Limpiar caché</strong>.</li><li>Desinstalar la app elimina todo el almacenamiento local.</li></ul><h4><span class="section-num">7</span>Respaldo de datos</h4><p>FlasChat permite exportar un respaldo completo en formato JSON (mensajes, perfil, ajustes, contactos, cuentas). Este archivo se guarda en tu dispositivo y <strong>solo tú decides qué hacer con él</strong>. El respaldo <strong>no incluye tu PIN</strong> por seguridad.</p><h4><span class="section-num">8</span>Compartir información con terceros</h4><p>FlasChat <strong>no comparte información con terceros</strong>. No hay SDKs de análisis, publicidad, rastreo ni telemetría. La app no se conecta a ningún servidor que no sea el que tú mismo configures (backend o servidores Nauta).</p><h4><span class="section-num">9</span>Menores de edad</h4><p>FlasChat no está dirigido a menores de 13 años. Si eres menor, consulta con tus padres o tutores antes de usar la app. No recopilamos conscientemente información de menores.</p><h4><span class="section-num">10</span>Seguridad</h4><p>Implementamos medidas razonables para proteger tu información:</p><ul><li>Todo el almacenamiento es local (localStorage del WebView).</li><li>Cifrado E2E opcional con AES-256-GCM.</li><li>Bloqueo con PIN de 4 dígitos.</li><li>Sin transmisión de credenciales desde el cliente.</li></ul><p>Sin embargo, ningún sistema es 100% seguro. <strong>Usa FlasChat bajo tu propio riesgo</strong> y mantén tu teléfono protegido con bloqueo de pantalla.</p><h4><span class="section-num">11</span>Cambios en esta política</h4><p>Cualquier cambio en esta política se reflejará en la sección <strong>Historial de cambios</strong> de la app y se actualizará la fecha de "Última actualización". El uso continuado implica la aceptación de la política vigente.</p><h4><span class="section-num">12</span>Contacto</h4><p>Para consultas sobre privacidad, contacta con el desarrollador:</p><p><strong>'+APP_INFO.developer+'</strong><br>Correo: <a class="email-link" data-email="'+APP_INFO.email+'">'+APP_INFO.email+'</a></p><div class="copyright">© '+APP_INFO.year+' '+APP_INFO.developer+'. Todos los derechos reservados.</div>';
+  openLegal('Política de privacidad','shield',html);
+}
+
+function showTerms(){
+  const html='<div class="section-header"><span data-icon="file-text" style="color:var(--accent-light);width:20px;height:20px;"></span><h5>TÉRMINOS Y CONDICIONES</h5></div><p><span class="version-badge">Versión '+APP_INFO.version+'</span> Marzo '+APP_INFO.year+'</p><p style="font-size:0.82rem;color:var(--text-secondary);">Estos Términos y Condiciones rigen el uso de FlasChat. Al descargar, instalar o usar la aplicación, aceptas estos términos en su totalidad. Si no estás de acuerdo, por favor desinstala la aplicación.</p><h4><span class="section-num">1</span>Aceptación de los términos</h4><p>Al descargar, instalar o usar FlasChat aceptas estos Términos y Condiciones. Si no estás de acuerdo con alguno de ellos, por favor desinstala la aplicación y deja de usarla.</p><h4><span class="section-num">2</span>Licencia de uso</h4><p>FlasChat se distribuye como <strong>software propietario</strong>. Se concede al usuario una licencia personal, no exclusiva y no transferible para usar la aplicación en sus dispositivos personales.</p><p><strong>No está permitido:</strong></p><ul><li>Modificar, descompilar o realizar ingeniería inversa del código.</li><li>Redistribuir, vender, sublicenciar o ceder la aplicación.</li><li>Eliminar los avisos de copyright, autoría o licencia.</li><li>Usar la app para fines ilegales o no autorizados.</li><li>Crear trabajos derivados sin autorización expresa.</li><li>Reclamar la autoría del código o del diseño.</li></ul><h4><span class="section-num">3</span>Uso del servicio Nauta</h4><p>FlasChat <strong>no es un servicio oficial de ETECSA ni de Nauta</strong>. Es una aplicación independiente que aprovecha el correo Nauta como transporte. El uso que hagas del correo Nauta está sujeto a las políticas propias de ETECSA.</p><p>El desarrollador no se hace responsable de posibles violaciones de los términos de ETECSA por parte del usuario.</p><h4><span class="section-num">4</span>Responsabilidad del usuario</h4><p>Eres el único responsable de:</p><ul><li>Mantener la confidencialidad de tu contraseña Nauta.</li><li>El contenido de los mensajes que envíes o recibas.</li><li>El cumplimiento de las leyes aplicables en tu jurisdicción.</li><li>El consumo de datos móviles o WiFi que genere la app.</li><li>El uso que hagas de los adjuntos (imágenes, audios, archivos).</li><li>La veracidad de la información que compartes.</li></ul><h4><span class="section-num">5</span>Limitación de responsabilidad</h4><p>FlasChat se proporciona <strong>"tal cual"</strong>, sin garantías de ningún tipo, expresas o implícitas. El desarrollador no se hace responsable de:</p><ul><li>Pérdida de mensajes o datos.</li><li>Interrupciones, fallos o caídas del servicio Nauta.</li><li>Daños indirectos, incidentales o consecuentes derivados del uso de la app.</li><li>Fallos de seguridad ajenos al código de la aplicación.</li><li>Errores causados por el sistema operativo, el WebView o el dispositivo.</li><li>Uso indebido por parte de terceros que accedan a tu dispositivo.</li></ul><h4><span class="section-num">6</span>Cifrado y seguridad</h4><p>FlasChat ofrece cifrado E2E opcional y bloqueo por PIN, pero <strong>no garantiza seguridad absoluta</strong>. La clave de cifrado se deriva localmente y no se comparte con nadie. Sin embargo:</p><ul><li>Si pierdes tu cuenta Nauta, podrías perder acceso a contenido cifrado.</li><li>Un atacante con acceso físico a tu teléfono desbloqueado podría leer tus mensajes.</li><li>Los metadatos (remitente, destinatario, fecha) no se cifran.</li></ul><h4><span class="section-num">7</span>Actualizaciones</h4><p>El desarrollador puede publicar actualizaciones para corregir errores, mejorar el rendimiento o añadir funciones. No está obligado a mantener compatibilidad con versiones antiguas ni a notificar cada cambio individualmente.</p><h4><span class="section-num">8</span>Propiedad intelectual</h4><p>El nombre <strong>FlasChat</strong>, su logotipo, código fuente, diseño, iconografía y documentación son propiedad exclusiva de <strong>'+APP_INFO.developer+'</strong>. Todos los derechos reservados '+APP_INFO.year+'.</p><p>Las marcas <strong>WhatsApp</strong>, <strong>Telegram</strong>, <strong>Delta Chat</strong>, <strong>Nauta</strong>, <strong>ETECSA</strong> y cualquier otra mencionada pertenecen a sus respectivos dueños. FlasChat no está afiliado, patrocinado ni respaldado por ninguna de ellas.</p><h4><span class="section-num">9</span>Terminación</h4><p>El desarrollador se reserva el derecho de suspender, modificar o cancelar el acceso a FlasChat en cualquier momento, especialmente en caso de uso indebido, violación de estos términos o intento de vulnerar la seguridad de la app.</p><h4><span class="section-num">10</span>Modificaciones a los términos</h4><p>Estos términos pueden ser modificados en cualquier momento. Los cambios se reflejarán en la sección <strong>Historial de cambios</strong> de la app. El uso continuado después de un cambio implica la aceptación de los nuevos términos.</p><h4><span class="section-num">11</span>Legislación aplicable</h4><p>Estos términos se rigen por las leyes vigentes en la <strong>República de Cuba</strong>. Cualquier disputa legal relacionada con FlasChat se resolverá bajo dicha jurisdicción.</p><h4><span class="section-num">12</span>Contacto</h4><p>Para cualquier consulta legal, comercial o técnica, contacta con el desarrollador:</p><p><strong>'+APP_INFO.developer+'</strong><br>Correo: <a class="email-link" data-email="'+APP_INFO.email+'">'+APP_INFO.email+'</a></p><div class="copyright">© '+APP_INFO.year+' '+APP_INFO.developer+'. Todos los derechos reservados.</div>';
+  openLegal('Términos y condiciones','file-text',html);
+}
+
+function showAbout(){
+  const html='<div class="about-card"><svg class="about-logo" viewBox="0 0 200 200"><defs><linearGradient id="flachatAbout" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4FB3F5"/><stop offset="100%" stop-color="#2196F3"/></linearGradient></defs><path d="M70 45 C 60 42, 55 50, 58 62 L 68 92 C 71 100, 68 105, 62 118 L 55 138 C 52 148, 58 156, 72 154 C 90 152, 120 140, 148 122 C 165 112, 172 102, 168 92 C 165 84, 155 78, 140 72 C 118 63, 90 50, 70 45 Z" fill="url(#flachatAbout)"/></svg><h2>FlasChat</h2><p>Versión '+APP_INFO.version+' · Build '+APP_INFO.build+'</p></div><div class="section-header"><span data-icon="info" style="color:var(--accent-light);width:20px;height:20px;"></span><h5>INFORMACIÓN DE LA APLICACIÓN</h5></div><div class="about-meta"><div class="row"><span data-icon="info"></span><div class="txt"><strong>¿Qué es FlasChat?</strong><small>Mensajería instantánea sobre correo Nauta (SMTP/IMAP).</small></div></div><div class="row"><span data-icon="shield"></span><div class="txt"><strong>Privacidad</strong><small>Los mensajes se guardan solo en tu dispositivo.</small></div></div><div class="row"><span data-icon="lock"></span><div class="txt"><strong>Cifrado E2E</strong><small>AES-256-GCM opcional.</small></div></div><div class="row"><span data-icon="send"></span><div class="txt"><strong>Transporte</strong><small>Envía por <code>smtp.nauta.cu</code> y recibe por <code>imap.nauta.cu</code>.</small></div></div><div class="row"><span data-icon="code"></span><div class="txt"><strong>Desarrollador</strong><small>'+APP_INFO.developer+'</small></div></div><div class="row"><span data-icon="award"></span><div class="txt"><strong>Licencia</strong><small>Propietario. Todos los derechos reservados '+APP_INFO.year+'.</small></div></div><div class="row"><span data-icon="heart"></span><div class="txt"><strong>Hecho en Cuba</strong><small>Con cariño para la comunidad cubana.</small></div></div><div class="row"><span data-icon="send"></span><div class="txt"><strong>Contacto</strong><small><a class="email-link" data-email="'+APP_INFO.email+'">'+APP_INFO.email+'</a></small></div></div></div><div class="section-header"><span data-icon="award" style="color:var(--accent-light);width:20px;height:20px;"></span><h5>CARACTERÍSTICAS PRINCIPALES</h5></div><ul style="font-size:0.82rem;line-height:1.6;margin-left:20px;"><li>Envío y recepción por correo Nauta (SMTP/IMAP).</li><li>Reacciones con emojis y edición de mensajes.</li><li>Adjuntar imágenes, audio, video y archivos.</li><li>Cámara integrada para tomar fotos.</li><li>Cifrado E2E opcional (AES-256-GCM).</li><li>Perfil completo con avatar, alias y datos.</li><li>Contactos y cuentas múltiples.</li><li>12 fondos predeterminados + fondo desde galería.</li><li>15 colores de acento.</li><li>12 sonidos configurables.</li><li>Palomitas de leído (✓✓) estilo Delta Chat.</li><li>Globo de notificaciones de mensajes no leídos.</li><li>Responder mensajes deslizando el dedo.</li><li>Bloqueo con PIN.</li><li>Respaldo y restauración en JSON.</li><li>Estadísticas y búsqueda avanzada.</li><li>Descripciones al tocar cada opción de ajustes.</li></ul><div class="copyright">© '+APP_INFO.year+' <span class="dev-name">'+APP_INFO.developer+'</span><br>Todos los derechos reservados.</div>';
+  openLegal('Acerca de FlasChat','info',html);
+}
+
+function showChangelog(){
+  const html='<div class="section-header"><span data-icon="list" style="color:var(--accent-light);width:20px;height:20px;"></span><h5>HISTORIAL DE CAMBIOS</h5></div><p style="font-size:0.82rem;color:var(--text-secondary);">Todas las versiones de FlasChat desde su inicio, organizadas por versiones consolidadas.</p>'+
+    '<p><span class="version-badge beta">v1.4.0 BETA</span> Marzo '+APP_INFO.year+' — <strong>Actual</strong></p>'+
+    '<ul>'+
+      '<li><strong>Globo de notificaciones corregido</strong>: ahora se muestra correctamente el contador de mensajes no leídos.</li>'+
+      '<li><strong>Responder deslizando</strong>: desliza un mensaje hacia la derecha o izquierda para responderlo (estilo WhatsApp/Telegram).</li>'+
+      '<li><strong>Editar cuentas guardadas</strong>: añadido botón de lápiz para editar cuentas, además del botón de eliminar.</li>'+
+      '<li><strong>Barra de escritura persistente</strong>: el teclado permanece abierto tras enviar un mensaje para seguir escribiendo sin tener que pulsar de nuevo el campo.</li>'+
+    '</ul>'+
+    '<p><span class="version-badge beta">v1.3.0 BETA</span> Marzo '+APP_INFO.year+'</p>'+
+    '<ul>'+
+      '<li><strong>Globo de notificaciones</strong> estilo WhatsApp/Telegram.</li>'+
+      '<li><strong>Indicador descriptivo</strong> al tocar cada opción de Ajustes.</li>'+
+      '<li><strong>6 fondos nuevos</strong> de chat: Ocean, Forest, Cherry, Galaxy, Candy y Midnight (12 en total + personalizado).</li>'+
+      '<li><strong>5 colores de acento claros nuevos</strong>: Coral, Turquoise, Rose, Lime e Indigo (15 en total).</li>'+
+      '<li>Etiqueta BETA visible junto al nombre de la app.</li>'+
+    '</ul>'+
+    '<p><span class="version-badge">v1.2.0</span> Marzo '+APP_INFO.year+' (consolida v7.0 → v8.5)</p>'+
+    '<ul>'+
+      '<li><strong>v7.0</strong> — Respaldo completo (exportar/importar JSON), adjuntar audio/video/archivos, cifrado E2E opcional (AES-256-GCM), lista de contactos y cuentas múltiples, 3 estilos de burbuja, tema automático, estadísticas, búsqueda avanzada, borrado selectivo.</li>'+
+      '<li><strong>v7.1</strong> — Política de privacidad ampliada (12 secciones) y términos y condiciones ampliados (12 secciones).</li>'+
+      '<li><strong>v7.2</strong> — Arreglado el botón de adjuntar archivos en WebView/APK.</li>'+
+      '<li><strong>v8.0</strong> — Perfil completo, 5 colores claros nuevos, switch de notificaciones funcional, ver imagen con guardar/copiar, guardar adjuntos, cámara integrada, micrófono estilo WhatsApp, barra estilo Telegram, 6 fondos predeterminados, palomitas ✓✓ con color azul al leer, tooltips, más emojis.</li>'+
+      '<li><strong>v8.1</strong> — 12 sonidos restaurados, panel de sonidos con 12 botones de prueba, reaction picker con 6 emojis, editar mensajes visible, correo clickeable en azul.</li>'+
+      '<li><strong>v8.2</strong> — Bug del picker de reacciones arreglado.</li>'+
+      '<li><strong>v8.3</strong> — Contenido legal ampliado al máximo, lista de características principales en Acerca de.</li>'+
+      '<li><strong>v8.4</strong> — Backend Node.js integrado con detección automática.</li>'+
+      '<li><strong>v8.5</strong> — Restaurado todo el contenido legal ampliado de la v8.3, preparado para backend Node.js.</li>'+
+    '</ul>'+
+    '<p><span class="version-badge">v1.1.0</span> Marzo '+APP_INFO.year+' (consolida v4.0 → v6.0)</p>'+
+    '<ul>'+
+      '<li><strong>v4.0</strong> — Notificaciones locales, vibración configurable, 12 sonidos, adjuntar imágenes, dictado por voz, multi-selección de mensajes, favoritos, bloqueo con PIN, 5 colores de acento, 4 tamaños de fuente, separadores de fecha, avatares con inicial.</li>'+
+      '<li><strong>v5.0</strong> — Modal legal reutilizable, 12 sonidos configurables con botones de prueba, secciones Acerca de, Privacidad, Términos, Changelog y Desarrollador, autoría y copyright visibles.</li>'+
+      '<li><strong>v6.0</strong> — Reacciones con emojis, panel de emojis con 7 categorías, edición de mensajes propios, burbujas estilo WhatsApp/Telegram con colas, indicadores "Conectando FlasChat" y "Actualizando FlasChat", nuevo logo FlasChat, corrección del nombre a FlasChat.</li>'+
+    '</ul>'+
+    '<p><span class="version-badge">v1.0.0</span> Diciembre 2025 → Marzo '+APP_INFO.year+' (consolida v1.0 → v3.1)</p>'+
+    '<ul>'+
+      '<li><strong>v1.0</strong> — Versión inicial de FlasChat: envío y recepción por correo Nauta, chat básico con burbujas.</li>'+
+      '<li><strong>v2.0</strong> — Estados de mensaje (⏳ enviando · ✓ enviado · ⚠️ error), reintento automático, backend + frontend en archivo único, chequeo de salud cada 30 s, banner de reconexión.</li>'+
+      '<li><strong>v3.0</strong> — Búsqueda de mensajes, tema claro/oscuro con persistencia, context menu (long press), botón de scroll al final, PWA manifest embebido.</li>'+
+      '<li><strong>v3.1</strong> — Iconos Lucide 100% offline (SVG inline), sin dependencias de CDN, funciona incluso sin Internet la primera vez.</li>'+
+    '</ul>'+
+    '<div class="copyright">© '+APP_INFO.year+' '+APP_INFO.developer+'. Todos los derechos reservados.</div>';
+  openLegal('Historial de cambios','list',html);
+}
+
+function showDeveloper(){
+  const html='<div class="about-card"><svg class="about-logo" viewBox="0 0 200 200"><defs><linearGradient id="flachatDev" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4FB3F5"/><stop offset="100%" stop-color="#2196F3"/></linearGradient></defs><path d="M70 45 C 60 42, 55 50, 58 62 L 68 92 C 71 100, 68 105, 62 118 L 55 138 C 52 148, 58 156, 72 154 C 90 152, 120 140, 148 122 C 165 112, 172 102, 168 92 C 165 84, 155 78, 140 72 C 118 63, 90 50, 70 45 Z" fill="url(#flachatDev)"/></svg><h2>'+APP_INFO.developer+'</h2><p>Desarrollador de FlasChat</p></div><div class="section-header"><span data-icon="code" style="color:var(--accent-light);width:20px;height:20px;"></span><h5>SOBRE EL DESARROLLADOR</h5></div><div class="about-meta"><div class="row"><span data-icon="code"></span><div class="txt"><strong>Proyecto</strong><small>FlasChat · Nauta Messenger</small></div></div><div class="row"><span data-icon="award"></span><div class="txt"><strong>Versión actual</strong><small>'+APP_INFO.version+' · Build '+APP_INFO.build+'</small></div></div><div class="row"><span data-icon="heart"></span><div class="txt"><strong>Hecho en Cuba</strong><small>Con cariño para la comunidad cubana.</small></div></div><div class="row"><span data-icon="shield"></span><div class="txt"><strong>Compromiso</strong><small>Privacidad primero: tus mensajes son tuyos.</small></div></div><div class="row"><span data-icon="send"></span><div class="txt"><strong>Contacto</strong><small><a class="email-link" data-email="'+APP_INFO.email+'">'+APP_INFO.email+'</a></small></div></div><div class="row"><span data-icon="user"></span><div class="txt"><strong>Usuario GitHub</strong><small>maniabon76-gif</small></div></div></div><div class="section-header"><span data-icon="info" style="color:var(--accent-light);width:20px;height:20px;"></span><h5>SOBRE EL PROYECTO</h5></div><p style="font-size:0.82rem;line-height:1.6;">FlasChat nació como una solución práctica para los cubanos que usan el correo Nauta a diario. La idea es simple: aprovechar la infraestructura del correo electrónico para crear un chat ligero, sin depender de servidores externos ni consumir datos innecesarios.</p><p style="font-size:0.82rem;line-height:1.6;">La aplicación evolucionó desde un simple chat con burbujas hasta convertirse en una herramienta completa con cifrado de extremo a extremo, reacciones, adjuntos multimedia, perfiles de usuario, fondos personalizables y un sistema de respaldo que respeta la privacidad del usuario.</p><div class="section-header"><span data-icon="award" style="color:var(--accent-light);width:20px;height:20px;"></span><h5>AGRADECIMIENTOS</h5></div><p style="font-size:0.82rem;line-height:1.6;">Gracias a la comunidad cubana de desarrolladores, a los usuarios que reportan errores y sugieren mejoras, y a todos aquellos que confían en FlasChat para comunicarse con sus seres queridos.</p><div class="section-header"><span data-icon="shield" style="color:var(--accent-light);width:20px;height:20px;"></span><h5>DERECHOS RESERVADOS</h5></div><p style="font-size:0.82rem;line-height:1.6;">Queda prohibida la reproducción total o parcial del código fuente, diseño, iconografía o cualquier componente de FlasChat sin autorización expresa y por escrito del autor.</p><div class="copyright">© '+APP_INFO.year+' <span class="dev-name">'+APP_INFO.developer+'</span><br>Todos los derechos reservados.<br><br>Contacto: <a class="email-link" data-email="'+APP_INFO.email+'">'+APP_INFO.email+'</a></div>';
+  openLegal('Desarrollado por','code',html);
+}
+
+function openContacts(){showSettingInfo('accounts');renderContacts();$('contactsModal').classList.add('open');playSound('open');}
+function closeContacts(){$('contactsModal').classList.remove('open');playSound('close');}
+function renderContacts(){const box=$('contactsList');if(!state.contacts.length){box.innerHTML='<div class="empty-state" style="padding:20px;"><p>Sin contactos guardados.</p></div>';return;}box.innerHTML=state.contacts.map((c,i)=>'<div class="contact-item"><div class="c-avatar" style="background:'+avatarColor(c.email)+'">'+escapeHtml(initialOf(c.name||c.email))+'</div><div class="c-info" onclick="useContact('+i+')"><div class="c-name">'+escapeHtml(c.name||c.email)+'</div><div class="c-email">'+escapeHtml(c.email)+'</div></div><div class="c-actions"><button onclick="editContact('+i+')" title="Editar">'+ic('pencil',16)+'</button><button onclick="deleteContact('+i+')" title="Eliminar">'+ic('trash-2',16)+'</button></div></div>').join('');}
+function addContact(){const name=prompt('Nombre del contacto:');if(name===null)return;const email=prompt('Correo Nauta:');if(!email||!isValidEmail(email)){showToast('Correo inválido','error');return;}state.contacts.push({name:name||email,email});saveToStorage();renderContacts();playSound('success');showToast('Contacto añadido','success');}
+function editContact(i){const c=state.contacts[i];if(!c)return;const name=prompt('Nombre:',c.name);if(name===null)return;const email=prompt('Correo:',c.email);if(!email||!isValidEmail(email)){showToast('Correo inválido','error');return;}c.name=name||email;c.email=email;saveToStorage();renderContacts();playSound('success');}
+function deleteContact(i){if(!confirm('¿Eliminar contacto?'))return;state.contacts.splice(i,1);saveToStorage();renderContacts();playSound('trash');showToast('Contacto eliminado','success');}
+function useContact(i){const c=state.contacts[i];if(!c)return;$('destEmail').value=c.email;updateFavoriteStar();closeContacts();showToast('Contacto cargado','success');}
+
+function openAccounts(){showSettingInfo('accounts');renderAccounts();$('accountsModal').classList.add('open');playSound('open');}
+function closeAccounts(){$('accountsModal').classList.remove('open');playSound('close');}
+function renderAccounts(){const box=$('accountsList');if(!state.accounts.length){box.innerHTML='<div class="empty-state" style="padding:20px;"><p>Sin cuentas guardadas.</p></div>';return;}box.innerHTML=state.accounts.map((a,i)=>'<div class="contact-item"><div class="c-avatar" style="background:'+avatarColor(a.email)+'">'+escapeHtml(initialOf(a.email))+'</div><div class="c-info" onclick="useAccount('+i+')"><div class="c-name">'+escapeHtml(a.name||a.email)+'</div><div class="c-email">'+escapeHtml(a.email)+'</div></div><div class="c-actions"><button onclick="editAccount('+i+')" title="Editar">'+ic('pencil',16)+'</button><button onclick="deleteAccount('+i+')" title="Eliminar">'+ic('trash-2',16)+'</button></div></div>').join('');}
+function addAccount(){const email=prompt('Correo de la cuenta Nauta:');if(!email||!isValidEmail(email)){showToast('Correo inválido','error');return;}const name=prompt('Nombre (opcional):')||email;state.accounts.push({name,email});saveToStorage();renderAccounts();playSound('success');showToast('Cuenta añadida','success');}
+function editAccount(i){const a=state.accounts[i];if(!a)return;const name=prompt('Nombre:',a.name);if(name===null)return;const email=prompt('Correo:',a.email);if(!email||!isValidEmail(email)){showToast('Correo inválido','error');return;}a.name=name||email;a.email=email;saveToStorage();renderAccounts();playSound('success');showToast('Cuenta actualizada','success');}
+function deleteAccount(i){if(!confirm('¿Eliminar cuenta?'))return;state.accounts.splice(i,1);saveToStorage();renderAccounts();playSound('trash');}
+function useAccount(i){const a=state.accounts[i];if(!a)return;state.config.user=a.email;$('cfgUser').value=a.email;saveToStorage();updateUI();closeAccounts();showToast('Cuenta cambiada a '+a.email,'success');}
+
+function openStats(){showSettingInfo('stats');const total=state.messages.length;const sent=state.messages.filter(m=>m.type==='out').length;const received=state.messages.filter(m=>m.type==='in').length;const edited=state.messages.filter(m=>m.edited).length;const withRx=state.messages.filter(m=>m.reactions&&Object.keys(m.reactions).length).length;const minutes=Math.floor((Date.now()-state.sessionStart)/60000);const html='<div class="stats-grid"><div class="stat-card"><div class="stat-val">'+total+'</div><div class="stat-lbl">Mensajes totales</div></div><div class="stat-card"><div class="stat-val">'+sent+'</div><div class="stat-lbl">Enviados</div></div><div class="stat-card"><div class="stat-val">'+received+'</div><div class="stat-lbl">Recibidos</div></div><div class="stat-card"><div class="stat-val">'+edited+'</div><div class="stat-lbl">Editados</div></div><div class="stat-card"><div class="stat-val">'+withRx+'</div><div class="stat-lbl">Con reacciones</div></div><div class="stat-card"><div class="stat-val">'+minutes+' min</div><div class="stat-lbl">Tiempo en app</div></div></div><div class="copyright">© '+APP_INFO.year+' '+APP_INFO.developer+'. Todos los derechos reservados.</div>';openLegal('Estadísticas','bar-chart',html);}
+
+function openBulkDelete(){showSettingInfo('bulk');const html='<p style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:12px;">Elige un rango de fechas para eliminar mensajes.</p><label>Desde</label><input id="delFrom" type="date"/><label>Hasta</label><input id="delTo" type="date"/><div class="modal-actions"><button class="btn btn-secondary" onclick="closeLegal()">Cancelar</button><button class="btn btn-danger" onclick="applyBulkDelete()">Borrar</button></div>';openLegal('Borrado selectivo','trash-2',html);}
+function applyBulkDelete(){const from=$('delFrom').value;const to=$('delTo').value;if(!from&&!to){showToast('Elige una fecha','error');return;}const before=state.messages.length;state.messages=state.messages.filter(m=>{const d=new Date(m.date);if(from&&d<new Date(from))return true;if(to&&d>new Date(to+'T23:59:59'))return true;return false;});const removed=before-state.messages.length;saveToStorage();closeLegal();renderMessages();playSound('trash');showToast(removed+' mensaje(s) borrado(s)','success');}
+
+function exportBackup(){showSettingInfo('backup');const data={version:APP_INFO.version,exportedAt:new Date().toISOString(),developer:APP_INFO.developer,config:{...state.config,pin:''},profile:state.profile,messages:state.messages,favorites:state.favorites,contacts:state.contacts,accounts:state.accounts};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='flaschat-backup-'+Date.now()+'.json';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);playSound('success');showToast('Respaldo exportado','success');}
+function importBackup(){showSettingInfo('restore');$('backupInput').click();playSound('click');}
+function handleBackupImport(e){const file=e.target.files&&e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=(ev)=>{try{const data=JSON.parse(ev.target.result);if(!data.messages||!Array.isArray(data.messages))throw new Error('Formato inválido');if(!confirm('Esto reemplazará tu chat actual. ¿Continuar?'))return;state.messages=data.messages||[];state.favorites=data.favorites||[];state.contacts=data.contacts||[];state.accounts=data.accounts||[];if(data.config)Object.assign(state.config,data.config);if(data.profile)Object.assign(state.profile,data.profile);saveToStorage();applyTheme();renderMessages();updateUI();playSound('success');showToast('Respaldo importado','success');}catch(err){playSound('error');showToast('Error al importar: '+err.message,'error');}};reader.readAsText(file);e.target.value='';}
+
+function exportChat(){showSettingInfo('exportchat');if(!state.messages.length){playSound('error');showToast('No hay mensajes','error');return;}const lines=state.messages.map(m=>{const d=m.type==='out'?'→':'←';let line='['+(m.date||'')+'] '+d+' '+(m.sender||'')+': '+(m.text||'');if(m.edited)line+=' (editado)';if(m.reactions&&Object.keys(m.reactions).length){const rx=Object.entries(m.reactions).map(([e,u])=>e+u.length).join(' ');line+=' ['+rx+']';}if(m.attach)line+=' [adjunto: '+(m.attach.name||'archivo')+']';return line;});const header='FlasChat v'+APP_INFO.version+'\n© '+APP_INFO.year+' '+APP_INFO.developer+'\nContacto: '+APP_INFO.email+'\nExportado: '+new Date().toLocaleString()+'\n==================================================\n\n';const blob=new Blob([header+lines.join('\n')],{type:'text/plain'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='flaschat-'+Date.now()+'.txt';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);playSound('success');showToast('Chat exportado','success');}
+function clearChat(){showSettingInfo('clearchat');if(!confirm('¿Borrar todos los mensajes?'))return;state.messages=[];renderMessages();saveToStorage();playSound('trash');showToast('Chat borrado','success');}
+function clearCache(){showSettingInfo('clearcache');if(!confirm('¿Limpiar caché?'))return;if(window.caches){caches.keys().then(keys=>Promise.all(keys.map(k=>caches.delete(k)))).then(()=>{playSound('success');showToast('Caché limpiada','success');});}else{playSound('success');showToast('Caché limpiada','success');}}
+
+function onInputChange(el){autoGrow(el);}
+
+const QUICK_REPLIES=['Hola 👋','Ok','Gracias','Nos vemos','Estoy ocupado','¿Puedes hablar?'];
+function initQuickReplies(){const box=$('quickReplies');QUICK_REPLIES.forEach(t=>{const b=document.createElement('button');b.type='button';b.textContent=t;b.onclick=()=>{$('msgInput').value=t;$('msgInput').focus();autoGrow($('msgInput'));playSound('click');};box.appendChild(b);});}
+
+function showPinLock(){if(!state.config.pin)return;$('pinOverlay').classList.add('show');state.pinBuffer='';updatePinDots();playSound('lock');}
+function hidePinLock(){$('pinOverlay').classList.remove('show');state.pinBuffer='';updatePinDots();}
+function pinPress(d){if(state.pinBuffer.length>=4)return;state.pinBuffer+=d;updatePinDots();vibrate(15);playSound('click');if(state.pinBuffer.length===4){setTimeout(()=>{if(state.pinBuffer===state.config.pin){hidePinLock();playSound('success');}else{$('pinError').textContent='PIN incorrecto';vibrate(120);playSound('error');state.pinBuffer='';updatePinDots();setTimeout(()=>{$('pinError').textContent='';},1200);}},200);}}
+function pinBackspace(){state.pinBuffer=state.pinBuffer.slice(0,-1);updatePinDots();playSound('click');}
+function updatePinDots(){document.querySelectorAll('#pinDots span').forEach((d,i)=>d.classList.toggle('filled',i<state.pinBuffer.length));}
+
+function showLoading(text,sub){$('loadingText').textContent=text||'Conectando FlasChat';$('loadingSub').textContent=sub||'Estableciendo conexión con el servidor Nauta...';$('loadingOverlay').classList.add('show');}
+function hideLoading(){$('loadingOverlay').classList.remove('show');}
+function updateLoadingText(t){$('loadingText').textContent=t;}
+
+document.addEventListener('keydown',(e)=>{if(e.key==='Escape'){closeModal();closeLegal();closeContextMenu();closeImgPreview();closeContacts();closeAccounts();closeProfile();$('emojiPicker').classList.remove('show');$('reactionPicker').classList.remove('show');closeCamera();if(state.editingId)cancelEdit();if(state.replyToId)cancelReply();}});
+window.addEventListener('online',()=>{showToast('Red disponible','success');checkBackendHealth();});
+window.addEventListener('offline',()=>{showToast('Sin red','error');state.backendOnline=false;updateUI();});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkBackendHealth();});
+window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(state.config.autoTheme)applyTheme();});
+$('destEmail').addEventListener('input',updateFavoriteStar);
+
+document.addEventListener('click',(e)=>{
+  const ep=$('emojiPicker');
+  if(ep.classList.contains('show')&&!ep.contains(e.target)&&!e.target.closest('[onclick*="toggleEmojiPicker"]')){ep.classList.remove('show');}
+  const rp=$('reactionPicker');
+  if(rp.classList.contains('show')&&!rp.contains(e.target)){
+    const fromReact=e.target.closest('[onclick*="reactToSelectedMsg"]');
+    if(!fromReact)rp.classList.remove('show');
+  }
+});
+
+async function init(){
+  showLoading('Conectando FlasChat','Estableciendo conexión con el servidor Nauta...');
+  loadFromStorage();
+  loadUnread();
+  applyTheme();
+  renderIcons();
+  renderMessages();
+  updateUI();
+  initQuickReplies();
+  initEmojiPicker();
+  initTooltips();
+  updateProfileAvatar();
+  if(state.config.pin)showPinLock();
+  await checkBackendHealth();
+  if(state.backendOnline&&!state.config.demoMode){
+    updateLoadingText('Actualizando FlasChat');
+    $('loadingSub').textContent='Buscando mensajes nuevos en tu buzón...';
+    await refreshInbox();
+    startAutoSync();
+  }
+  setTimeout(hideLoading,900);
+  state.healthTimer=setInterval(async()=>{await checkBackendHealth();if(!state.config.demoMode)startAutoSync();},30000);
+  document.addEventListener('keydown',(e)=>{if(e.key==='/'&&document.activeElement.tagName!=='INPUT'&&document.activeElement.tagName!=='TEXTAREA'){e.preventDefault();$('msgInput').focus();}});
+  $('chatBox').addEventListener('scroll',onChatScroll);
+}
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
