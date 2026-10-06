@@ -1,317 +1,72 @@
-<div align="center">
-
-<img src="https://raw.githubusercontent.com/TU_USUARIO/flaschat/main/screenshots/logo.png" width="140" alt="FlasChat Logo"/>
-
-# 💙 FlasChat · Nauta Messenger
-
-### La forma más ligera de chatear por correo Nauta 🇨🇺
-
-[![Versión](https://img.shields.io/badge/versión-1.5.0-2196F3?style=for-the-badge&logo=github)](https://github.com/TU_USUARIO/flaschat)
-[![Plataforma](https://img.shields.io/badge/plataforma-Web%20%7C%20PWA%20%7C%20Android-4CAF50?style=for-the-badge&logo=android)](https://github.com/TU_USUARIO/flaschat)
-[![Licencia](https://img.shields.io/badge/licencia-Propietaria-EF4444?style=for-the-badge&logo=lock)](LICENSE)
-[![Hecho en Cuba](https://img.shields.io/badge/hecho%20en-Cuba%20🇨🇺-red?style=for-the-badge)](https://github.com/TU_USUARIO/flaschat)
-
-<br/>
-
-**Mensajería instantánea sobre el correo Nauta (SMTP/IMAP)**  
-*Sin servidores externos · Sin publicidad · Sin rastreo*
-
-<br/>
-
-[📥 Descargar](#-cómo-ejecutar) · [✨ Características](#-características) · [🚀 Instalación](#-cómo-ejecutar-en-tu-pc) · [📸 Capturas](#-capturas) · [📧 Contacto](#-contacto)
-
-</div>
-
 ---
-
-## 📱 ¿Qué es FlasChat?
-
-**FlasChat** es una aplicación de mensajería ligera que aprovecha la infraestructura del **correo Nauta** de ETECSA para enviar y recibir mensajes instantáneos.
-
-Fue diseñada específicamente pensando en la **comunidad cubana**, optimizando al máximo el consumo de datos para que funcione incluso con conexiones lentas o inestables.
-
-<div align="center">
-
-> ⚠️ **Aviso legal:** FlasChat **NO** es un servicio oficial de ETECSA ni de Nauta.  
-> Es una aplicación independiente que usa el correo Nauta como transporte.
-
-</div>
-
----
-
-## ✨ Características
-
-<table>
-<tr>
-<td width="50%" valign="top">
-
-### 🎨 Apariencia
-- 15 colores de acento
-- 12 fondos de chat con degradados
-- Fondo personalizado desde galería
-- 6 estilos de burbuja oscuros
-- 4 fuentes: Normal, **Negrita**, *Cursiva*, `Markdown`
-- Tema oscuro / claro / automático
-- 4 tamaños de letra
-
-### 🎯 Stickers y emojis
-- **10 packs** deslizables
-- 💙 FlasChat (palabras)
-- 💙 FlasChat Emoji
-- 🎃 Halloween
-- 🎄 Navidad
-- 🐱 Animales
-- ❤️ Corazones
-- 😀 Smileys
-- 👍 Gestos
-- 💋 Amor
-- 🎉 Fiesta
-- **Envío automático** al pulsar (estilo Telegram)
-- Stickers recientes
-
-</td>
-<td width="50%" valign="top">
-
-### 💬 Mensajería
-- Envío/recepción por Nauta (SMTP/IMAP)
-- Reacciones con emojis
-- Edición de mensajes
-- Responder deslizando el dedo
-- Reenviar, copiar, eliminar
-- Selección múltiple
-- Opción **Info** por mensaje
-- Adjuntos: imágenes, audio, video, archivos
-- Cámara integrada
-- Notas de voz
-- Palomitas ✓✓ de leído
-
-### 🔒 Seguridad
-- Cifrado E2E opcional (AES-256-GCM)
-- Bloqueo con PIN de 4 dígitos
-- **Todo el almacenamiento es local**
-- Sin telemetría ni rastreo
-- La contraseña Nauta nunca se guarda
-
-</td>
-</tr>
-</table>
-
----
-
-## 📸 Capturas
-
-<div align="center">
-
-| Chat principal | Stickers | Ajustes |
-|:-:|:-:|:-:|
-| ![Chat](https://raw.githubusercontent.com/TU_USUARIO/flaschat/main/screenshots/chat.png) | ![Stickers](https://raw.githubusercontent.com/TU_USUARIO/flaschat/main/screenshots/stickers.png) | ![Ajustes](https://raw.githubusercontent.com/TU_USUARIO/flaschat/main/screenshots/settings.png) |
-
-| Tema claro | Fondo personalizado | Reacciones |
-|:-:|:-:|:-:|
-| ![Light](https://raw.githubusercontent.com/TU_USUARIO/flaschat/main/screenshots/light.png) | ![Fondo](https://raw.githubusercontent.com/TU_USUARIO/flaschat/main/screenshots/bg.png) | ![Reacciones](https://raw.githubusercontent.com/TU_USUARIO/flaschat/main/screenshots/reactions.png) |
-
-</div>
-
-> 💡 *Sube tus capturas a la carpeta `screenshots/` del repositorio para que aparezcan aquí.*
-
----
-
-## 🚀 Cómo ejecutar en tu PC
-
-### 📋 Requisitos previos
-
-| Requisito | Versión | Descarga |
-|-----------|---------|----------|
-| **Node.js** | 18+ | [nodejs.org](https://nodejs.org/) |
-| **Git** | Cualquiera | [git-scm.com](https://git-scm.com/) |
-| **Cuenta Nauta** | — | `usuario@nauta.cu` |
-
-### ⚡ Instalación rápida
-
-```bash
-# 1️⃣ Clonar el repositorio
-git clone https://github.com/TU_USUARIO/flaschat.git
-cd flaschat
-
-# 2️⃣ Instalar dependencias
-npm install
-
-# 3️⃣ Configurar credenciales
-cp .env.example .env
-# Edita .env con tus datos de Nauta
-
-# 4️⃣ Iniciar FlasChat
-npm start
-
----
-
-<div align="center">
 
 ## ❓ Preguntas Frecuentes
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=2196F3&center=true&vCenter=true&width=435&lines=Todo+lo+que+necesitas+saber;Sobre+FlasChat+%F0%9F%92%99" alt="FAQ"/>
+### 🌐 ¿Necesito internet para usar FlasChat?
 
-</div>
-
-<br/>
-
-<table>
-<tr>
-<td width="50%" valign="top">
-
-### 🌐 ¿Necesito internet?
-
-> **Sí**, para enviar y recibir mensajes por correo Nauta. Pero puedes **escribir mensajes offline** y se enviarán automáticamente cuando recuperes la conexión.
-
-</td>
-<td width="50%" valign="top">
+**Sí**, para enviar y recibir mensajes por correo Nauta. Pero puedes **escribir mensajes offline** y se enviarán automáticamente cuando recuperes la conexión.
 
 ### 💰 ¿FlasChat es gratis?
 
-> **Completamente gratis**. Sin anuncios, sin suscripciones, sin pagos ocultos. Es y será siempre libre de publicidad.
-
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
+**Completamente gratis**. Sin anuncios, sin suscripciones, sin pagos ocultos. Es y será siempre libre de publicidad.
 
 ### 🔒 ¿Mis mensajes están cifrados?
 
-> Puedes activar el **cifrado E2E** desde Ajustes → Cifrado. Cuando está activo, ni ETECSA ni terceros pueden leer tus mensajes (AES-256-GCM).
-
-</td>
-<td width="50%" valign="top">
+Puedes activar el **cifrado E2E** desde Ajustes → Cifrado. Cuando está activo, ni ETECSA ni terceros pueden leer tus mensajes (AES-256-GCM).
 
 ### 💾 ¿Dónde se guardan mis mensajes?
 
-> **Únicamente en tu dispositivo.** FlasChat no envía datos a ningún servidor externo. Todo se guarda localmente en el almacenamiento del navegador o app.
-
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
+**Únicamente en tu dispositivo.** FlasChat no envía datos a ningún servidor externo. Todo se guarda localmente en el almacenamiento del navegador o app.
 
 ### 📥 ¿Cómo hago una copia de seguridad?
 
-> Ve a **Ajustes → Exportar respaldo**. Se descargará un archivo `.json` con todos tus mensajes, contactos, ajustes y perfil.
-
-</td>
-<td width="50%" valign="top">
+Ve a **Ajustes → Exportar respaldo**. Se descargará un archivo `.json` con todos tus mensajes, contactos, ajustes y perfil.
 
 ### 🧪 ¿Funciona sin servidor backend?
 
-> **Sí**, activando **Modo demo** desde Ajustes. Podrás probar toda la interfaz sin conectar a Nauta ni configurar el backend.
-
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
+**Sí**, activando **Modo demo** desde Ajustes. Podrás probar toda la interfaz sin conectar a Nauta ni configurar el backend.
 
 ### 🔑 ¿Guardan mi contraseña de Nauta?
 
-> **Jamás.** La contraseña solo se usa en el backend (archivo `.env`) y nunca se almacena en el cliente. La app no ve ni transmite tus credenciales.
-
-</td>
-<td width="50%" valign="top">
+**Jamás.** La contraseña solo se usa en el backend (archivo `.env`) y nunca se almacena en el cliente. La app no ve ni transmite tus credenciales.
 
 ### 📱 ¿Funciona en iPhone?
 
-> **Sí**, a través del navegador Safari. Puedes añadirlo a la pantalla de inicio como **PWA** para usarlo como app nativa.
-
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
+**Sí**, a través del navegador Safari. Puedes añadirlo a la pantalla de inicio como **PWA** para usarlo como app nativa.
 
 ### 🎨 ¿Puedo personalizar la apariencia?
 
-> **¡Claro!** 15 colores de acento, 12 fondos de chat, 6 estilos de burbuja, 4 fuentes diferentes, tema claro/oscuro/automático. Todo configurable.
+**¡Claro!** 15 colores de acento, 12 fondos de chat, 6 estilos de burbuja, 4 fuentes diferentes, tema claro/oscuro/automático. Todo configurable.
 
-</td>
-<td width="50%" valign="top">
+### 🎯 ¿Cuántos packs de stickers tiene?
+
+**10 packs diferentes**: FlasChat (palabras), FlasChat Emoji, Halloween, Navidad, Animales, Corazones, Smileys, Gestos, Amor y Fiesta.
+
+### ⚡ ¿Cómo envío un sticker?
+
+**Pulsa directamente sobre el sticker** y se enviará automáticamente (estilo Telegram). No necesitas escribir nada más.
 
 ### 🐛 Encontré un error, ¿dónde lo reporto?
 
-> Abre un [**Issue en GitHub**](https://github.com/maniabon76-gif/flaschat/issues) o escríbeme a 📧 [maniabon.76@gmail.com](mailto:maniabon.76@gmail.com)
-
-</td>
-</tr>
-</table>
-
-<br/>
-
-<div align="center">
-
-💡 **¿Tienes otra pregunta?** → [**Abrir un Issue**](https://github.com/maniabon76-gif/flaschat/issues) 📬
-
-</div>
+Abre un **Issue en GitHub** o escríbeme a **maniabon.76@gmail.com**
 
 ---
 
-<div align="center">
-
 ## 🤝 Contribuciones
-
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=22C55E&center=true&vCenter=true&width=500&lines=%C2%A1Tu+ayuda+es+bienvenida!;Juntos+hacemos+FlasChat+mejor" alt="Contribuciones"/>
-
-</div>
-
-<br/>
-
-<div align="center">
 
 ### ⚠️ Proyecto Propietario
 
 **Este es un proyecto propietario.** No se aceptan contribuciones de código sin autorización previa por escrito del autor.
 
-</div>
+### 🌟 Pero SÍ puedes ayudar así
 
-<br/>
-
-### 🌟 Pero SÍ puedes ayudar así:
-
-<table>
-<tr>
-<td align="center" width="25%">
-
-### 🐛
-**Reportar Bugs**
-
-[![Issue](https://img.shields.io/badge/Abrir-Issue-EF4444?style=for-the-badge&logo=github)](https://github.com/maniabon76-gif/flaschat/issues/new)
-
-</td>
-<td align="center" width="25%">
-
-### 💡
-**Sugerir Ideas**
-
-[![Idea](https://img.shields.io/badge/Sugerir-Idea-F59E0B?style=for-the-badge&logo=github)](https://github.com/maniabon76-gif/flaschat/issues/new)
-
-</td>
-<td align="center" width="25%">
-
-### ⭐
-**Dar Estrella**
-
-[![Star](https://img.shields.io/badge/Dar-Estrella-FBBF24?style=for-the-badge&logo=github)](https://github.com/maniabon76-gif/flaschat)
-
-</td>
-<td align="center" width="25%">
-
-### 📢
-**Compartir**
-
-[![Share](https://img.shields.io/badge/Compartir-App-2196F3?style=for-the-badge&logo=whatsapp)](https://wa.me/?text=%C2%A1Mira%20FlasChat!%20https://github.com/maniabon76-gif/flaschat)
-
-</td>
-</tr>
-</table>
-
-<br/>
+- 🐛 **Reportar Bugs** → [Abrir un Issue](https://github.com/maniabon76-gif/flaschat/issues/new)
+- 💡 **Sugerir Ideas** → [Abrir un Issue](https://github.com/maniabon76-gif/flaschat/issues/new)
+- ⭐ **Dar una Estrella** → [Star al repositorio](https://github.com/maniabon76-gif/flaschat)
+- 📢 **Compartir la app** con tus contactos cubanos
 
 ### 📝 Cómo reportar un bug correctamente
 
-```text
 1. 📸 Toma capturas de pantalla del problema
 2. 📋 Describe qué hiciste antes del error
 3. 🔍 Indica qué esperabas que pasara
@@ -319,42 +74,21 @@ npm start
 5. 📱 Incluye: modelo del teléfono, versión de Android/iOS
 6. 🎯 Añade el Issue con toda esta información
 
----
+### 💙 ¡Gracias por apoyar FlasChat! 🇨🇺
 
-<div align="center">
+**Cada estrella, cada reporte y cada sugerencia hace que FlasChat sea mejor.**
+
+---
 
 ## 📜 Historial de Cambios
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=A78BFA&center=true&vCenter=true&width=500&lines=La+evoluci%C3%B3n+de+FlasChat;Desde+la+v1.0.0+hasta+hoy" alt="Changelog"/>
-
-</div>
-
-<br/>
-
 ### 🎉 Versión Actual
 
-<div align="center">
+**v1.5.0** — Abril 2026 · Versión Estable
 
-<a href="https://github.com/maniabon76-gif/flaschat/releases/tag/v1.5.0">
-<img src="https://img.shields.io/badge/🚀_VERSIÓN_ACTUAL-v1.5.0-2196F3?style=for-the-badge&labelColor=0b141a" alt="v1.5.0"/>
-</a>
+### ✨ v1.5.0 — Abril 2026
 
-**📅 Abril 2026 · Versión Estable**
-
-</div>
-
-<br/>
-
-<table>
-<tr>
-<td width="100%" valign="top">
-
-### ✨ `v1.5.0` — Abril 2026
-
-![Estable](https://img.shields.io/badge/estado-estable-22C55E?style=flat-square)
-![Última](https://img.shields.io/badge/latest-si-2196F3?style=flat-square)
-
-#### 🆕 Añadido
+**🆕 Añadido**
 - 🎯 **10 packs de stickers** deslizables horizontalmente:
   - 💙 FlasChat (palabras: Hola, Gracias, Súper, Bro…)
   - 💙 FlasChat Emoji
@@ -369,38 +103,25 @@ npm start
 - 🕒 Pestaña de **stickers recientes**
 - ⚡ **Envío automático** de stickers al pulsarlos (estilo Telegram)
 - 📊 Estadísticas de stickers enviados
-- 🖋️ 4 estilos de fuente: **Normal**, **Negrita**, *Cursiva*, `Markdown`
+- 🖋️ 4 estilos de fuente: Normal, Negrita, Cursiva, Markdown
 
-#### 🔄 Cambiado
+**🔄 Cambiado**
 - 🌓 **Burbujas**: texto adaptativo con variables CSS para contraste correcto en tema claro y oscuro
 - 💬 **Estilos de burbuja**: solo 6 estilos oscuros disponibles
 
-#### ❌ Eliminado
+**❌ Eliminado**
 - 🗑️ Barra de respuestas rápidas (Hola 👋, Ok, Gracias…)
 - 🗑️ Selector "Estilo del Chat" (fondos ahora se gestionan desde "Fondo del chat")
 - 🗑️ Estilos claros de burbuja
 
-#### 🐛 Corregido
+**🐛 Corregido**
 - ✅ Contraste de letras en tema claro
 - ✅ Fondos del chat ahora aplican degradados correctamente
 - ✅ Nombre del pack "FlaChat" corregido a "FlasChat"
 
-</td>
-</tr>
-</table>
+### 📦 Versiones anteriores
 
-<br/>
-
-<details>
-<summary><h3>📦 Ver versiones anteriores</h3></summary>
-
-<br/>
-
-#### `v1.4.0` — Marzo 2026
-
-<div align="left">
-
-![Beta](https://img.shields.io/badge/estado-beta-F59E0B?style=flat-square)
+#### v1.4.0 — Marzo 2026
 
 **🐛 Corregido**
 - 🔔 Globo de notificaciones muestra contador correcto
@@ -410,15 +131,7 @@ npm start
 - 👆 Responder deslizando mensajes hacia los lados
 - ⌨️ Barra de escritura persistente tras enviar
 
-</div>
-
----
-
-#### `v1.3.0` — Marzo 2026
-
-<div align="left">
-
-![Beta](https://img.shields.io/badge/estado-beta-F59E0B?style=flat-square)
+#### v1.3.0 — Marzo 2026
 
 **🆕 Añadido**
 - 🔔 Globo de notificaciones flotante estilo WhatsApp/Telegram
@@ -429,13 +142,7 @@ npm start
 **🔄 Cambiado**
 - 🏷️ Etiqueta BETA visible junto al nombre de la app
 
-</div>
-
----
-
-#### `v1.2.0` — Marzo 2026
-
-<div align="left">
+#### v1.2.0 — Marzo 2026
 
 **🆕 Añadido**
 - 💾 Respaldo completo (exportar/importar JSON)
@@ -456,13 +163,7 @@ npm start
 - 🔧 Bug del botón de adjuntar archivos en WebView/APK
 - 🔧 Bug del picker de reacciones
 
-</div>
-
----
-
-#### `v1.1.0` — Marzo 2026
-
-<div align="left">
+#### v1.1.0 — Marzo 2026
 
 **🆕 Añadido**
 - 🔔 Notificaciones locales
@@ -488,15 +189,7 @@ npm start
 - 🎯 Nuevo logo FlasChat
 - ✍️ Nombre corregido a FlasChat
 
-</div>
-
----
-
-#### `v1.0.0` — Diciembre 2025 · 🌱 Versión Inicial
-
-<div align="left">
-
-![Inicial](https://img.shields.io/badge/estado-inicial-64748B?style=flat-square)
+#### v1.0.0 — Diciembre 2025 · 🌱 Versión Inicial
 
 **🆕 Añadido**
 - 🎉 Versión inicial de FlasChat
@@ -514,163 +207,58 @@ npm start
 - 📱 PWA manifest embebido
 - 🎨 Iconos Lucide 100% offline (SVG inline)
 
-</div>
-
-</details>
-
-<br/>
-
-<div align="center">
-
-**🔗 Ver el changelog completo en [CHANGELOG.md](CHANGELOG.md)**
-
-</div>
-
 ---
-
-<div align="center">
 
 ## ⚖️ Licencia
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=EF4444&center=true&vCenter=true&width=500&lines=Licencia+Propietaria;Todos+los+derechos+reservados" alt="Licencia"/>
+### 🔒 Licencia Propietaria
 
-</div>
+**Todos los derechos reservados © 2026 Milkár Lixán Pupo Riverón**
 
-<br/>
+Queda **estrictamente prohibido**:
 
-<div align="center">
-
-<a href="LICENSE">
-<img src="https://img.shields.io/badge/📜_LICENCIA-PROPIETARIA-EF4444?style=for-the-badge&labelColor=0b141a" alt="Licencia Propietaria"/>
-</a>
-
-<br/><br/>
-
-### 🔒 Todos los derechos reservados
-
-**© 2026 Milkár Lixán Pupo Riverón**
-
-</div>
-
-<br/>
-
-<table>
-<tr>
-<td width="100%">
-
-### ❌ Lo que NO está permitido
-
-<div align="left">
-
-| 🚫 | Acción prohibida |
-|:--:|------------------|
-| ❌ | Modificar, descompilar o realizar ingeniería inversa |
-| ❌ | Redistribuir, vender, sublicenciar o ceder la aplicación |
-| ❌ | Eliminar los avisos de copyright o autoría |
-| ❌ | Usar la app para fines ilegales o no autorizados |
-| ❌ | Crear trabajos derivados sin autorización expresa |
-| ❌ | Reclamar la autoría del código o del diseño |
-| ❌ | Publicar el código fuente en otros repositorios |
-| ❌ | Usar el nombre "FlasChat" o su logo sin permiso |
-
-</div>
-
-</td>
-</tr>
-</table>
-
-<br/>
-
-<table>
-<tr>
-<td width="50%" valign="top">
+- ❌ Modificar, descompilar o realizar ingeniería inversa
+- ❌ Redistribuir, vender, sublicenciar o ceder la aplicación
+- ❌ Eliminar los avisos de copyright o autoría
+- ❌ Usar la app para fines ilegales o no autorizados
+- ❌ Crear trabajos derivados sin autorización expresa
+- ❌ Reclamar la autoría del código o del diseño
+- ❌ Publicar el código fuente en otros repositorios
+- ❌ Usar el nombre "FlasChat" o su logo sin permiso
 
 ### ✅ Lo que SÍ puedes hacer
 
-<div align="left">
-
-| ✅ | Acción permitida |
-|:--:|------------------|
-| ✅ | Usar FlasChat gratis en tus dispositivos |
-| ✅ | Compartir el enlace oficial del repositorio |
-| ✅ | Reportar bugs y sugerir mejoras |
-| ✅ | Hacer respaldos de tus datos |
-| ✅ | Personalizar la app dentro de la misma |
-| ✅ | Dar una estrella ⭐ al repositorio |
-
-</div>
-
-</td>
-<td width="50%" valign="top">
+- ✅ Usar FlasChat gratis en tus dispositivos
+- ✅ Compartir el enlace oficial del repositorio
+- ✅ Reportar bugs y sugerir mejoras
+- ✅ Hacer respaldos de tus datos
+- ✅ Personalizar la app dentro de la misma
+- ✅ Dar una estrella ⭐ al repositorio
 
 ### 📩 ¿Necesitas permisos especiales?
 
-<div align="left">
+Para usos comerciales, integraciones o permisos especiales, contacta con el autor:
 
-Para usos comerciales, integraciones o permisos especiales:
-
-<br/>
-
-<a href="mailto:maniabon.76@gmail.com?subject=Solicitud%20de%20permiso%20FlasChat">
-<img src="https://img.shields.io/badge/📧_Contactar-maniabon.76%40gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Contacto"/>
-</a>
-
-<br/><br/>
+📧 **maniabon.76@gmail.com**
 
 **Respuesta en 24-48 horas** ⏱️
-
-</div>
-
-</td>
-</tr>
-</table>
-
-<br/>
-
-<div align="center">
 
 ### 🇨🇺 Hecho en Cuba con cariño para la comunidad cubana 🇨🇺
 
 **💙 Gracias por respetar el trabajo del autor 💙**
 
-</div>
-
 ---
 
-<div align="center">
-
-## 👨‍💻 Autor
-
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=24&pause=1000&color=4FB3F5&center=true&vCenter=true&width=500&lines=Milk%C3%A1r+Lix%C3%A1n+Pupo+River%C3%B3n;Desarrollador+de+FlasChat" alt="Autor"/>
-
-<br/><br/>
-
-<a href="https://github.com/maniabon76-gif">
-<img src="https://github.com/maniabon76-gif.png" width="140" height="140" style="border-radius:50%;border:4px solid #2196F3;" alt="Avatar"/>
-</a>
-
-<br/><br/>
+## 👨‍💻 Autor y Desarrollador
 
 ### 🌟 Milkár Lixán Pupo Riverón
 
 **Desarrollador Full-Stack · Cuba 🇨🇺**
 
-<br/>
-
-[![Email](https://img.shields.io/badge/📧_Email-maniabon.76%40gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:maniabon.76@gmail.com)
-[![GitHub](https://img.shields.io/badge/🐙_GitHub-maniabon76--gif-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/maniabon76-gif)
-
-</div>
-
-<br/>
-
-<table>
-<tr>
-<td width="50%" valign="top">
+- 📧 **Email:** [maniabon.76@gmail.com](mailto:maniabon.76@gmail.com)
+- 🐙 **GitHub:** [@maniabon76-gif](https://github.com/maniabon76-gif)
 
 ### 💼 Sobre mí
-
-<div align="left">
 
 **¡Hola!** 👋 Soy Milkár, un desarrollador cubano apasionado por crear soluciones tecnológicas que ayuden a la comunidad cubana.
 
@@ -678,106 +266,46 @@ Para usos comerciales, integraciones o permisos especiales:
 
 Cuando no estoy programando, me gusta aprender nuevas tecnologías, ayudar a otros desarrolladores y contribuir con proyectos que mejoren la vida digital en Cuba.
 
-</div>
-
-</td>
-<td width="50%" valign="top">
-
 ### 🎯 Mi misión
-
-<div align="left">
 
 Crear herramientas **accesibles**, **privadas** y **eficientes** para la comunidad cubana, sin depender de servidores externos ni sacrificar la privacidad de los usuarios.
 
 **FlasChat es mi contribución a la comunidad.** 🇨🇺💙
 
-</div>
+### 🛠️ Tecnologías utilizadas
 
-### 🛠️ Tecnologías
+- **JavaScript** (ES6+)
+- **Node.js** (backend)
+- **HTML5** y **CSS3**
+- **Express.js** (servidor)
+- **Nodemailer** (SMTP)
+- **IMAP** (recepción)
+- **Git** y **GitHub**
 
-<div align="left">
+### 🚀 Proyectos destacados
 
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
-![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
+#### 💙 FlasChat — v1.5.0
 
-</div>
+Mensajería instantánea sobre correo Nauta.
 
-</td>
-</tr>
-</table>
+**🇨🇺 Hecho en Cuba**
 
-<br/>
+🔗 [Ver repositorio](https://github.com/maniabon76-gif/flaschat)
 
-<table>
-<tr>
-<td width="100%" valign="top">
+#### 🚧 En desarrollo
 
-### 🚀 Proyectos Destacados
-
-<div align="center">
-
-<table>
-<tr>
-<td width="50%" align="center">
-
-### 💙 FlasChat
-
-[![FlasChat](https://img.shields.io/badge/💙_FlasChat-v1.5.0-2196F3?style=for-the-badge)](https://github.com/maniabon76-gif/flaschat)
-
-Mensajería instantánea sobre correo Nauta
-
-🇨🇺 Hecho en Cuba
-
-</td>
-<td width="50%" align="center">
-
-### 🚧 En desarrollo
-
-[![Próximamente](https://img.shields.io/badge/🚧_Próximamente-2026-F59E0B?style=for-the-badge)]()
-
-Nuevos proyectos en camino
-
-🔮 Muy pronto...
-
-</td>
-</tr>
-</table>
-
-</div>
-
-</td>
-</tr>
-</table>
-
-<br/>
-
-<div align="center">
+Nuevos proyectos en camino. **🔮 Muy pronto...**
 
 ### 💌 ¿Te gustaría colaborar o tienes alguna idea?
 
-[![Escríbeme](https://img.shields.io/badge/📩_Escr%C3%ADbeme-Ahora-2196F3?style=for-the-badge&logo=gmail&logoColor=white)](mailto:maniabon.76@gmail.com)
-
-<br/>
+📩 **Escríbeme:** [maniabon.76@gmail.com](mailto:maniabon.76@gmail.com)
 
 **💙 Gracias por usar FlasChat 💙**
 
-</div>
+---
 
-<br/>
+### ⭐ Si te gusta FlasChat, dale una estrella al repositorio ⭐
 
-<div align="center">
+**Comparte FlasChat con tus amigos y familiares 💙🇨🇺**
 
-<a href="https://github.com/maniabon76-gif/flaschat">
-<img src="https://img.shields.io/github/stars/maniabon76-gif/flaschat?style=social" alt="Stars"/>
-</a>
-<a href="https://github.com/maniabon76-gif/flaschat/network/members">
-<img src="https://img.shields.io/github/forks/maniabon76-gif/flaschat?style=social" alt="Forks"/>
-</a>
-<a href="https://github.com/maniabon76-gif/flaschat/watchers">
-<img src="https://img.shields.io/github/watchers/maniabon76-gif/flaschat?style=social" alt="Watchers"/>
-</a>
-
-</div>
+**© 2026 FlasChat · Nauta Messenger**
