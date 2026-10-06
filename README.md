@@ -181,6 +181,95 @@
 
 <div align="center">
 
+## ⚖️ Licencia
+
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=EF4444&center=true&vCenter=true&width=500&lines=Licencia+Propietaria;Todos+los+derechos+reservados" alt="Licencia"/>
+
+<br/><br/>
+
+<a href="LICENSE">
+<img src="https://img.shields.io/badge/📜_LICENCIA-PROPIETARIA-EF4444?style=for-the-badge&labelColor=0b141a" alt="Licencia Propietaria"/>
+</a>
+
+<br/><br/>
+
+### 🔒 Todos los derechos reservados
+
+**© 2026 Milkár Lixán Pupo Riverón**
+
+</div>
+
+<br/>
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### ❌ Lo que NO está permitido
+
+| 🚫 | Acción prohibida |
+|:--:|------------------|
+| ❌ | Modificar, descompilar o hacer ingeniería inversa |
+| ❌ | Redistribuir, vender, sublicenciar o ceder la app |
+| ❌ | Eliminar los avisos de copyright o autoría |
+| ❌ | Usar la app para fines ilegales |
+| ❌ | Crear trabajos derivados sin autorización |
+| ❌ | Reclamar la autoría del código o del diseño |
+| ❌ | Publicar el código fuente en otros repositorios |
+| ❌ | Usar el nombre "FlasChat" o su logo sin permiso |
+
+</td>
+<td width="50%" valign="top">
+
+### ✅ Lo que SÍ puedes hacer
+
+| ✅ | Acción permitida |
+|:--:|------------------|
+| ✅ | Usar FlasChat gratis en tus dispositivos |
+| ✅ | Compartir el enlace oficial del repositorio |
+| ✅ | Reportar bugs y sugerir mejoras |
+| ✅ | Hacer respaldos de tus datos |
+| ✅ | Personalizar la app dentro de la misma |
+| ✅ | Dar una estrella ⭐ al repositorio |
+
+</td>
+</tr>
+</table>
+
+<br/>
+
+<div align="center">
+
+### 📩 ¿Necesitas permisos especiales?
+
+Para usos comerciales, integraciones o permisos especiales, contacta con el autor:
+
+<br/>
+
+<a href="mailto:maniabon.76@gmail.com?subject=Solicitud%20de%20permiso%20FlasChat">
+<img src="https://img.shields.io/badge/📧_Contactar-maniabon.76%40gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Contacto"/>
+</a>
+
+<br/><br/>
+
+**Respuesta en 24-48 horas** ⏱️
+
+</div>
+
+<br/>
+
+<div align="center">
+
+### 🇨🇺 Hecho en Cuba con cariño para la comunidad cubana 🇨🇺
+
+**💙 Gracias por respetar el trabajo del autor 💙**
+
+</div>
+
+---
+
+<div align="center">
+
 ## ❓ Preguntas Frecuentes
 
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=2196F3&center=true&vCenter=true&width=500&lines=Todo+lo+que+necesitas+saber;Sobre+FlasChat+%F0%9F%92%99" alt="FAQ"/>
