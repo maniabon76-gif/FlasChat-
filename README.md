@@ -274,33 +274,6 @@ Nuevos proyectos en camino
 
 ---
 
-## 📜 Licencia
-
-© 2026 **Milkár Lixán Pupo Riverón**. Todos los derechos reservados.
-
-Este software y su código fuente son propiedad exclusiva del autor.
-Queda prohibida su reproducción total o parcial, modificación, distribución
-o venta sin autorización expresa y por escrito del titular.
-
-El uso de FlasChat se concede únicamente como **licencia personal, no
-exclusiva y no transferible**, exclusivamente para uso personal del usuario.
-
-Para consultar los términos legales completos, revisa el archivo
-[`LICENSE`](LICENSE).
-
-Para solicitar permisos especiales o licencias comerciales, contacta al
-desarrollador:
-
-- 📧 [maniabon.76@gmail.com](mailto:maniabon.76@gmail.com)
-- 🐙 [@maniabon76-gif](https://github.com/maniabon76-gif)
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Licencia-Todos%20los%20derechos%20reservados-red?style=for-the-badge" alt="Licencia">
-  <img src="https://img.shields.io/badge/Copyright-©%202026%20Milkár%20Lixán%20Pupo%20Riverón-blue?style=for-the-badge" alt="Copyright">
-</p>
-
----
-
 <div align="center">
 
 ## 🤝 Contribuciones
@@ -372,15 +345,31 @@ desarrollador:
 5. 📱 Incluye: modelo del teléfono, versión de Android/iOS
 6. 🎯 Añade el Issue con toda esta información
 
-## 🛠️ Tecnologías
+---
+
+## 📜 Licencia
+
+© 2026 **Milkár Lixán Pupo Riverón**. Todos los derechos reservados.
+
+Este software y su código fuente son propiedad exclusiva del autor.
+Queda prohibida su reproducción total o parcial, modificación, distribución
+o venta sin autorización expresa y por escrito del titular.
+
+El uso de FlasChat se concede únicamente como **licencia personal, no
+exclusiva y no transferible**, exclusivamente para uso personal del usuario.
+
+Para consultar los términos legales completos, revisa el archivo
+[`LICENSE`](LICENSE).
+
+Para solicitar permisos especiales o licencias comerciales, contacta al
+desarrollador:
+
+- 📧 [maniabon.76@gmail.com](mailto:maniabon.76@gmail.com)
+- 🐙 [@maniabon76-gif](https://github.com/maniabon76-gif)
 
 <p align="center">
-  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
-  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
-  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js">
-  <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express">
-  <img src="https://img.shields.io/badge/Nodemailer-22B573?style=for-the-badge&logo=mail.ru&logoColor=white" alt="Nodemailer">
+  <img src="https://img.shields.io/badge/Licencia-Todos%20los%20derechos%20reservados-red?style=for-the-badge" alt="Licencia">
+  <img src="https://img.shields.io/badge/Copyright-©%202026%20Milkár%20Lixán%20Pupo%20Riverón-blue?style=for-the-badge" alt="Copyright">
 </p>
 
 ---
