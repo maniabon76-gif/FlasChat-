@@ -181,6 +181,125 @@
 
 <div align="center">
 
+## ❓ Preguntas Frecuentes
+
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=2196F3&center=true&vCenter=true&width=500&lines=Todo+lo+que+necesitas+saber;Sobre+FlasChat+%F0%9F%92%99" alt="FAQ"/>
+
+</div>
+
+<br/>
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 🌐 ¿Necesito internet?
+
+> **Sí**, para enviar y recibir mensajes por correo Nauta. Pero puedes **escribir mensajes offline** y se enviarán cuando recuperes la conexión.
+
+</td>
+<td width="50%" valign="top">
+
+### 💰 ¿FlasChat es gratis?
+
+> **Completamente gratis**. Sin anuncios, sin suscripciones, sin pagos ocultos.
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### 🔒 ¿Mis mensajes están cifrados?
+
+> Puedes activar el **cifrado E2E** desde Ajustes → Cifrado. Ni ETECSA ni terceros pueden leerlos (AES-256-GCM).
+
+</td>
+<td width="50%" valign="top">
+
+### 💾 ¿Dónde se guardan mis mensajes?
+
+> **Únicamente en tu dispositivo.** FlasChat no envía datos a ningún servidor externo.
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### 📥 ¿Cómo hago una copia de seguridad?
+
+> Ve a **Ajustes → Exportar respaldo**. Se descargará un archivo `.json` con todos tus datos.
+
+</td>
+<td width="50%" valign="top">
+
+### 🧪 ¿Funciona sin servidor backend?
+
+> **Sí**, activando **Modo demo** desde Ajustes. Prueba toda la interfaz sin conectar a Nauta.
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### 🔑 ¿Guardan mi contraseña de Nauta?
+
+> **Jamás.** Solo se usa en el backend (archivo `.env`) y nunca se almacena en el cliente.
+
+</td>
+<td width="50%" valign="top">
+
+### 📱 ¿Funciona en iPhone?
+
+> **Sí**, a través de Safari. Puedes añadirlo a la pantalla de inicio como **PWA**.
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### 🎨 ¿Puedo personalizar la apariencia?
+
+> **¡Claro!** 15 colores, 12 fondos, 6 estilos de burbuja, 4 fuentes y tema claro/oscuro/automático.
+
+</td>
+<td width="50%" valign="top">
+
+### 🎯 ¿Cuántos packs de stickers tiene?
+
+> **10 packs**: FlasChat, FlasChat Emoji, Halloween, Navidad, Animales, Corazones, Smileys, Gestos, Amor y Fiesta.
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### ⚡ ¿Cómo envío un sticker?
+
+> **Pulsa directamente sobre el sticker** y se envía automáticamente (estilo Telegram).
+
+</td>
+<td width="50%" valign="top">
+
+### 🐛 ¿Dónde reporto un error?
+
+> Abre un **Issue en GitHub** o escríbeme a **maniabon.76@gmail.com**
+
+</td>
+</tr>
+</table>
+
+<br/>
+
+<div align="center">
+
+💡 **¿Tienes otra pregunta?** → [**Abrir un Issue**](https://github.com/maniabon76-gif/flaschat/issues) 📬
+
+</div>
+
+---
+
+<div align="center">
+
 ## 🤝 Contribuciones
 
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=22C55E&center=true&vCenter=true&width=500&lines=%C2%A1Tu+ayuda+es+bienvenida!;Juntos+hacemos+FlasChat+mejor" alt="Contribuciones"/>
