@@ -301,6 +301,77 @@ desarrollador:
 
 ---
 
+<div align="center">
+
+## 🤝 Contribuciones
+
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=22C55E&center=true&vCenter=true&width=500&lines=%C2%A1Tu+ayuda+es+bienvenida!;Juntos+hacemos+FlasChat+mejor" alt="Contribuciones"/>
+
+</div>
+
+<br/>
+
+<div align="center">
+
+### ⚠️ Proyecto Propietario
+
+**Este es un proyecto propietario.** No se aceptan contribuciones de código sin autorización previa por escrito del autor.
+
+</div>
+
+<br/>
+
+### 🌟 Pero SÍ puedes ayudar así:
+
+<table>
+<tr>
+<td align="center" width="25%">
+
+### 🐛
+**Reportar Bugs**
+
+[![Issue](https://img.shields.io/badge/Abrir-Issue-EF4444?style=for-the-badge&logo=github)](https://github.com/maniabon76-gif/flaschat/issues/new)
+
+</td>
+<td align="center" width="25%">
+
+### 💡
+**Sugerir Ideas**
+
+[![Idea](https://img.shields.io/badge/Sugerir-Idea-F59E0B?style=for-the-badge&logo=github)](https://github.com/maniabon76-gif/flaschat/issues/new)
+
+</td>
+<td align="center" width="25%">
+
+### ⭐
+**Dar Estrella**
+
+[![Star](https://img.shields.io/badge/Dar-Estrella-FBBF24?style=for-the-badge&logo=github)](https://github.com/maniabon76-gif/flaschat)
+
+</td>
+<td align="center" width="25%">
+
+### 📢
+**Compartir**
+
+[![Share](https://img.shields.io/badge/Compartir-App-2196F3?style=for-the-badge&logo=whatsapp)](https://wa.me/?text=%C2%A1Mira%20FlasChat!%20https://github.com/maniabon76-gif/flaschat)
+
+</td>
+</tr>
+</table>
+
+<br/>
+
+### 📝 Cómo reportar un bug correctamente
+
+```text
+1. 📸 Toma capturas de pantalla del problema
+2. 📋 Describe qué hiciste antes del error
+3. 🔍 Indica qué esperabas que pasara
+4. ❌ Explica qué pasó en realidad
+5. 📱 Incluye: modelo del teléfono, versión de Android/iOS
+6. 🎯 Añade el Issue con toda esta información
+
 ## 🛠️ Tecnologías
 
 <p align="center">
