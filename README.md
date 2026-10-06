@@ -2,26 +2,177 @@
 
 <div align="center">
 
-### ⭐ Si te gusta FlasChat, dale una estrella al repositorio ⭐
+## 📜 Historial de Cambios
 
-**Comparte FlasChat con tus amigos y familiares 💙🇨🇺**
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=A78BFA&center=true&vCenter=true&width=500&lines=La+evoluci%C3%B3n+de+FlasChat;Desde+la+v1.0.0+hasta+hoy" alt="Changelog"/>
+
+</div>
 
 <br/>
 
-<a href="https://github.com/maniabon76-gif/flaschat">
-<img src="https://img.shields.io/github/stars/maniabon76-gif/flaschat?style=social" alt="Stars"/>
-</a>
-<a href="https://github.com/maniabon76-gif/flaschat/network/members">
-<img src="https://img.shields.io/github/forks/maniabon76-gif/flaschat?style=social" alt="Forks"/>
-</a>
-<a href="https://github.com/maniabon76-gif/flaschat/watchers">
-<img src="https://img.shields.io/github/watchers/maniabon76-gif/flaschat?style=social" alt="Watchers"/>
+### 🎉 Versión Actual
+
+<div align="center">
+
+<a href="https://github.com/maniabon76-gif/flaschat/releases/tag/v1.5.0">
+<img src="https://img.shields.io/badge/🚀_VERSIÓN_ACTUAL-v1.5.0-2196F3?style=for-the-badge&labelColor=0b141a" alt="v1.5.0"/>
 </a>
 
-<br/><br/>
+**📅 Abril 2026 · Versión Estable**
 
-<img src="https://raw.githubusercontent.com/maniabon76-gif/flaschat/main/screenshots/logo.png" width="80" alt="FlasChat"/>
+</div>
 
-**© 2026 FlasChat · Nauta Messenger**
+<br/>
+
+### ✨ v1.5.0 — Abril 2026
+
+![Estable](https://img.shields.io/badge/estado-estable-22C55E?style=flat-square)
+![Última](https://img.shields.io/badge/latest-si-2196F3?style=flat-square)
+
+**🆕 Añadido**
+- 🎯 **10 packs de stickers** deslizables horizontalmente:
+  - 💙 FlasChat (palabras: Hola, Gracias, Súper, Bro…)
+  - 💙 FlasChat Emoji
+  - 🎃 Halloween
+  - 🎄 Navidad
+  - 🐱 Animales
+  - ❤️ Corazones
+  - 😀 Smileys
+  - 👍 Gestos
+  - 💋 Amor
+  - 🎉 Fiesta
+- 🕒 Pestaña de **stickers recientes**
+- ⚡ **Envío automático** de stickers al pulsarlos (estilo Telegram)
+- 📊 Estadísticas de stickers enviados
+- 🖋️ 4 estilos de fuente: Normal, Negrita, Cursiva, Markdown
+
+**🔄 Cambiado**
+- 🌓 **Burbujas**: texto adaptativo con variables CSS para contraste correcto en tema claro y oscuro
+- 💬 **Estilos de burbuja**: solo 6 estilos oscuros disponibles
+
+**❌ Eliminado**
+- 🗑️ Barra de respuestas rápidas (Hola 👋, Ok, Gracias…)
+- 🗑️ Selector "Estilo del Chat"
+- 🗑️ Estilos claros de burbuja
+
+**🐛 Corregido**
+- ✅ Contraste de letras en tema claro
+- ✅ Fondos del chat ahora aplican degradados correctamente
+- ✅ Nombre del pack "FlaChat" corregido a "FlasChat"
+
+<br/>
+
+<details>
+<summary><h3>📦 Ver versiones anteriores</h3></summary>
+
+<br/>
+
+#### v1.4.0 — Marzo 2026
+
+![Beta](https://img.shields.io/badge/estado-beta-F59E0B?style=flat-square)
+
+**🐛 Corregido**
+- 🔔 Globo de notificaciones muestra contador correcto
+- ✏️ Editar cuentas guardadas con botón de lápiz
+
+**🆕 Añadido**
+- 👆 Responder deslizando mensajes hacia los lados
+- ⌨️ Barra de escritura persistente tras enviar
+
+---
+
+#### v1.3.0 — Marzo 2026
+
+![Beta](https://img.shields.io/badge/estado-beta-F59E0B?style=flat-square)
+
+**🆕 Añadido**
+- 🔔 Globo de notificaciones flotante estilo WhatsApp/Telegram
+- 💡 Indicadores descriptivos en cada opción de Ajustes
+- 🎨 6 fondos de chat nuevos (12 en total + personalizado)
+- 🌈 5 colores de acento nuevos (15 en total)
+
+**🔄 Cambiado**
+- 🏷️ Etiqueta BETA visible junto al nombre de la app
+
+---
+
+#### v1.2.0 — Marzo 2026
+
+**🆕 Añadido**
+- 💾 Respaldo completo (exportar/importar JSON)
+- 📎 Adjuntos: audio, video y archivos
+- 🔒 Cifrado E2E opcional (AES-256-GCM)
+- 👥 Lista de contactos y cuentas múltiples
+- 💬 3 estilos de burbuja básicos
+- 🌓 Tema automático
+- 📊 Estadísticas y búsqueda avanzada
+- 🗑️ Borrado selectivo por fechas
+- 👤 Perfil completo con avatar
+- 📷 Cámara integrada
+- 🎤 Micrófono estilo WhatsApp
+- ✓✓ Palomitas con color azul al leer
+- ⚙️ Backend Node.js integrado
+
+**🐛 Corregido**
+- 🔧 Bug del botón de adjuntar archivos en WebView/APK
+- 🔧 Bug del picker de reacciones
+
+---
+
+#### v1.1.0 — Marzo 2026
+
+**🆕 Añadido**
+- 🔔 Notificaciones locales
+- 📳 Vibración configurable
+- 🔊 12 sonidos configurables con botones de prueba
+- 🖼️ Adjuntar imágenes
+- 🎤 Dictado por voz
+- ☑️ Multi-selección de mensajes
+- ⭐ Favoritos
+- 🔐 Bloqueo con PIN
+- 🌈 5 colores de acento
+- 🔤 4 tamaños de fuente
+- 📅 Separadores de fecha
+- 👤 Avatares con inicial
+- 📜 Modal legal reutilizable
+- 📖 Secciones informativas completas
+
+**🔄 Cambiado**
+- 😀 Reacciones con emojis
+- 🎨 Panel de emojis con 7 categorías
+- ✏️ Edición de mensajes propios
+- 💬 Burbujas estilo WhatsApp/Telegram con colas
+- 🎯 Nuevo logo FlasChat
+- ✍️ Nombre corregido a FlasChat
+
+---
+
+#### v1.0.0 — Diciembre 2025 · 🌱 Versión Inicial
+
+![Inicial](https://img.shields.io/badge/estado-inicial-64748B?style=flat-square)
+
+**🆕 Añadido**
+- 🎉 Versión inicial de FlasChat
+- 📧 Envío y recepción por correo Nauta
+- 💬 Chat básico con burbujas
+- ⏳ Estados: enviando, enviado, error
+- 🔄 Reintento automático
+- 🖥️ Backend + frontend en archivo único
+- ❤️ Chequeo de salud cada 30 s
+- 📶 Banner de reconexión
+- 🔍 Búsqueda de mensajes
+- 🌓 Tema claro/oscuro con persistencia
+- 🖱️ Context menu (long press)
+- ⬇️ Botón de scroll al final
+- 📱 PWA manifest embebido
+- 🎨 Iconos Lucide 100% offline (SVG inline)
+
+</details>
+
+<br/>
+
+<div align="center">
+
+**🔗 Ver el changelog completo en [CHANGELOG.md](CHANGELOG.md)**
 
 </div>
