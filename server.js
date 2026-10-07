@@ -1,192 +1,212 @@
-/* =========================================================
-   FlasChat - Backend Node.js
-   Mensajería sobre correo Nauta (SMTP/IMAP)
-   © 2026 Milkár Lixán Pupo Riverón
-   ========================================================= */
+/**
+ * FlasChat · Backend Node.js
+ * Envía y recibe mensajes por correo Nauta (SMTP/IMAP)
+ *
+ * Autor: Milkár Lixán Pupo Riverón
+ * Versión: 1.5.0
+ * Licencia: Propietaria - Todos los derechos reservados
+ */
 
 'use strict';
 
+require('dotenv').config();
 const express = require('express');
 const nodemailer = require('nodemailer');
-const { ImapFlow } = require('imapflow');
+const Imap = require('imap');
+const { simpleParser } = require('mailparser');
 const cors = require('cors');
 const path = require('path');
 
 const app = express();
-app.use(cors());
-app.use(express.json({ limit: '20mb' }));
-
-/* ---------- Variables de entorno ---------- */
-const NAUTA_EMAIL = process.env.NAUTA_EMAIL || '';
-const NAUTA_PASSWORD = process.env.NAUTA_PASSWORD || '';
 const PORT = process.env.PORT || 3000;
 
-if (!NAUTA_EMAIL || !NAUTA_PASSWORD) {
-  console.warn('⚠️  Faltan NAUTA_EMAIL o NAUTA_PASSWORD en variables de entorno.');
-  console.warn('   El frontend cargará, pero el envío/recepción fallará.');
-}
+/* ===== Middleware ===== */
+app.use(cors());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.static(path.join(__dirname)));
 
-/* ---------- Transporte SMTP Nauta ---------- */
-const transporter = nodemailer.createTransport({
-  host: 'smtp.nauta.cu',
-  port: 25,
-  secure: false,
-  auth: {
-    user: NAUTA_EMAIL,
-    pass: NAUTA_PASSWORD
-  },
-  tls: { rejectUnauthorized: false },
-  connectionTimeout: 15000,
-  greetingTimeout: 15000
-});
+/* ===== Configuración Nauta ===== */
+const NAUTA_USER = process.env.NAUTA_USER || '';
+const NAUTA_PASS = process.env.NAUTA_PASS || '';
+const SMTP_HOST = process.env.SMTP_HOST || 'smtp.nauta.cu';
+const SMTP_PORT = parseInt(process.env.SMTP_PORT || '25', 10);
+const IMAP_HOST = process.env.IMAP_HOST || 'imap.nauta.cu';
+const IMAP_PORT = parseInt(process.env.IMAP_PORT || '143', 10);
 
-/* ---------- API: Enviar mensaje ---------- */
-app.post('/api/send', async (req, res) => {
-  const { to, text, attach } = req.body || {};
-
-  if (!to || (!text && !attach)) {
-    return res.status(400).json({ ok: false, error: 'Faltan parámetros' });
-  }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to)) {
-    return res.status(400).json({ ok: false, error: 'Correo destino inválido' });
-  }
-
-  try {
-    const mailOptions = {
-      from: `"FlasChat" <${NAUTA_EMAIL}>`,
-      to,
-      subject: `[FlasChat] ${Date.now()}`,
-      text: text || '',
-      headers: {
-        'X-FlaChat': '1',
-        'X-FlaChat-Sender': NAUTA_EMAIL
-      }
-    };
-
-    if (attach && attach.data) {
-      const matches = attach.data.match(/^data:(.+);base64,(.+)$/);
-      if (matches) {
-        mailOptions.attachments = [{
-          filename: attach.name || 'adjunto',
-          content: matches[2],
-          encoding: 'base64',
-          contentType: matches[1]
-        }];
-      }
-    }
-
-    const info = await transporter.sendMail(mailOptions);
-    console.log('[SMTP OK]', info.messageId, '→', to, attach ? '(con adjunto)' : '');
-    res.json({ ok: true, messageId: info.messageId });
-  } catch (err) {
-    console.error('[SMTP ERROR]', err.message);
-    res.status(500).json({ ok: false, error: err.message });
-  }
-});
-
-/* ---------- Recepción IMAP Nauta ---------- */
-let lastMaxUid = 0;
-
-async function fetchNewMessages(sinceUid = 0) {
-  const client = new ImapFlow({
-    host: 'imap.nauta.cu',
-    port: 143,
-    secure: false,
-    auth: {
-      user: NAUTA_EMAIL,
-      pass: NAUTA_PASSWORD
-    },
-    tls: { rejectUnauthorized: false },
-    logger: false
-  });
-
-  const messages = [];
-
-  try {
-    await client.connect();
-    const lock = await client.getMailboxLock('INBOX');
-
-    try {
-      const uids = await client.search(
-        { seen: false, header: { 'X-FlaChat': '1' } },
-        { uid: true }
-      );
-
-      if (!uids || uids.length === 0) return messages;
-
-      const newUids = sinceUid > 0 ? uids.filter(u => u > sinceUid) : uids;
-      if (newUids.length === 0) return messages;
-
-      for await (const msg of client.fetch(
-        newUids,
-        { envelope: true, source: true, uid: true, flags: true },
-        { uid: true }
-      )) {
-        const raw = msg.source.toString();
-        const parts = raw.split(/\r?\n\r?\n/);
-        const body = parts.length > 1 ? parts.slice(1).join('\n\n').trim() : raw.trim();
-
-        messages.push({
-          uid: msg.uid,
-          from: msg.envelope.from?.[0]?.address || 'desconocido',
-          subject: msg.envelope.subject || '',
-          text: body,
-          date: msg.envelope.date?.toISOString() || new Date().toISOString()
-        });
-
-        await client.messageFlagsAdd(msg.uid, ['\\Seen'], { uid: true });
-      }
-    } finally {
-      lock.release();
-    }
-
-    await client.logout();
-  } catch (err) {
-    console.error('[IMAP ERROR]', err.message);
-    throw err;
-  }
-
-  return messages;
-}
-
-app.get('/api/inbox', async (req, res) => {
-  if (!NAUTA_EMAIL || !NAUTA_PASSWORD) {
-    return res.status(503).json({ ok: false, error: 'Cuenta Nauta no configurada' });
-  }
-  try {
-    const messages = await fetchNewMessages(lastMaxUid);
-    if (messages.length > 0) {
-      lastMaxUid = Math.max(...messages.map(m => m.uid));
-    }
-    res.json({ ok: true, messages, lastUid: lastMaxUid });
-  } catch (err) {
-    res.status(500).json({ ok: false, error: err.message });
-  }
-});
-
+/* ===== Health check ===== */
 app.get('/api/health', (req, res) => {
   res.json({
     ok: true,
-    account: NAUTA_EMAIL ? 'configurada' : 'no configurada',
-    lastUid: lastMaxUid,
+    service: 'flaschat-backend',
+    version: '1.5.0',
+    configured: !!(NAUTA_USER && NAUTA_PASS),
     timestamp: new Date().toISOString()
   });
 });
 
-/* ---------- Servir el frontend ---------- */
-app.use(express.static(__dirname));
+/* ===== Envío de mensajes ===== */
+app.post('/api/send', async (req, res) => {
+  try {
+    const { to, text, attach, sticker } = req.body;
 
+    if (!to || typeof to !== 'string') {
+      return res.status(400).json({ ok: false, error: 'Falta el destinatario' });
+    }
+
+    if (!NAUTA_USER || !NAUTA_PASS) {
+      return res.status(500).json({
+        ok: false,
+        error: 'Backend no configurado. Revisa el archivo .env'
+      });
+    }
+
+    /* Construir cuerpo del mensaje */
+    let body = text || '';
+    if (sticker) {
+      body = body || '[Sticker]';
+      body += `\n\n[FlasChat-Sticker: ${sticker}]`;
+    }
+
+    /* Preparar adjuntos */
+    const attachments = [];
+    if (attach && attach.data && attach.name) {
+      const base64Data = attach.data.split(',')[1] || attach.data;
+      attachments.push({
+        filename: attach.name,
+        content: base64Data,
+        encoding: 'base64'
+      });
+    }
+
+    /* Configurar transporte SMTP */
+    const transporter = nodemailer.createTransport({
+      host: SMTP_HOST,
+      port: SMTP_PORT,
+      secure: false,
+      auth: {
+        user: NAUTA_USER,
+        pass: NAUTA_PASS
+      },
+      tls: { rejectUnauthorized: false }
+    });
+
+    const info = await transporter.sendMail({
+      from: NAUTA_USER,
+      to: to,
+      subject: 'FlasChat',
+      text: body,
+      attachments
+    });
+
+    console.log('[FlasChat] Mensaje enviado:', info.messageId);
+    res.json({ ok: true, messageId: info.messageId });
+  } catch (err) {
+    console.error('[FlasChat] Error al enviar:', err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+/* ===== Recepción de mensajes ===== */
+app.get('/api/inbox', (req, res) => {
+  if (!NAUTA_USER || !NAUTA_PASS) {
+    return res.status(500).json({
+      ok: false,
+      error: 'Backend no configurado. Revisa el archivo .env'
+    });
+  }
+
+  const imap = new Imap({
+    user: NAUTA_USER,
+    password: NAUTA_PASS,
+    host: IMAP_HOST,
+    port: IMAP_PORT,
+    tls: false,
+    tlsOptions: { rejectUnauthorized: false }
+  });
+
+  const mensajes = [];
+
+  imap.once('ready', () => {
+    imap.openBox('INBOX', false, (err) => {
+      if (err) {
+        imap.end();
+        return res.status(500).json({ ok: false, error: err.message });
+      }
+
+      imap.search(['UNSEEN'], (err, results) => {
+        if (err || !results.length) {
+          imap.end();
+          return res.json({ ok: true, messages: [] });
+        }
+
+        const fetch = imap.fetch(results, { bodies: '', markSeen: true });
+
+        fetch.on('message', (msg) => {
+          msg.on('body', (stream) => {
+            simpleParser(stream, async (err, parsed) => {
+              if (err) return;
+
+              let text = parsed.text || '';
+              let sticker = null;
+
+              /* Extraer sticker si existe */
+              const stickerMatch = text.match(/\[FlasChat-Sticker: ([^\]]+)\]/);
+              if (stickerMatch) {
+                sticker = stickerMatch[1];
+                text = text.replace(/\n*\[FlasChat-Sticker:[^\]]+\]\n*/, '').trim();
+              }
+
+              mensajes.push({
+                from: parsed.from?.text || 'desconocido',
+                text: text,
+                sticker: sticker,
+                date: parsed.date?.toISOString() || new Date().toISOString()
+              });
+            });
+          });
+        });
+
+        fetch.once('end', () => {
+          imap.end();
+        });
+      });
+    });
+  });
+
+  imap.once('error', (err) => {
+    console.error('[FlasChat] Error IMAP:', err.message);
+    if (!res.headersSent) {
+      res.status(500).json({ ok: false, error: err.message });
+    }
+  });
+
+  imap.once('end', () => {
+    if (!res.headersSent) {
+      res.json({ ok: true, messages: mensajes });
+    }
+  });
+
+  imap.connect();
+});
+
+/* ===== Servir la app ===== */
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-/* ---------- Arrancar servidor ---------- */
+/* ===== Iniciar servidor ===== */
 app.listen(PORT, () => {
-  console.log(`✅ FlasChat corriendo en http://localhost:${PORT}`);
-  console.log(`   Cuenta Nauta: ${NAUTA_EMAIL || '(no configurada)'}`);
-  console.log(`   Endpoints:`);
-  console.log(`     GET  /              → frontend FlasChat`);
-  console.log(`     GET  /api/health    → estado del backend`);
-  console.log(`     POST /api/send      → enviar mensaje`);
-  console.log(`     GET  /api/inbox     → recibir mensajes nuevos`);
+  console.log('');
+  console.log('═══════════════════════════════════════════');
+  console.log('  💙 FlasChat Backend v1.5.0');
+  console.log('═══════════════════════════════════════════');
+  console.log(`  🌐 Servidor:  http://localhost:${PORT}`);
+  console.log(`  📧 Nauta:     ${NAUTA_USER || '(no configurado)'}`);
+  console.log(`  📡 SMTP:      ${SMTP_HOST}:${SMTP_PORT}`);
+  console.log(`  📥 IMAP:      ${IMAP_HOST}:${IMAP_PORT}`);
+  console.log('═══════════════════════════════════════════');
+  console.log('  © 2026 Milkár Lixán Pupo Riverón');
+  console.log('  Todos los derechos reservados.');
+  console.log('═══════════════════════════════════════════');
+  console.log('');
 });
