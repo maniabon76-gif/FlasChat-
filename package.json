@@ -1,30 +1,47 @@
 {
   "name": "flaschat",
-  "version": "1.4.0",
-  "description": "FlasChat - Mensajería instantánea sobre correo Nauta (SMTP/IMAP)",
+  "version": "1.5.0",
+  "description": "💙 Mensajería instantánea sobre correo Nauta (SMTP/IMAP) - Hecho en Cuba 🇨🇺",
   "main": "server.js",
+  "author": "Milkár Lixán Pupo Riverón <maniabon.76@gmail.com>",
+  "license": "SEE LICENSE IN LICENSE",
+  "private": true,
+  "homepage": "https://github.com/maniabon76-gif/flaschat#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maniabon76-gif/flaschat.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maniabon76-gif/flaschat/issues"
+  },
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "nodemon server.js",
+    "test": "echo \"Sin tests por ahora\" && exit 0"
   },
-  "keywords": [
-    "flaschat",
-    "nauta",
-    "messenger",
-    "smtp",
-    "imap",
-    "cuba",
-    "chat"
-  ],
-  "author": "Milkár Lixán Pupo Riverón",
-  "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.19.2",
-    "imapflow": "^1.0.164",
-    "nodemailer": "^6.9.14"
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.7",
+    "imap": "^0.8.19",
+    "mailparser": "^3.6.5",
+    "dotenv": "^16.3.1",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   },
   "engines": {
     "node": ">=18.0.0"
-  }
+  },
+  "keywords": [
+    "nauta",
+    "cuba",
+    "messenger",
+    "smtp",
+    "imap",
+    "chat",
+    "flaschat",
+    "etecsa",
+    "mensajeria"
+  ]
 }
