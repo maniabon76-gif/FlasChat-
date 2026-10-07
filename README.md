@@ -523,6 +523,250 @@ Crear herramientas **accesibles**, **privadas** y **eficientes** para la comunid
 
 </div>
 
+<div align="center">
+
+### 🛠️ Tecnologías del Proyecto
+
+<br/>
+
+**Frontend**
+
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/es/docs/Web/HTML)
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/es/docs/Web/CSS)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/es/docs/Web/JavaScript)
+
+<br/>
+
+**Backend**
+
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![Nodemailer](https://img.shields.io/badge/Nodemailer-22C55E?style=for-the-badge&logo=minutemailer&logoColor=white)](https://nodemailer.com/)
+
+<br/>
+
+**Protocolos**
+
+[![SMTP](https://img.shields.io/badge/SMTP-Envio-4FB3F5?style=for-the-badge&logo=maildotru&logoColor=white)](https://es.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol)
+[![IMAP](https://img.shields.io/badge/IMAP-Recepcion-2196F3?style=for-the-badge&logo=maildotru&logoColor=white)](https://es.wikipedia.org/wiki/Internet_Message_Access_Protocol)
+[![Nauta](https://img.shields.io/badge/Nauta-ETECSA-1976D2?style=for-the-badge)](https://www.etecsa.cu/)
+
+<br/>
+
+**Seguridad**
+
+[![AES-256-GCM](https://img.shields.io/badge/AES--256--GCM-Cifrado-4CAF50?style=for-the-badge&logo=letsencrypt&logoColor=white)](https://es.wikipedia.org/wiki/Galois/Counter_Mode)
+[![PBKDF2](https://img.shields.io/badge/PBKDF2-100k%20iteraciones-22C55E?style=for-the-badge&logo=keycdn&logoColor=white)](https://es.wikipedia.org/wiki/PBKDF2)
+[![PIN Lock](https://img.shields.io/badge/PIN-4%20d%C3%ADgitos-F59E0B?style=for-the-badge&logo=keepassxc&logoColor=white)](https://github.com/maniabon76-gif/flaschat)
+
+<br/>
+
+**Plataformas**
+
+[![PWA](https://img.shields.io/badge/PWA-Instalable-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white)](https://web.dev/progressive-web-apps/)
+[![Web](https://img.shields.io/badge/Web-Online-2196F3?style=for-the-badge&logo=googlechrome&logoColor=white)](https://maniabon76-gif.github.io/flaschat/)
+[![Android](https://img.shields.io/badge/Android-Compatible-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://www.android.com/)
+[![iOS](https://img.shields.io/badge/iOS-Compatible-000000?style=for-the-badge&logo=apple&logoColor=white)](https://www.apple.com/ios/)
+
+<br/>
+
+**Navegadores**
+
+[![Chrome](https://img.shields.io/badge/Chrome-✓-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)](https://www.google.com/chrome/)
+[![Firefox](https://img.shields.io/badge/Firefox-✓-FF7139?style=for-the-badge&logo=firefoxbrowser&logoColor=white)](https://www.mozilla.org/firefox/)
+[![Safari](https://img.shields.io/badge/Safari-✓-000000?style=for-the-badge&logo=safari&logoColor=white)](https://www.apple.com/safari/)
+[![Edge](https://img.shields.io/badge/Edge-✓-0078D7?style=for-the-badge&logo=microsoftedge&logoColor=white)](https://www.microsoft.com/edge)
+
+<br/>
+
+**Herramientas**
+
+[![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)](https://git-scm.com/)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/maniabon76-gif/flaschat)
+[![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/)
+
+<br/>
+
+**Estado del Proyecto**
+
+[![Versión](https://img.shields.io/badge/versión-1.5.0-2196F3?style=for-the-badge&logo=github&logoColor=white)](https://github.com/maniabon76-gif/flaschat/releases)
+[![Estado](https://img.shields.io/badge/estado-estable-22C55E?style=for-the-badge)](https://github.com/maniabon76-gif/flaschat)
+[![Licencia](https://img.shields.io/badge/licencia-Propietaria-EF4444?style=for-the-badge&logo=lock&logoColor=white)](LICENSE)
+[![Hecho en Cuba](https://img.shields.io/badge/hecho%20en-Cuba%20🇨🇺-DC2626?style=for-the-badge)](https://github.com/maniabon76-gif/flaschat)
+
+<br/>
+
+**Estadísticas del Repositorio**
+
+[![Stars](https://img.shields.io/github/stars/maniabon76-gif/flaschat?style=for-the-badge&logo=github&color=FBBF24)](https://github.com/maniabon76-gif/flaschat/stargazers)
+[![Forks](https://img.shields.io/github/forks/maniabon76-gif/flaschat?style=for-the-badge&logo=github&color=2196F3)](https://github.com/maniabon76-gif/flaschat/network/members)
+[![Watchers](https://img.shields.io/github/watchers/maniabon76-gif/flaschat?style=for-the-badge&logo=github&color=22C55E)](https://github.com/maniabon76-gif/flaschat/watchers)
+[![Issues](https://img.shields.io/github/issues/maniabon76-gif/flaschat?style=for-the-badge&logo=github&color=EF4444)](https://github.com/maniabon76-gif/flaschat/issues)
+[![Last Commit](https://img.shields.io/github/last-commit/maniabon76-gif/flaschat?style=for-the-badge&logo=github&color=A78BFA)](https://github.com/maniabon76-gif/flaschat/commits)
+
+<br/>
+
+**Tamaño y Actividad**
+
+[![Repo Size](https://img.shields.io/github/repo-size/maniabon76-gif/flaschat?style=for-the-badge&logo=github&color=4FB3F5)](https://github.com/maniabon76-gif/flaschat)
+[![Code Size](https://img.shields.io/github/languages/code-size/maniabon76-gif/flaschat?style=for-the-badge&logo=github&color=2196F3)](https://github.com/maniabon76-gif/flaschat)
+[![Languages](https://img.shields.io/github/languages/count/maniabon76-gif/flaschat?style=for-the-badge&logo=github&color=6366F1)](https://github.com/maniabon76-gif/flaschat)
+
+</div>
+
+---
+
+<div align="center">
+
+## 🚀 Release · Versión 1.5.0
+
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=2196F3&center=true&vCenter=true&width=500&lines=%C3%9Altima+versi%C3%B3n+estable;Abril+2026+%C2%B7+FlasChat" alt="Release"/>
+
+<br/><br/>
+
+<a href="https://github.com/maniabon76-gif/flaschat/releases/tag/v1.5.0">
+<img src="https://img.shields.io/badge/🚀_DESCARGAR-v1.5.0-2196F3?style=for-the-badge&labelColor=0b141a" alt="Descargar v1.5.0"/>
+</a>
+
+<br/><br/>
+
+**📅 Abril 2026 · Versión Estable**
+
+</div>
+
+<br/>
+
+### 🎯 Novedades de esta versión
+
+<div align="center">
+
+[![Stickers](https://img.shields.io/badge/🎯_10_Packs-Deslizables-F472B6?style=for-the-badge)](https://github.com/maniabon76-gif/flaschat)
+[![Envío](https://img.shields.io/badge/⚡_Envío-Automático-FBBF24?style=for-the-badge)](https://github.com/maniabon76-gif/flaschat)
+[![Fuentes](https://img.shields.io/badge/🖋️_4_Fuentes-Normal_Negrita_Cursiva_Markdown-A78BFA?style=for-the-badge)](https://github.com/maniabon76-gif/flaschat)
+[![Recientes](https://img.shields.io/badge/🕒_Recientes-Historial-4FB3F5?style=for-the-badge)](https://github.com/maniabon76-gif/flaschat)
+[![Estadísticas](https://img.shields.io/badge/📊_Estadísticas-Mejoradas-22C55E?style=for-the-badge)](https://github.com/maniabon76-gif/flaschat)
+
+</div>
+
+<br/>
+
+### 📥 Descargas directas
+
+<div align="center">
+
+<a href="https://maniabon76-gif.github.io/flaschat/">
+<img src="https://img.shields.io/badge/🌐_Web-PWA-2196F3?style=for-the-badge&labelColor=0b141a" alt="Web"/>
+</a>
+<a href="https://github.com/maniabon76-gif/flaschat/releases/download/v1.5.0/flaschat-v1.5.0.apk">
+<img src="https://img.shields.io/badge/📱_Android-APK-3DDC84?style=for-the-badge&labelColor=0b141a" alt="APK"/>
+</a>
+<a href="https://github.com/maniabon76-gif/flaschat/archive/refs/tags/v1.5.0.zip">
+<img src="https://img.shields.io/badge/💻_Código-ZIP-FBBF24?style=for-the-badge&labelColor=0b141a" alt="ZIP"/>
+</a>
+
+</div>
+
+<br/>
+
+### 📋 Notas de la versión
+
+<div align="center">
+
+[![Correcciones](https://img.shields.io/badge/✅_Correcciones-3-22C55E?style=for-the-badge)](https://github.com/maniabon76-gif/flaschat)
+[![Novedades](https://img.shields.io/badge/✨_Novedades-5-2196F3?style=for-the-badge)](https://github.com/maniabon76-gif/flaschat)
+[![Eliminados](https://img.shields.io/badge/🗑️_Eliminados-3-EF4444?style=for-the-badge)](https://github.com/maniabon76-gif/flaschat)
+
+</div>
+
+<br/>
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+#### ✨ Añadido
+
+- 🎯 **10 packs de stickers** deslizables
+- ⚡ **Envío automático** estilo Telegram
+- 🕒 Pestaña de **stickers recientes**
+- 🖋️ **4 estilos de fuente**
+- 📊 Estadísticas de **stickers enviados**
+
+</td>
+<td width="50%" valign="top">
+
+#### 🔧 Corregido
+
+- ✅ Contraste correcto en tema claro
+- ✅ Fondos del chat con degradados
+- ✅ Nombre del pack **FlasChat** corregido
+- ✅ Estilo de burbuja solo oscuro
+
+</td>
+</tr>
+</table>
+
+<br/>
+
+### 🔗 Enlaces relacionados
+
+<div align="center">
+
+[![Todos los Releases](https://img.shields.io/badge/📄_Ver_Todos_los_Releases-2196F3?style=for-the-badge&logo=github)](https://github.com/maniabon76-gif/flaschat/releases)
+[![Changelog](https://img.shields.io/badge/📋_Historial_de_Cambios-A78BFA?style=for-the-badge&logo=gitbook)](CHANGELOG.md)
+[![Reportar Bug](https://img.shields.io/badge/🐛_Reportar_Bug-EF4444?style=for-the-badge&logo=github)](https://github.com/maniabon76-gif/flaschat/issues/new)
+[![Sugerir Mejora](https://img.shields.io/badge/💡_Sugerir_Mejora-F59E0B?style=for-the-badge&logo=github)](https://github.com/maniabon76-gif/flaschat/issues/new)
+
+</div>
+
+<br/>
+
+### 🎁 Versiones anteriores
+
+<details>
+<summary><b>👆 Toca aquí para ver versiones anteriores</b></summary>
+
+<br/>
+
+<div align="center">
+
+| 🏷️ Versión | 📅 Fecha | ✅ Estado | 🎯 Cambios |
+|:----------:|:--------:|:---------:|-----------|
+| **v1.5.0** | Abr 2026 | ✅ Estable | Stickers, fuentes, correcciones |
+| **v1.4.0** | Mar 2026 | ✅ Estable | Responder deslizando, globo |
+| **v1.3.0** | Mar 2026 | ✅ Estable | Fondos, colores de acento |
+| **v1.2.0** | Mar 2026 | ✅ Estable | Backend, adjuntos, cifrado |
+| **v1.1.0** | Mar 2026 | ✅ Estable | Notificaciones, PIN, sonidos |
+| **v1.0.0** | Dic 2025 | ✅ Estable | Versión inicial |
+
+</div>
+
+</details>
+
+---
+
+<div align="center">
+
+### ⭐ Si te gusta FlasChat, dale una estrella al repositorio ⭐
+
+**Comparte FlasChat con tus amigos y familiares 💙🇨🇺**
+
+<br/>
+
+[![Stars](https://img.shields.io/github/stars/maniabon76-gif/flaschat?style=social)](https://github.com/maniabon76-gif/flaschat)
+[![Forks](https://img.shields.io/github/forks/maniabon76-gif/flaschat?style=social)](https://github.com/maniabon76-gif/flaschat)
+[![Watchers](https://img.shields.io/github/watchers/maniabon76-gif/flaschat?style=social)](https://github.com/maniabon76-gif/flaschat)
+
+<br/><br/>
+
+<img src="https://raw.githubusercontent.com/maniabon76-gif/flaschat/main/screenshots/logo.png" width="60" alt="FlasChat"/>
+
+**© 2026 FlasChat · Nauta Messenger**
+
+**Hecho con 💙 en Cuba 🇨🇺**
+
+</div>
+
 ---
 
 <div align="center">
