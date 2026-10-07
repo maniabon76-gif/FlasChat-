@@ -1,3 +1,82 @@
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/maniabon76-gif/flaschat/main/screenshots/logo.png" width="140" alt="FlasChat Logo"/>
+
+# 💙 FlasChat · Nauta Messenger
+
+### La forma más ligera de chatear por correo Nauta 🇨🇺
+
+[![Versión](https://img.shields.io/badge/versión-1.5.0-2196F3?style=for-the-badge&logo=github)](https://github.com/maniabon76-gif/flaschat)
+[![Plataforma](https://img.shields.io/badge/plataforma-Web%20%7C%20PWA%20%7C%20Android-4CAF50?style=for-the-badge&logo=android)](https://github.com/maniabon76-gif/flaschat)
+[![Licencia](https://img.shields.io/badge/licencia-Propietaria-EF4444?style=for-the-badge&logo=lock)](LICENSE)
+[![Hecho en Cuba](https://img.shields.io/badge/hecho%20en-Cuba%20🇨🇺-red?style=for-the-badge)](https://github.com/maniabon76-gif/flaschat)
+
+<br/>
+
+**Mensajería instantánea sobre el correo Nauta (SMTP/IMAP)**  
+*Sin servidores externos · Sin publicidad · Sin rastreo*
+
+</div>
+
+---
+
+## 📱 ¿Qué es FlasChat?
+
+**FlasChat** es una aplicación de mensajería ligera que aprovecha la infraestructura del **correo Nauta** de ETECSA para enviar y recibir mensajes instantáneos.
+
+Diseñada pensando en la **comunidad cubana**, optimizando al máximo el consumo de datos para que funcione incluso con conexiones lentas.
+
+> ⚠️ **Aviso legal:** FlasChat **NO** es un servicio oficial de ETECSA ni de Nauta.
+
+---
+
+## ✨ Características
+
+- **Envío y recepción** por correo Nauta (SMTP/IMAP)
+- **10 packs de stickers** deslizables + envío automático (estilo Telegram)
+- **Reacciones con emojis** y edición de mensajes
+- **Adjuntos:** imágenes, audio, video y archivos
+- **Cámara integrada** y notas de voz
+- **Cifrado E2E opcional** (AES-256-GCM)
+- **Bloqueo con PIN** de 4 dígitos
+- **15 colores de acento** y **12 fondos de chat**
+- **6 estilos de burbuja** y **4 estilos de fuente**
+- **Palomitas ✓✓** de leído estilo Delta Chat
+- **Globo flotante** de notificaciones no leídas
+- **Responder deslizando** el dedo
+- **Opción Info** en cada mensaje
+- **Respaldo JSON** y exportar chat
+- **Estadísticas** y búsqueda avanzada
+
+---
+
+## 🚀 Cómo ejecutar en tu PC
+
+### Requisitos previos
+
+| Requisito | Versión |
+|-----------|---------|
+| Node.js | 18+ |
+| Git | Cualquiera |
+| Cuenta Nauta | `usuario@nauta.cu` |
+
+### Instalación rápida
+
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/maniabon76-gif/flaschat.git
+cd flaschat
+
+# 2. Instalar dependencias
+npm install
+
+# 3. Configurar credenciales
+cp .env.example .env
+# Edita .env con tus datos de Nauta
+
+# 4. Iniciar FlasChat
+npm start
+
 ---
 
 <div align="center">
