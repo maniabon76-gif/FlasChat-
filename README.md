@@ -60,23 +60,6 @@ Diseñada pensando en la **comunidad cubana**, optimizando al máximo el consumo
 | Git | Cualquiera |
 | Cuenta Nauta | `usuario@nauta.cu` |
 
-### Instalación rápida
-
-```bash
-# 1. Clonar el repositorio
-git clone https://github.com/maniabon76-gif/flaschat.git
-cd flaschat
-
-# 2. Instalar dependencias
-npm install
-
-# 3. Configurar credenciales
-cp .env.example .env
-# Edita .env con tus datos de Nauta
-
-# 4. Iniciar FlasChat
-npm start
-
 ---
 
 <div align="center">
